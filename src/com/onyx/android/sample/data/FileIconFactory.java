@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.onyx.android.sample.R;
-import com.onyx.android.sdk.data.util.OnyxApplication;
 
 /**
  * @author joy
