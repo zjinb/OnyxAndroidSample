@@ -459,9 +459,9 @@ public class StorageActivity extends OnyxBaseActivity
         String root_uri_string = this.getIntent().getStringExtra(STARTING_URI);
         OnyxItemURI uri = OnyxItemURI.createFromString(root_uri_string);
         if (uri == null) {
-            assert(false);
-            throw new RuntimeException();
+            uri = GridItemManager.getStorageURI();
         }
+        
         if (!uri.equals(GridItemManager.getStorageURI()) &&
                 !uri.isChildOf(GridItemManager.getStorageURI())) {
             assert(false);

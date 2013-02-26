@@ -20,7 +20,6 @@ import com.onyx.android.sample.R;
 import com.onyx.android.sample.adapter.GridItemBaseAdapter;
 import com.onyx.android.sample.data.CopyService;
 import com.onyx.android.sample.data.FileOperationHandler;
-import com.onyx.android.sdk.data.util.OnyxApplication;
 import com.onyx.android.sdk.device.EpdController;
 import com.onyx.android.sdk.device.EpdController.UpdateMode;
 import com.onyx.android.sdk.ui.OnyxGridView;
@@ -337,7 +336,7 @@ public class OnyxFileGridView extends LinearLayout
         final int page_count = mGridView.getPagedAdapter().getPaginator().getPageCount() != 0 ? 
                 mGridView.getPagedAdapter().getPaginator().getPageCount() : 1;
 
-        mButtonProgress.setText(String.valueOf(current_page) + OnyxApplication.getInstance().getResources().getString(R.string.slash) + String.valueOf(page_count));
+        mButtonProgress.setText(String.valueOf(current_page) + this.getContext().getResources().getString(R.string.slash) + String.valueOf(page_count));
         EpdController.invalidate(mButtonProgress, UpdateMode.GU);
     }
 

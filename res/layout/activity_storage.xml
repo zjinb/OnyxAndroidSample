@@ -89,7 +89,7 @@
         android:layout_below="@id/imageview_path_indicator"
         android:background="#000000" />
 
-    <com.onyx.android.launcher.view.OnyxFileGridView
+    <com.onyx.android.sample.view.OnyxFileGridView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/gridview_storage"
         android:layout_width="match_parent"
