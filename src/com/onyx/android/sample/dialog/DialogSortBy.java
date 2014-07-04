@@ -21,14 +21,14 @@ import com.onyx.android.sdk.data.SortOrder;
 import com.onyx.android.sdk.device.EpdController;
 import com.onyx.android.sdk.device.EpdController.UpdateMode;
 import com.onyx.android.sdk.ui.OnyxGridView;
-import com.onyx.android.sdk.ui.dialog.OnyxDialogBase;
+import com.onyx.android.sdk.ui.dialog.DialogBaseOnyx;
 
 /**
  * @author joy
  * 
  */
 
-public class DialogSortBy extends OnyxDialogBase
+public class DialogSortBy extends DialogBaseOnyx
 {
     @SuppressWarnings("unused")
     private static final String TAG = "DialogSortBy";

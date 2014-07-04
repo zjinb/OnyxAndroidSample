@@ -160,7 +160,7 @@ public class StorageActivity extends OnyxBaseActivity
                 {
 
                     @Override
-                    public void onPageIndexChanged()
+                    public void onPageIndexChanged(int oldIndex, int newIndex)
                     {
                         EpdController.invalidate(StorageActivity.this.getGridView(), UpdateMode.GU);
                     }

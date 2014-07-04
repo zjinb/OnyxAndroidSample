@@ -3,9 +3,6 @@
  */
 package com.onyx.android.sample.dialog;
 
-import java.io.File;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.pm.ResolveInfo;
 import android.database.DataSetObserver;
@@ -25,14 +22,17 @@ import com.onyx.android.sdk.data.util.FileUtil;
 import com.onyx.android.sdk.device.EpdController;
 import com.onyx.android.sdk.device.EpdController.UpdateMode;
 import com.onyx.android.sdk.ui.OnyxGridView;
-import com.onyx.android.sdk.ui.dialog.OnyxDialogBase;
+import com.onyx.android.sdk.ui.dialog.DialogBaseOnyx;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * 
  * @author joy
  *
  */
-public class DialogApplicationOpenList extends OnyxDialogBase
+public class DialogApplicationOpenList extends DialogBaseOnyx
 {
     @SuppressWarnings("unused")
     private static final String TAG = "DialogApplicationOpenList";
