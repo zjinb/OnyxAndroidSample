@@ -203,6 +203,9 @@ public class DeviceConfig {
 
         Log.i(TAG, "Using default model.");
         backend = objectFromDefaultOnyxConfig(context);
+        if (backend == null) {
+            backend = new GObject();
+        }
     }
 
     private GObject objectFromManufactureAndModel(Context context) {
