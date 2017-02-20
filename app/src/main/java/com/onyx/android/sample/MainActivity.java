@@ -11,6 +11,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    @Bind(R.id.button_environment)
+    Button buttonEnvironment;
     @Bind(R.id.button_epd)
     Button buttonEpd;
     @Bind(R.id.button_scribble)
@@ -22,13 +24,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        buttonEnvironment.setOnClickListener(this);
         buttonEpd.setOnClickListener(this);
         buttonScribble.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(buttonEpd)) {
+        if (v.equals(buttonEnvironment)) {
+            startActivity(new Intent(this, EnvironmentDemoActivity.class));
+            return;
+        } else if (v.equals(buttonEpd)) {
             startActivity(new Intent(this, EpdDemoActivity.class));
             return;
         } else if (v.equals(buttonScribble)) {
