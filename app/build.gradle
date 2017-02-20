@@ -27,7 +27,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
 
-    compile 'com.onyx.android.sdk:onyxsdk-base:+'
+    compile 'com.onyx.android.sdk:onyxsdk-base:1.2.2'
 
     compile "com.jakewharton:butterknife:7.0.1"
 }
