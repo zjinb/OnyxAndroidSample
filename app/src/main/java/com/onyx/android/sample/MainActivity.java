@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button buttonEnvironment;
     @Bind(R.id.button_epd)
     Button buttonEpd;
+    @Bind(R.id.button_front_light)
+    Button buttonFrontLight;
     @Bind(R.id.button_scribble)
     Button buttonScribble;
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
         buttonEnvironment.setOnClickListener(this);
         buttonEpd.setOnClickListener(this);
+        buttonFrontLight.setOnClickListener(this);
         buttonScribble.setOnClickListener(this);
     }
 
@@ -36,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         } else if (v.equals(buttonEpd)) {
             startActivity(new Intent(this, EpdDemoActivity.class));
+            return;
+        } else if (v.equals(buttonFrontLight)) {
+            startActivity(new Intent(this, FrontLightDemoActivity.class));
             return;
         } else if (v.equals(buttonScribble)) {
             startActivity(new Intent(this, ScribbleDemoActivity.class));

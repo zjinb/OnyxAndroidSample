@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".EpdDemoActivity" />
         <activity android:name=".ScribbleDemoActivity" />
-        <activity android:name=".EnvironmentDemoActivity"></activity>
+        <activity android:name=".EnvironmentDemoActivity" />
+        <activity android:name=".FrontLightDemoActivity" />
     </application>
 
 </manifest>

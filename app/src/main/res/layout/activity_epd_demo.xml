@@ -23,24 +23,6 @@
             android:layout_height="wrap_content"
             android:text="update"/>
 
-        <Button
-            android:id="@+id/button_light_toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="light"/>
-
-        <Button
-            android:id="@+id/button_light_darker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="darker"/>
-
-        <Button
-            android:id="@+id/button_light_lighter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="lighter"/>
-
     </LinearLayout>
 
     <TextView
