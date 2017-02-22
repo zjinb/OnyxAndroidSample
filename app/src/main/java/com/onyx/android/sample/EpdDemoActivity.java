@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.onyx.android.sample.device.ReaderDeviceManager;
+import com.onyx.android.sdk.api.device.EpdDeviceManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,24 +39,24 @@ public class EpdDemoActivity extends AppCompatActivity implements View.OnClickLi
         button_screen_refresh.setOnClickListener(this);
 
         // set full update after how many partial update
-        ReaderDeviceManager.setGcInterval(5);
+        EpdDeviceManager.setGcInterval(5);
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(button_partial_update)) {
             updateTextView();
-            ReaderDeviceManager.applyWithGCIntervalWithoutRegal(textView);
+            EpdDeviceManager.applyWithGCIntervalWithoutRegal(textView);
         } else if (v.equals(button_regal_partial)) {
             updateTextView();
-            ReaderDeviceManager.applyWithGCIntervalWitRegal(textView, true);
+            EpdDeviceManager.applyWithGCIntervalWitRegal(textView, true);
         } else if (v.equals(button_screen_refresh)) {
             updateTextView();
-            ReaderDeviceManager.applyGCUpdate(textView);
+            EpdDeviceManager.applyGCUpdate(textView);
         } else if (v.equals(button_enter_fast_mode)) {
-            ReaderDeviceManager.enterAnimationUpdate(true);
+            EpdDeviceManager.enterAnimationUpdate(true);
         } else if (v.equals(button_quit_fast_mode)) {
-            ReaderDeviceManager.exitAnimationUpdate(true);
+            EpdDeviceManager.exitAnimationUpdate(true);
         }
     }
 
