@@ -18,10 +18,34 @@
         android:layout_alignParentTop="true">
 
         <Button
+            android:id="@+id/button_partial_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Partial Update"/>
+
+        <Button
+            android:id="@+id/button_regal_partial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Regal Partial"/>
+
+        <Button
             android:id="@+id/button_screen_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="update"/>
+            android:text="Full Update"/>
+
+        <Button
+            android:id="@+id/button_enter_fast_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Fast Mode"/>
+
+        <Button
+            android:id="@+id/button_quit_fast_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quit Fast Mode"/>
 
     </LinearLayout>
 
@@ -30,6 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/layout_function"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
         android:text="Hello World!" />
 
 </RelativeLayout>

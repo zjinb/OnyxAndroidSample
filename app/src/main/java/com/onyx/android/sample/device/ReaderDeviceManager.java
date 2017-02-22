@@ -130,6 +130,10 @@ public class ReaderDeviceManager {
         }
     }
 
+    public static void applyGCUpdate(View view) {
+        epdDevice.applyGCUpdate(view);
+    }
+
     public static void setUpdateMode(final View view, UpdateMode mode) {
         epdDevice.setUpdateMode(view, mode);
     }

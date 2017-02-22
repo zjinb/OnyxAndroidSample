@@ -7,18 +7,22 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.onyx.android.sample.device.ReaderDeviceManager;
-import com.onyx.android.sdk.api.device.FrontLightController;
-
-import java.util.Collections;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class EpdDemoActivity extends AppCompatActivity implements View.OnClickListener {
 
+    @Bind(R.id.button_partial_update)
+    Button button_partial_update;
+    @Bind(R.id.button_regal_partial)
+    Button button_regal_partial;
+    @Bind(R.id.button_enter_fast_mode)
+    Button button_enter_fast_mode;
+    @Bind(R.id.button_quit_fast_mode)
+    Button button_quit_fast_mode;
     @Bind(R.id.button_screen_refresh)
-    Button buttonRefresh;
+    Button button_screen_refresh;
     @Bind(R.id.textview)
     TextView textView;
 
@@ -28,13 +32,38 @@ public class EpdDemoActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_epd_demo);
 
         ButterKnife.bind(this);
-        buttonRefresh.setOnClickListener(this);
+        button_partial_update.setOnClickListener(this);
+        button_regal_partial.setOnClickListener(this);
+        button_enter_fast_mode.setOnClickListener(this);
+        button_quit_fast_mode.setOnClickListener(this);
+        button_screen_refresh.setOnClickListener(this);
+
+        // set full update after how many partial update
+        ReaderDeviceManager.setGcInterval(5);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(buttonRefresh)) {
-            ReaderDeviceManager.applyWithGCInterval(textView, true);
+        if (v.equals(button_partial_update)) {
+            updateTextView();
+            ReaderDeviceManager.applyWithGCIntervalWithoutRegal(textView);
+        } else if (v.equals(button_regal_partial)) {
+            updateTextView();
+            ReaderDeviceManager.applyWithGCIntervalWitRegal(textView, true);
+        } else if (v.equals(button_screen_refresh)) {
+            updateTextView();
+            ReaderDeviceManager.applyGCUpdate(textView);
+        } else if (v.equals(button_enter_fast_mode)) {
+            ReaderDeviceManager.enterAnimationUpdate(true);
+        } else if (v.equals(button_quit_fast_mode)) {
+            ReaderDeviceManager.exitAnimationUpdate(true);
         }
+    }
+
+    private void updateTextView() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(textView.getText());
+        sb.append("hello world!");
+        textView.setText(sb.toString());
     }
 }
