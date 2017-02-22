@@ -1,5 +1,5 @@
 # Overview
-Sample project of [onyxsdk-base](https://github.com/onyx-intl/OnyxAndroidSample/wiki/onyxsdk-base)
+Sample project of [onyxsdk-base](https://github.com/onyx-intl/OnyxAndroidSample/wiki/Onyx-Device-SDK)
 
 To use the SDK, please add the following statement to your build.gradle:
 
