@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -13,6 +14,9 @@ import android.widget.Button;
 
 import com.onyx.android.sample.device.DeviceConfig;
 import com.onyx.android.sdk.api.device.epd.EpdController;
+import com.onyx.android.sdk.scribble.api.PenReader;
+import com.onyx.android.sdk.scribble.data.TouchPoint;
+import com.onyx.android.sdk.scribble.data.TouchPointList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,11 +31,14 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
     SurfaceView surfaceView;
 
     boolean scribbleMode = false;
+    private PenReader penReader;
+    private Matrix viewMatrix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scribble_demo);
+        penReader = new PenReader(this);
 
         ButterKnife.bind(this);
         buttonPen.setOnClickListener(this);
@@ -41,11 +48,13 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 cleanSurfaceView();
+                updateViewMatrix();
             }
 
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
                 cleanSurfaceView();
+                updateViewMatrix();
             }
 
             @Override
@@ -54,45 +63,49 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
-        surfaceView.setOnTouchListener(new View.OnTouchListener() {
+        setPenReaderCallback();
+    }
+
+    private void updateViewMatrix() {
+        int viewPosition[] = {0, 0};
+        surfaceView.getLocationOnScreen(viewPosition);
+        viewMatrix = new Matrix();
+        viewMatrix.postTranslate(-viewPosition[0], -viewPosition[1]);
+    }
+
+    private void setPenReaderCallback() {
+        penReader.setPenReaderCallback(new PenReader.PenReaderCallback() {
+            final float baseWidth = 5;
+            final float pressure = 1;
+            final float size = 1;
+            boolean begin = false;
             @Override
-            public boolean onTouch(View v, MotionEvent e) {
-                if (!scribbleMode) {
-                    return false;
-                }
+            public void onBeginRawData() {
+                begin = true;
+            }
 
-                // ignore multi touch
-                if (e.getPointerCount() > 1) {
-                    return false;
+            @Override
+            public void onRawTouchPointListReceived(TouchPointList touchPointList) {
+                for (TouchPoint touchPoint : touchPointList.getPoints()) {
+                    TouchPoint point = mapScreenPointToPage(touchPoint);
+                    float dst[] = mapPoint(point.getX(), point.getY());
+                    if (begin) {
+                        EpdController.startStroke(baseWidth, dst[0], dst[1], pressure, size, System.currentTimeMillis());
+                    }else {
+                        EpdController.addStrokePoint(baseWidth, dst[0], dst[1], pressure, size, System.currentTimeMillis());
+                    }
+                    begin = false;
                 }
+            }
 
-                final float baseWidth = 5;
+            @Override
+            public void onBeginErasing() {
 
-                switch (e.getAction() & MotionEvent.ACTION_MASK) {
-                    case (MotionEvent.ACTION_DOWN):
-                        float dst[] = mapPoint(e.getX(), e.getY());
-                        EpdController.startStroke(baseWidth, dst[0], dst[1], e.getPressure(), e.getSize(), e.getEventTime());
-                        return true;
-                    case (MotionEvent.ACTION_CANCEL):
-                    case (MotionEvent.ACTION_OUTSIDE):
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        dst = mapPoint(e.getX(), e.getY());
-                        EpdController.finishStroke(baseWidth, dst[0], dst[1], e.getPressure(), e.getSize(), e.getEventTime());
-                        return true;
-                    case MotionEvent.ACTION_MOVE:
-                        int n = e.getHistorySize();
-                        for (int i = 0; i < n; i++) {
-                            dst = mapPoint(e.getHistoricalX(i), e.getHistoricalY(i));
-                            EpdController.addStrokePoint(baseWidth,  dst[0], dst[1], e.getPressure(), e.getSize(), e.getEventTime());
-                        }
-                        dst = mapPoint(e.getX(), e.getY());
-                        EpdController.addStrokePoint(baseWidth, dst[0], dst[1], e.getPressure(), e.getSize(), e.getEventTime());
-                        return true;
-                    default:
-                        break;
-                }
-                return true;
+            }
+
+            @Override
+            public void onEraseTouchPointListReceived(TouchPointList touchPointList) {
+
             }
         });
     }
@@ -136,11 +149,14 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
     private void enterScribbleMode() {
         EpdController.enterScribbleMode(surfaceView);
         scribbleMode = true;
+        penReader.start();
+        penReader.resume();
     }
 
     private void leaveScribbleMode() {
         scribbleMode = false;
         EpdController.leaveScribbleMode(surfaceView);
+        penReader.stop();
     }
 
     private float[] mapPoint(float x, float y) {
@@ -158,6 +174,27 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
         float dst[] = {0, 0};
         viewMatrix.mapPoints(dst, screenPoints);
         return dst;
+    }
+
+    private TouchPoint mapScreenPointToPage(final TouchPoint touchPoint) {
+        float dstPoint[] = {0, 0};
+        float srcPoint[] = {0, 0};
+        dstPoint[0] = touchPoint.x;
+        dstPoint[1] = touchPoint.y;
+        if (viewMatrix != null) {
+            srcPoint[0] = touchPoint.x;
+            srcPoint[1] = touchPoint.y;
+            viewMatrix.mapPoints(dstPoint, srcPoint);
+        }
+        touchPoint.x = dstPoint[0];
+        touchPoint.y = dstPoint[1];
+        return touchPoint;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        penReader.resume();
     }
 
 }
