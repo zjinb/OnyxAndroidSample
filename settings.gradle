@@ -1,1 +1,1 @@
-include ':app', ':calculator', ':OnyxLatinIME'
+include ':app', ':calculator', ':OnyxLatinIME', ':music'
