@@ -107,6 +107,16 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
             public void onEraseTouchPointListReceived(TouchPointList touchPointList) {
 
             }
+
+            @Override
+            public void onEndErasing() {
+
+            }
+
+            @Override
+            public void onEndRawData() {
+                
+            }
         });
     }
 
