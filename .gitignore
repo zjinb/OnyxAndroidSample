@@ -9,7 +9,6 @@ out/
 build/
 armeabi-v7a/
 *.iml
-kreader-ndk.*
 *.config
 *.creator*
 *.files
