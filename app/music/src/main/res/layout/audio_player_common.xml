@@ -39,7 +39,7 @@
 
         <TextView android:id="@+id/currenttime"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="14sp"
+            android:textSize="@dimen/audio_player_common_currenttime_textSize"
             android:textStyle="bold"
             android:shadowColor="#ff000000"
             android:shadowDx="0"
@@ -70,7 +70,7 @@
 
         <TextView android:id="@+id/totaltime"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="14sp"
+            android:textSize="@dimen/audio_player_common_currenttime_textSize"
             android:textStyle="bold"
             android:shadowColor="#ff000000"
             android:shadowDx="0"

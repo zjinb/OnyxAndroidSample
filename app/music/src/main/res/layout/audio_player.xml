@@ -29,8 +29,8 @@
         <ImageView
             android:id="@+id/album"
             android:background="@drawable/album_border_large"
-            android:layout_width="220dip"
-            android:layout_height="220dip"
+            android:layout_width="@dimen/audio_player_picture_width"
+            android:layout_height="@dimen/audio_player_picture_Height"
             android:layout_marginLeft="4dip"
             android:layout_marginRight="2dip"
             android:layout_marginTop="8dip" />
@@ -44,18 +44,18 @@
 
            <ImageButton android:id="@+id/curplaylist"
                 android:src="@drawable/ic_mp_current_playlist_btn"
-                android:layout_width="85dip"
-                android:layout_height="54dip"
+                android:layout_width="@dimen/audio_player_ImageButton_width"
+                android:layout_height="@dimen/audio_player_ImageButton_Height"
                 android:layout_marginTop="14dip" />
 
            <ImageButton android:id="@+id/shuffle"
-                android:layout_width="85dip"
-                android:layout_height="54dip"
+               android:layout_width="@dimen/audio_player_ImageButton_width"
+               android:layout_height="@dimen/audio_player_ImageButton_Height"
                 android:layout_marginTop="20dip" />
 
            <ImageButton android:id="@+id/repeat"
-                android:layout_width="85dip"
-                android:layout_height="54dip"
+               android:layout_width="@dimen/audio_player_ImageButton_width"
+               android:layout_height="@dimen/audio_player_ImageButton_Height"
                 android:layout_marginTop="20dip" />
 
         </LinearLayout>
