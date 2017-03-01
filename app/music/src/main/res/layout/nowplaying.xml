@@ -35,6 +35,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
+        android:layout_marginLeft="@dimen/nowplaying_layout_marginLeft"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -70,6 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dip"
+
+            android:layout_marginRight="@dimen/nowplaying_icon_layout_marginRight"
             android:background="@drawable/indicator_ic_mp_playing_large"
         />
 
