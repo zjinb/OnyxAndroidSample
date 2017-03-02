@@ -25,7 +25,11 @@ android {
 
         // call regular ndk-build(.cmd) script from app directory
         task ndkBuild(type: Exec) {
-            commandLine "${ndkDir}/ndk-build", '-C', file('src/main').absolutePath, '-j10'
+            if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+                commandLine 'ndk-build.cmd', '-C', file('src/main').absolutePath, '-j10'
+            } else {
+                commandLine "${ndkDir}/ndk-build", '-C', file('src/main').absolutePath, '-j10'
+            }
         }
 
         tasks.withType(JavaCompile) {
@@ -33,7 +37,11 @@ android {
         }
 
         task ndkClean(type: Exec) {
-            commandLine "${ndkDir}/ndk-build", '-C', file('src/main').absolutePath, 'clean'
+            if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+                commandLine 'ndk-build.cmd', '-C', file('src/main').absolutePath, 'clean'
+            } else {
+                commandLine "${ndkDir}/ndk-build", '-C', file('src/main').absolutePath, 'clean'
+            }
         }
 
         clean.dependsOn 'ndkClean'
