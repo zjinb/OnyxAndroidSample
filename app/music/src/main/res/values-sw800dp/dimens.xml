@@ -23,6 +23,9 @@
     <dimen name="audio_player_picture_width">450dip</dimen>
     <dimen name="audio_player_spacing">30dip</dimen>
     <dimen name="audio_player_ImageButton_Height">54dip</dimen>
+    <dimen name="audio_player_LinearLayout_paddingLeft">11dip</dimen>
+    <dimen name="audio_player_LinearLayout_paddingTop">0dip</dimen>
+    <dimen name="audio_player_LinearLayout_paddingBottom">8dip</dimen>
 
 
 
