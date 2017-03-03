@@ -15,3 +15,4 @@ armeabi-v7a/
 *.includes
 *.hprof
 *.alloc
+/local.properties
