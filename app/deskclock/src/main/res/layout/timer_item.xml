@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<com.onyx.deskclock.timer.TimerItem
+<com.onyx.deskclock.deskclock.timer.TimerItem
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -66,4 +66,4 @@
 
     </com.onyx.deskclock.deskclock.CircleButtonsLayout>
 
-</com.onyx.deskclock.timer.TimerItem>
+</com.onyx.deskclock.deskclock.timer.TimerItem>
