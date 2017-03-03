@@ -21,25 +21,16 @@
 <resources>
     <dimen name="audio_player_picture_Height">300dip</dimen>
     <dimen name="audio_player_picture_width">300dip</dimen>
-    <dimen name="audio_player_spacing">30dip</dimen>
+    git  
     <dimen name="audio_player_ImageButton_width">200dip</dimen>
     <dimen name="audio_player_ImageButton_Height">70dip</dimen>
-
-
     <dimen name="audio_player_common_currenttime_textSize">15sp</dimen>
-
     <dimen name="track_list_item_layout_height">64dip</dimen>
     <dimen name="track_list_item_padding">6dip</dimen>
     <dimen name="track_list_item_common_duration_textSize">15sp</dimen>
     <dimen name="track_list_item_common_duration_paddingRight">25dip</dimen>
     <dimen name="track_list_item_common_play_indicator_layout_marginRight">16dip</dimen>
-
-
     <dimen name="edit_track_list_item_layout_height">64dip</dimen>
-
     <dimen name="nowplaying_layout_marginLeft">20dip</dimen>
     <dimen name="nowplaying_icon_layout_marginRight">16dip</dimen>
-
-
-
 </resources>
