@@ -17,8 +17,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button buttonEpd;
     @Bind(R.id.button_front_light)
     Button buttonFrontLight;
-    @Bind(R.id.button_scribble)
-    Button buttonScribble;
+    @Bind(R.id.button_touch_screen_scribble)
+    Button buttonTouchScreenScribble;
+    @Bind(R.id.button_stylus_scribble)
+    Button buttonStylusScribble;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonEnvironment.setOnClickListener(this);
         buttonEpd.setOnClickListener(this);
         buttonFrontLight.setOnClickListener(this);
-        buttonScribble.setOnClickListener(this);
+        buttonTouchScreenScribble.setOnClickListener(this);
+        buttonStylusScribble.setOnClickListener(this);
     }
 
     @Override
@@ -43,7 +46,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (v.equals(buttonFrontLight)) {
             startActivity(new Intent(this, FrontLightDemoActivity.class));
             return;
-        } else if (v.equals(buttonScribble)) {
+        } else if (v.equals(buttonTouchScreenScribble)) {
+            startActivity(new Intent(this, ScribbleTouchScreenDemoActivity.class));
+            return;
+        } else if (v.equals(buttonStylusScribble)) {
             startActivity(new Intent(this, ScribbleStylusDemoActivity.class));
             return;
         }

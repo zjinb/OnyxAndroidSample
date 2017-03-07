@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".EpdDemoActivity" />
+        <activity android:name=".ScribbleTouchScreenDemoActivity" />
         <activity android:name=".ScribbleStylusDemoActivity" />
         <activity android:name=".EnvironmentDemoActivity" />
         <activity android:name=".FrontLightDemoActivity" />
