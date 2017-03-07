@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -21,7 +19,7 @@ import com.onyx.android.sdk.scribble.data.TouchPointList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ScribbleDemoActivity extends AppCompatActivity implements View.OnClickListener {
+public class ScribbleStylusDemoActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Bind(R.id.button_pen)
     Button buttonPen;
@@ -37,7 +35,7 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scribble_demo);
+        setContentView(R.layout.activity_scribble_stylus_demo);
         penReader = new PenReader(this);
 
         ButterKnife.bind(this);

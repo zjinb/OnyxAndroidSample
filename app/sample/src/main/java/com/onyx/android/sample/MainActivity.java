@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, FrontLightDemoActivity.class));
             return;
         } else if (v.equals(buttonScribble)) {
-            startActivity(new Intent(this, ScribbleDemoActivity.class));
+            startActivity(new Intent(this, ScribbleStylusDemoActivity.class));
             return;
         }
     }
