@@ -3,7 +3,7 @@ Sample project of [onyxsdk-base](https://github.com/onyx-intl/OnyxAndroidSample/
 
 To use the SDK, please add the following statement to your build.gradle:
 
-    compile 'com.onyx.android.sdk:onyxsdk-base:1.2.3'
+    compile 'com.onyx.android.sdk:onyxsdk-base:1.3.0'
 
 The project contains following examples:
 * [EnvironmentDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/src/main/java/com/onyx/android/sample/EnvironmentDemoActivity.java): shows how to use [DeviceEnvironment](https://github.com/onyx-intl/OnyxAndroidSample/wiki/DeviceEnvironment) to access removeable sdcard

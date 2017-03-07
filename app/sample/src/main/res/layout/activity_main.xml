@@ -36,10 +36,16 @@
             android:text="Front Light"/>
 
         <Button
-            android:id="@+id/button_scribble"
+            android:id="@+id/button_touch_screen_scribble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Scribble Demo"/>
+            android:text="Touch Screen Scribble Demo"/>
+
+        <Button
+            android:id="@+id/button_stylus_scribble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stylus Scribble Demo"/>
 
     </LinearLayout>
 
