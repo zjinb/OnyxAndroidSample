@@ -15,7 +15,6 @@
  */
 
 package com.onyx.music;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.KeyguardManager;
@@ -60,12 +59,8 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.onyx.music.MusicUtils.ServiceToken;
-
 import static com.onyx.music.R.id.shuffle;
-
-
 public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
     View.OnTouchListener, View.OnLongClickListener
 {

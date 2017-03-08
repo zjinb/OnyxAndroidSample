@@ -89,7 +89,6 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             mCurrentArtistName = icicle.getString("selectedartistname");
         }
         mToken = MusicUtils.bindToService(this, this);
-
         IntentFilter f = new IntentFilter();
         f.addAction(Intent.ACTION_MEDIA_SCANNER_STARTED);
         f.addAction(Intent.ACTION_MEDIA_SCANNER_FINISHED);
@@ -185,7 +184,6 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         f.addAction(MediaPlaybackService.QUEUE_CHANGED);
         registerReceiver(mTrackListListener, f);
         mTrackListListener.onReceive(null, null);
-
         MusicUtils.setSpinnerState(this);
     }
 
@@ -229,7 +227,6 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             return;
         }
         mAdapter.changeCursor(c); // also sets mArtistCursor
-
         if (mArtistCursor == null) {
             MusicUtils.displayDatabaseError(this);
             closeContextMenu();
@@ -255,9 +252,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
     
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-
         mCurrentAlbumId = Long.valueOf(id).toString();
-        
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setDataAndType(Uri.EMPTY, "vnd.android.cursor.dir/track");
         intent.putExtra("album", mCurrentAlbumId);
@@ -628,7 +623,6 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         public View newGroupView(Context context, Cursor cursor, boolean isExpanded, ViewGroup parent) {
             View v = super.newGroupView(context, cursor, isExpanded, parent);
             ImageView iv = (ImageView) v.findViewById(R.id.icon);
-
             ViewGroup.LayoutParams p = iv.getLayoutParams();
             p.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             p.height = ViewGroup.LayoutParams.WRAP_CONTENT;
