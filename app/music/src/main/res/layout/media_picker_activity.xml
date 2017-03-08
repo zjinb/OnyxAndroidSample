@@ -21,7 +21,6 @@
     android:gravity="center_vertical" >
 
     <include layout="@layout/sd_error" />
-
     <include layout="@layout/buttonbar" />
 
     <com.onyx.music.TouchInterceptor

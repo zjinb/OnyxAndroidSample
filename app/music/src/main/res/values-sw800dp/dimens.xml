@@ -21,7 +21,7 @@
 <resources>
     <dimen name="audio_player_picture_Height">500dip</dimen>
     <dimen name="audio_player_picture_width">500dip</dimen>
-    <dimen name="audio_player_spacing">30dip</dimen>
+    <dimen name="audio_player_spacing">20dip</dimen>
     <dimen name="audio_player_ImageButton_Height">54dip</dimen>
     <dimen name="audio_player_LinearLayout_paddingLeft">11dip</dimen>
     <dimen name="audio_player_LinearLayout_paddingTop">0dip</dimen>

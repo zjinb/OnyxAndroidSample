@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -19,7 +18,6 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../../proguard-rules.pro', 'proguard-rules.pro'
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), '../proguard-rules.pro', 'proguard-rules.pro'
         }
         debug {
             minifyEnabled false

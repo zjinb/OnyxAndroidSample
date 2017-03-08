@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -10,10 +9,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-
     }
     buildTypes {
         release {
@@ -26,15 +22,11 @@ android {
             jniDebuggable true
         }
     }
-
     lintOptions {
         checkReleaseBuilds false
-
         abortOnError false
     }
-
 }
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -42,4 +34,5 @@ dependencies {
     })
 
     testCompile 'junit:junit:4.12'
+    compile 'com.onyx.android.sdk:onyxsdk-appcompat:1.0.4'
 }

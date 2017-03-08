@@ -15,12 +15,10 @@
 -->
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
-
     <View 
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#ff000000" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,11 +31,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffffff"
-        android:paddingTop="1dip"
+        android:paddingTop="10dip"
         android:paddingBottom="4dip"
         android:orientation="horizontal">
-
-
         <TextView android:id="@+id/currenttime"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="@dimen/audio_player_common_currenttime_textSize"
@@ -51,23 +47,15 @@
             android:layout_width="0dip"
             android:paddingLeft="16dip"
             android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="1dip"
-            android:layout_marginBottom="2dip"
-            android:gravity="center">
-
-            <com.onyx.music.RepeatingImageButton android:id="@+id/prev" style="@style/MusicLPreviousButtonStyle" />
-
-            <ImageButton android:id="@+id/pause" style="@style/MusicPlayButtonStyle" />
-
-            <com.onyx.music.RepeatingImageButton android:id="@+id/next" style="@style/MusicNextButtonStyle" />
-
-        </LinearLayout>
+        <SeekBar android:id="@android:id/progress"
+            android:background="#ffffffff"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:thumb="@drawable/ic_music_point"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:layout_height="20dip"
+            android:layout_gravity="center"
+            />
         <TextView android:id="@+id/totaltime"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="@dimen/audio_player_common_currenttime_textSize"
@@ -82,19 +70,45 @@
             android:layout_weight="1"
             android:layout_width="0dip"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dip"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+            <ImageView android:id="@+id/shuffle"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:paddingLeft="16dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_music_random"
+                android:layout_marginLeft="@dimen/audio_player_spacing" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="8"
+                android:layout_marginTop="5dip"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                >
+                <com.onyx.music.RepeatingImageButton android:id="@+id/prev" style="@style/MusicLPreviousButtonStyle" />
 
-    <SeekBar android:id="@android:id/progress"
-        android:background="#ffffffff"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:thumb="@drawable/seekbar_thumb"
-        android:layout_width="match_parent"
-        android:layout_height="36dip"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip"
-        android:paddingBottom="18dip" />
+                <ImageButton android:id="@+id/pause" style="@style/MusicPlayButtonStyle" />
 
+                <com.onyx.music.RepeatingImageButton android:id="@+id/next" style="@style/MusicNextButtonStyle" />
+
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/curplaylist"
+                android:src="@drawable/ic_music_list"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="16dip"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"  />
     </LinearLayout>
-
+    </LinearLayout>
 </merge>
