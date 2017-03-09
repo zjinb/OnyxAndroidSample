@@ -89,14 +89,12 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             mCurrentArtistName = icicle.getString("selectedartistname");
         }
         mToken = MusicUtils.bindToService(this, this);
-
         IntentFilter f = new IntentFilter();
         f.addAction(Intent.ACTION_MEDIA_SCANNER_STARTED);
         f.addAction(Intent.ACTION_MEDIA_SCANNER_FINISHED);
         f.addAction(Intent.ACTION_MEDIA_UNMOUNTED);
         f.addDataScheme("file");
         registerReceiver(mScanListener, f);
-
         setContentView(R.layout.media_picker_activity_expanding);
         MusicUtils.updateButtonBar(this, R.id.artisttab);
         ExpandableListView lv = getExpandableListView();
@@ -186,7 +184,6 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         f.addAction(MediaPlaybackService.QUEUE_CHANGED);
         registerReceiver(mTrackListListener, f);
         mTrackListListener.onReceive(null, null);
-
         MusicUtils.setSpinnerState(this);
     }
 
@@ -230,7 +227,6 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             return;
         }
         mAdapter.changeCursor(c); // also sets mArtistCursor
-
         if (mArtistCursor == null) {
             MusicUtils.displayDatabaseError(this);
             closeContextMenu();
@@ -256,9 +252,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
     
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-
         mCurrentAlbumId = Long.valueOf(id).toString();
-        
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setDataAndType(Uri.EMPTY, "vnd.android.cursor.dir/track");
         intent.putExtra("album", mCurrentAlbumId);

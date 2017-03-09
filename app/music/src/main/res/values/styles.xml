@@ -26,13 +26,13 @@
         <item name="android:textSize">@dimen/list_sub_title_text_size</item>
 	</style>
 	<style name="MusicLPreviousButtonStyle" parent="@android:style/MediaButton.Previous">
-        <item name="android:src">@drawable/ic_media_previous</item>
+        <item name="android:src">@drawable/ic_music_last</item>
 	</style>
 	<style name="MusicPlayButtonStyle" parent="@android:style/MediaButton.Play">
-        <item name="android:src">@drawable/ic_media_play</item>
+        <item name="android:src">@drawable/ic_music_cd_play</item>
 	</style>
 	<style name="MusicNextButtonStyle" parent="@android:style/MediaButton.Next">
-        <item name="android:src">@drawable/ic_media_next</item>
+        <item name="android:src">@drawable/ic_music_next</item>
 	</style>
 	<style name="MusicFfwdButtonStyle" parent="@android:style/MediaButton.Ffwd">
         <item name="android:src">@drawable/ic_media_ff</item>
@@ -41,6 +41,6 @@
         <item name="android:src">@drawable/ic_media_rew</item>
     </style>
     <style name="MusicPauseButtonStyle" parent="@android:style/MediaButton.Pause">
-        <item name="android:src">@drawable/ic_media_pause</item>
+        <item name="android:src">@drawable/ic_music_pause</item>
     </style>
 </resources>
