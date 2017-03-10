@@ -65,7 +65,6 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
     View.OnTouchListener, View.OnLongClickListener
 {
     private static final int USE_AS_RINGTONE = CHILD_MENU_BASE;
-
     private boolean mSeeking = false;
     private boolean mDeviceHasDpad;
     private long mStartSeekPos = 0;
@@ -131,15 +130,18 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
         seekmethod = 1;
         mDeviceHasDpad = (getResources().getConfiguration().navigation ==
             Configuration.NAVIGATION_DPAD);
-        
+        setRepeatButtonImage();
+        setShuffleButtonImage();
         mQueueButton = (ImageView) findViewById(R.id.curplaylist);
         mQueueButton.setOnClickListener(mQueueListener);
         mShuffleButton = ((ImageView) findViewById(shuffle));
         mShuffleButton.setOnClickListener(mShuffleListener);
-        mShuffleButton.setImageResource(setImage());
         mRepeatButton = ((ImageButton) findViewById(R.id.repeat));
         mRepeatButton.setOnClickListener(mRepeatListener);
-        
+
+        Intent intent = new Intent(MediaPlaybackActivity.this, MediaPlaybackActivity.class);
+        startActivity(intent);
+
         if (mProgress instanceof SeekBar) {
             SeekBar seeker = (SeekBar) mProgress;
             seeker.setOnSeekBarChangeListener(mSeekListener);
@@ -953,25 +955,7 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
         } catch (RemoteException ex) {
         }
     }
-    private int setImage() {
-        if (mService == null) {
-            return R.drawable.ic_music_random;
-        }
-        try {
-            switch (mService.getRepeatMode()) {
-                case MediaPlaybackService.REPEAT_ALL:
-                    return R.drawable.ic_music_circulation;
-                case MediaPlaybackService.REPEAT_CURRENT:
-                    return R.drawable.ic_music_circulation_1;
-            }
-            switch (mService.getShuffleMode()) {
-                case MediaPlaybackService.SHUFFLE_NONE:
-                 return R.drawable.ic_music_circulation_1;
-            }
-        } catch (RemoteException ex) {
-        }
-    return setImage();
-    }
+
     private View.OnClickListener mShuffleListener = new View.OnClickListener() {
         public void onClick(View v) {
             if (mService == null) {
@@ -979,24 +963,32 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
             }
             try {
                 int mode = mService.getRepeatMode();
-                if (mode == MediaPlaybackService.REPEAT_NONE) {
-                    mService.setShuffleMode(MediaPlaybackService.REPEAT_NONE);
+                if (mode == MediaPlaybackService.REPEAT_NONE || shuffle == MediaPlaybackService.SHUFFLE_NONE) {
+                    mService.setShuffleMode(MediaPlaybackService.SHUFFLE_NORMAL);
                     mService.setRepeatMode(MediaPlaybackService.REPEAT_ALL);
-                    mShuffleButton.setImageResource(R.drawable.ic_music_circulation);
+                    if (mService.getRepeatMode() == MediaPlaybackService.REPEAT_CURRENT) {
+                        mService.setRepeatMode(MediaPlaybackService.REPEAT_ALL);
+                        setRepeatButtonImage();
+                    }
+                    setRepeatButtonImage();
                     showToast(R.string.repeat_all_notif);
                 } else if (mode == MediaPlaybackService.REPEAT_ALL) {
                     mService.setRepeatMode(MediaPlaybackService.REPEAT_CURRENT);
-                    mShuffleButton.setImageResource(R.drawable.ic_music_circulation_1);
+                    if (mService.getShuffleMode() != MediaPlaybackService.SHUFFLE_NONE) {
+                        mService.setShuffleMode(MediaPlaybackService.SHUFFLE_NONE);
+                        setShuffleButtonImage();
+                    }
                     setRepeatButtonImage();
                     showToast(R.string.repeat_current_notif);
 
                 } else  if (mode == MediaPlaybackService.REPEAT_CURRENT){
                     mService.setRepeatMode(MediaPlaybackService.REPEAT_NONE);
                     mService.setShuffleMode(MediaPlaybackService.SHUFFLE_NONE);
-                    mShuffleButton.setImageResource(R.drawable.ic_music_random);
+                    setShuffleButtonImage();
                     showToast(R.string.shuffle_on_notif);
-              }
-
+              }else {
+                    mService.setRepeatMode(MediaPlaybackService.REPEAT_NONE);
+                }
             } catch (RemoteException ex) {
             }
         }
@@ -1019,7 +1011,6 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
                     mService.setShuffleMode(MediaPlaybackService.SHUFFLE_NONE);
                showToast(R.string.shuffle_off_notif);
             } else {
-
                 Log.e("MediaPlaybackActivity", "Invalid shuffle mode: " + shuffle);
             }
             setShuffleButtonImage();
@@ -1043,14 +1034,12 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
                 }
                 showToast(R.string.repeat_current_notif);
             } else {
-                mService.setShuffleMode(MediaPlaybackService.SHUFFLE_NONE);
                 mService.setRepeatMode(MediaPlaybackService.REPEAT_NONE);
                 showToast(R.string.repeat_off_notif);
             }
             setRepeatButtonImage();
         } catch (RemoteException ex) {
         }
-        
     }
     
     private void showToast(int resid) {
@@ -1062,7 +1051,6 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
     }
 
     private void startPlayback() {
-
         if(mService == null)
             return;
         Intent intent = getIntent();
@@ -1132,13 +1120,13 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
         try {
             switch (mService.getRepeatMode()) {
                 case MediaPlaybackService.REPEAT_ALL:
-                    mRepeatButton.setImageResource(R.drawable.ic_music_circulation);
+                    mShuffleButton.setImageResource(R.drawable.ic_music_circulation);
                     break;
                 case MediaPlaybackService.REPEAT_CURRENT:
-                    mRepeatButton.setImageResource(R.drawable.ic_music_circulation_1);
+                    mShuffleButton.setImageResource(R.drawable.ic_music_circulation_1);
                     break;
                 default:
-                    mRepeatButton.setImageResource(R.drawable.ic_mp_repeat_off_btn);
+                    mShuffleButton.setImageResource(R.drawable.ic_music_circulation);
                     break;
             }
         } catch (RemoteException ex) {
@@ -1156,7 +1144,7 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
                     mShuffleButton.setImageResource(R.drawable.ic_mp_partyshuffle_on_btn);
                     break;
                 default:
-                    mShuffleButton.setImageResource(R.drawable.ic_mp_shuffle_on_btn);
+                    mShuffleButton.setImageResource(R.drawable.ic_music_circulation);
                     break;
             }
         } catch (RemoteException ex) {
@@ -1422,5 +1410,6 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
             mLooper.quit();
         }
     }
+
 }
 
