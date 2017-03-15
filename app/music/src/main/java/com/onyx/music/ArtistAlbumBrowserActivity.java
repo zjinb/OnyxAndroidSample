@@ -54,13 +54,11 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.SimpleCursorTreeAdapter;
 import android.widget.TextView;
-
 import com.onyx.music.MusicUtils.ServiceToken;
-
+import static com.onyx.music.R.id.icon_next;
 
 public class ArtistAlbumBrowserActivity extends ExpandableListActivity
-        implements View.OnCreateContextMenuListener, MusicUtils.Defs, ServiceConnection
-{
+        implements View.OnCreateContextMenuListener, MusicUtils.Defs, ServiceConnection{
     private String mCurrentArtistId;
     private String mCurrentArtistName;
     private String mCurrentAlbumId;
@@ -509,7 +507,6 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
     }
 
     private Cursor getArtistCursor(AsyncQueryHandler async, String filter) {
-
         String[] cols = new String[] {
                 MediaStore.Audio.Artists._ID,
                 MediaStore.Audio.Artists.ARTIST,
@@ -532,7 +529,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         }
         return ret;
     }
-    
+
     static class ArtistAlbumListAdapter extends SimpleCursorTreeAdapter implements SectionIndexer {
         
         private final Drawable mNowPlayingOverlay;
@@ -554,19 +551,20 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         private AsyncQueryHandler mQueryHandler;
         private String mConstraint = null;
         private boolean mConstraintIsValid = false;
-        
+        private ImageView mIcon_next;
+        private ViewHolder vh;
+
         static class ViewHolder {
             TextView line1;
             TextView line2;
             ImageView play_indicator;
             ImageView icon;
+            ImageView mIcon_next;
         }
-
         class QueryHandler extends AsyncQueryHandler {
             QueryHandler(ContentResolver res) {
                 super(res);
             }
-            
             @Override
             protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
                 //Log.i("@@@", "query complete");
@@ -595,7 +593,6 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             mUnknownAlbum = context.getString(R.string.unknown_album_name);
             mUnknownArtist = context.getString(R.string.unknown_artist_name);
         }
-        
         private void getColumnIndices(Cursor cursor) {
             if (cursor != null) {
                 mGroupArtistIdIdx = cursor.getColumnIndexOrThrow(MediaStore.Audio.Artists._ID);
@@ -623,6 +620,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         public View newGroupView(Context context, Cursor cursor, boolean isExpanded, ViewGroup parent) {
             View v = super.newGroupView(context, cursor, isExpanded, parent);
             ImageView iv = (ImageView) v.findViewById(R.id.icon);
+            mIcon_next =(ImageView)  v.findViewById(icon_next) ;
             ViewGroup.LayoutParams p = iv.getLayoutParams();
             p.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             p.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -632,13 +630,13 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             vh.play_indicator = (ImageView) v.findViewById(R.id.play_indicator);
             vh.icon = (ImageView) v.findViewById(R.id.icon);
             vh.icon.setPadding(0, 0, 1, 0);
+            vh.mIcon_next=(ImageView) v.findViewById(icon_next);
             v.setTag(vh);
             return v;
         }
 
         @Override
-        public View newChildView(Context context, Cursor cursor, boolean isLastChild,
-                ViewGroup parent) {
+        public View newChildView(Context context, Cursor cursor, boolean isLastChild,ViewGroup parent) {
             View v = super.newChildView(context, cursor, isLastChild, parent);
             ViewHolder vh = new ViewHolder();
             vh.line1 = (TextView) v.findViewById(R.id.line1);
@@ -650,12 +648,12 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             v.setTag(vh);
             return v;
         }
+
+
         
         @Override
-        public void bindGroupView(View view, Context context, Cursor cursor, boolean isexpanded) {
-
-            ViewHolder vh = (ViewHolder) view.getTag();
-
+        public void bindGroupView(View view, Context context, Cursor cursor, boolean isExpanded) {
+            vh = (ViewHolder) view.getTag();
             String artist = cursor.getString(mGroupArtistIdx);
             String displayartist = artist;
             boolean unknown = artist == null || artist.equals(MediaStore.UNKNOWN_STRING);
@@ -674,18 +672,22 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             
             long currentartistid = MusicUtils.getCurrentArtistId();
             long artistid = cursor.getLong(mGroupArtistIdIdx);
-            if (currentartistid == artistid && !isexpanded) {
+            if (currentartistid == artistid && !isExpanded) {
                 vh.play_indicator.setImageDrawable(mNowPlayingOverlay);
             } else {
                 vh.play_indicator.setImageDrawable(null);
             }
+            if(isExpanded){
+                vh.mIcon_next.setBackgroundResource(R.drawable.ic_music_unfold);
+            }else{
+              vh.mIcon_next.setBackgroundResource(R.drawable.ic_music_pack_up);
+            }
+           vh.mIcon_next.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void bindChildView(View view, Context context, Cursor cursor, boolean islast) {
-
-            ViewHolder vh = (ViewHolder) view.getTag();
-
+            ViewHolder vh =  (ViewHolder) view.getTag();
             String name = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Albums.ALBUM));
             String displayname = name;
             boolean unknown = name == null || name.equals(MediaStore.UNKNOWN_STRING); 
@@ -744,10 +746,8 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             }
         }
 
-        
         @Override
         protected Cursor getChildrenCursor(Cursor groupCursor) {
-            
             long id = groupCursor.getLong(groupCursor.getColumnIndexOrThrow(MediaStore.Audio.Artists._ID));
             
             String[] cols = new String[] {
