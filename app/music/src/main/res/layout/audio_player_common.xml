@@ -48,7 +48,6 @@
             android:layout_width="0dp"
             android:layout_weight="8"
             android:layout_height="20dip"
-            android:layout_gravity="center"
             />
         <TextView android:id="@+id/totaltime"
             android:textSize="@dimen/audio_player_common_currenttime_textSize"
@@ -65,11 +64,12 @@
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
             >
-            <ImageView android:id="@+id/shuffle"
+            <ImageView android:id="@+id/play_mode"
                 android:layout_weight="1"
                 android:layout_width="0dip"
                 android:paddingLeft="16dip"
                 android:layout_height="wrap_content"
+                android:src="@drawable/ic_music_cycle"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/audio_player_spacing" />
             <LinearLayout
@@ -82,7 +82,10 @@
                 >
                 <com.onyx.music.RepeatingImageButton android:id="@+id/prev" style="@style/MusicLPreviousButtonStyle" />
 
-                <ImageButton android:id="@+id/pause" style="@style/MusicPlayButtonStyle" />
+                <ImageButton android:id="@+id/pause"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                    style="@style/MusicPlayButtonStyle" />
 
                 <com.onyx.music.RepeatingImageButton android:id="@+id/next" style="@style/MusicNextButtonStyle" />
 

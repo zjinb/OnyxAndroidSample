@@ -100,7 +100,6 @@ public class TrackBrowserActivity extends ListActivity
     private static int mLastListPosFine = -1;
     private boolean mUseLastListPos = false;
     private ServiceToken mToken;
-
     public TrackBrowserActivity()
     {
     }
@@ -112,11 +111,6 @@ public class TrackBrowserActivity extends ListActivity
         super.onCreate(icicle);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         Intent intent = getIntent();
-        if (intent != null) {
-            if (intent.getBooleanExtra("withtabs", false)) {
-                requestWindowFeature(Window.FEATURE_NO_TITLE);
-            }
-        }
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         if (icicle != null) {
             mSelectedId = icicle.getLong("selectedtrack");
@@ -309,6 +303,7 @@ public class TrackBrowserActivity extends ListActivity
             getListView().invalidateViews();
         }
         MusicUtils.setSpinnerState(this);
+        MusicUtils.setActionBarOptions(this);
     }
     @Override
     public void onPause() {
@@ -938,7 +933,9 @@ public class TrackBrowserActivity extends ListActivity
                 MusicUtils.playAll(this, mTrackCursor);
                 return true;
             }
-
+            case android.R.id.home:
+                onBackPressed();
+                return true;
             case PARTY_SHUFFLE:
                 MusicUtils.togglePartyShuffle();
                 break;
@@ -1521,7 +1518,7 @@ public class TrackBrowserActivity extends ListActivity
             // which is not really a playlist)
             if ( (mIsNowPlaying && cursor.getPosition() == id) ||
                  (!mIsNowPlaying && !mDisableNowPlayingIndicator && cursor.getLong(mAudioIdIdx) == id)) {
-                iv.setImageResource(R.drawable.indicator_ic_mp_playing_list);
+                iv.setImageResource(R.drawable.ic_music_play);
                 iv.setVisibility(View.VISIBLE);
             } else {
                 iv.setVisibility(View.GONE);

@@ -55,7 +55,6 @@ import android.widget.SectionIndexer;
 import android.widget.SimpleCursorTreeAdapter;
 import android.widget.TextView;
 import com.onyx.music.MusicUtils.ServiceToken;
-import static com.onyx.music.R.id.icon_next;
 
 public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         implements View.OnCreateContextMenuListener, MusicUtils.Defs, ServiceConnection{
@@ -78,7 +77,6 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         if (icicle != null) {
             mCurrentAlbumId = icicle.getString("selectedalbum");
@@ -183,6 +181,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         registerReceiver(mTrackListListener, f);
         mTrackListListener.onReceive(null, null);
         MusicUtils.setSpinnerState(this);
+        MusicUtils.setActionBarOptions(this);
     }
 
     private BroadcastReceiver mTrackListListener = new BroadcastReceiver() {
@@ -288,7 +287,9 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             case PARTY_SHUFFLE:
                 MusicUtils.togglePartyShuffle();
                 break;
-                
+            case android.R.id.home:
+                onBackPressed();
+                return true;
             case SHUFFLE_ALL:
                 cursor = MusicUtils.query(this, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                         new String [] { MediaStore.Audio.Media._ID}, 
@@ -551,7 +552,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         private AsyncQueryHandler mQueryHandler;
         private String mConstraint = null;
         private boolean mConstraintIsValid = false;
-        private ImageView mIcon_next;
+        private ImageView mNextIcon;
         private ViewHolder vh;
 
         static class ViewHolder {
@@ -559,7 +560,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             TextView line2;
             ImageView play_indicator;
             ImageView icon;
-            ImageView mIcon_next;
+            ImageView mNextIcon;
         }
         class QueryHandler extends AsyncQueryHandler {
             QueryHandler(ContentResolver res) {
@@ -580,7 +581,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             mQueryHandler = new QueryHandler(context.getContentResolver());
 
             Resources r = context.getResources();
-            mNowPlayingOverlay = r.getDrawable(R.drawable.indicator_ic_mp_playing_list);
+            mNowPlayingOverlay = r.getDrawable(R.drawable.ic_music_play);
             mDefaultAlbumIcon = (BitmapDrawable) r.getDrawable(R.drawable.albumart_mp_unknown_list);
             // no filter or dither, it's a lot faster and we can't tell the difference
             mDefaultAlbumIcon.setFilterBitmap(false);
@@ -620,7 +621,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         public View newGroupView(Context context, Cursor cursor, boolean isExpanded, ViewGroup parent) {
             View v = super.newGroupView(context, cursor, isExpanded, parent);
             ImageView iv = (ImageView) v.findViewById(R.id.icon);
-            mIcon_next =(ImageView)  v.findViewById(icon_next) ;
+            mNextIcon=(ImageView)  v.findViewById(R.id.icon_next) ;
             ViewGroup.LayoutParams p = iv.getLayoutParams();
             p.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             p.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -630,7 +631,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             vh.play_indicator = (ImageView) v.findViewById(R.id.play_indicator);
             vh.icon = (ImageView) v.findViewById(R.id.icon);
             vh.icon.setPadding(0, 0, 1, 0);
-            vh.mIcon_next=(ImageView) v.findViewById(icon_next);
+            vh. mNextIcon=(ImageView) v.findViewById(R.id.icon_next);
             v.setTag(vh);
             return v;
         }
@@ -678,11 +679,11 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
                 vh.play_indicator.setImageDrawable(null);
             }
             if(isExpanded){
-                vh.mIcon_next.setBackgroundResource(R.drawable.ic_music_unfold);
+                vh.mNextIcon.setBackgroundResource(R.drawable.ic_music_unfold);
             }else{
-              vh.mIcon_next.setBackgroundResource(R.drawable.ic_music_pack_up);
+              vh.mNextIcon.setBackgroundResource(R.drawable.ic_music_pack_up);
             }
-           vh.mIcon_next.setVisibility(View.VISIBLE);
+           vh.mNextIcon.setVisibility(View.VISIBLE);
         }
 
         @Override

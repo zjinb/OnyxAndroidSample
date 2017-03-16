@@ -16,6 +16,7 @@
 
 package com.onyx.music;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -1359,6 +1360,14 @@ public class MusicUtils {
             if (entry != null) {
                 entry.dump(out);
             }
+        }
+    }
+
+    public static void setActionBarOptions(Activity activity){
+        ActionBar actionBar = activity.getActionBar();
+           if(actionBar!=null){
+              actionBar.setDisplayShowHomeEnabled(true);
+              actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 }
