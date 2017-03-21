@@ -952,9 +952,7 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
     };
 
    private void togglePlayMode() {
-        if (mService == null) {
-            return;
-        }
+        if (mService == null) return;
         try {
                     int shuffle = mService.getShuffleMode();
                     int mode = mService.getRepeatMode();
@@ -995,8 +993,7 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
     }
 
     private void startPlayback() {
-        if(mService == null)
-            return;
+        if(mService == null) return;
         Intent intent = getIntent();
         String filename = "";
         Uri uri = intent.getData();

@@ -269,7 +269,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         menu.add(0, PARTY_SHUFFLE, 0, R.string.party_shuffle); // icon will be set in onPrepareOptionsMenu()
-        menu.add(0, SHUFFLE_ALL, 0, R.string.shuffle_all).setIcon(R.drawable.ic_menu_shuffle);
+        menu.add(0, SHUFFLE_ALL, 0, R.string.shuffle_all).setIcon(R.drawable.ic_music_random);
         return true;
     }
     
@@ -621,7 +621,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         public View newGroupView(Context context, Cursor cursor, boolean isExpanded, ViewGroup parent) {
             View v = super.newGroupView(context, cursor, isExpanded, parent);
             ImageView iv = (ImageView) v.findViewById(R.id.icon);
-            mNextIcon=(ImageView)  v.findViewById(R.id.icon_next) ;
+            mNextIcon = (ImageView) v.findViewById(R.id.icon_next);
             ViewGroup.LayoutParams p = iv.getLayoutParams();
             p.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             p.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -631,7 +631,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             vh.play_indicator = (ImageView) v.findViewById(R.id.play_indicator);
             vh.icon = (ImageView) v.findViewById(R.id.icon);
             vh.icon.setPadding(0, 0, 1, 0);
-            vh. mNextIcon=(ImageView) v.findViewById(R.id.icon_next);
+            vh.mNextIcon = (ImageView) v.findViewById(R.id.icon_next);
             v.setTag(vh);
             return v;
         }
@@ -678,12 +678,12 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             } else {
                 vh.play_indicator.setImageDrawable(null);
             }
-            if(isExpanded){
+            if (isExpanded) {
                 vh.mNextIcon.setBackgroundResource(R.drawable.ic_music_unfold);
-            }else{
-              vh.mNextIcon.setBackgroundResource(R.drawable.ic_music_pack_up);
+            } else {
+                vh.mNextIcon.setBackgroundResource(R.drawable.ic_music_pack_up);
             }
-           vh.mNextIcon.setVisibility(View.VISIBLE);
+            vh.mNextIcon.setVisibility(View.VISIBLE);
         }
 
         @Override

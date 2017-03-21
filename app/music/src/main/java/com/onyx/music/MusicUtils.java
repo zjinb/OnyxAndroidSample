@@ -1365,7 +1365,7 @@ public class MusicUtils {
 
     public static void setActionBarOptions(Activity activity){
         ActionBar actionBar = activity.getActionBar();
-           if(actionBar!=null){
+           if (actionBar != null) {
               actionBar.setDisplayShowHomeEnabled(true);
               actionBar.setDisplayHomeAsUpEnabled(true);
         }
