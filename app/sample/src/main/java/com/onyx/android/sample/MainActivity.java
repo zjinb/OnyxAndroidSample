@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -53,5 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, ScribbleStylusDemoActivity.class));
             return;
         }
+    }
+
+    @OnClick(R.id.button_sdk_data_ota_test)
+    void onSdkDataTestClick() {
+        startActivity(new Intent(this, SdkDataOTATestActivity.class));
     }
 }
