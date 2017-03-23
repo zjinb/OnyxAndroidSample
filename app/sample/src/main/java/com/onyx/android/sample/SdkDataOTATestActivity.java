@@ -47,7 +47,7 @@ public class SdkDataOTATestActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_test_download)
     void testDownloadClick() {
-        String url = "http://oa.o-in.me:9001/uploads/file_manage/attachment/58c24bbc48502d4da6540000/update.zip";
+        String url = "change to your own public link here";
         File file = getUpdateZipFile();
         downloadFile(url, file.getAbsolutePath());
     }
