@@ -15,10 +15,10 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical">
    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -110,16 +110,9 @@
 
    </LinearLayout>
     <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical" >
-        <ImageButton android:id="@+id/repeat"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/audio_player_ImageButton_Height"
-            android:background="@drawable/button_frame"
-            android:layout_marginLeft="@dimen/audio_player_spacing"
-            android:visibility="gone"
-             />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
            <include layout="@layout/audio_player_common" />
        </LinearLayout>
 

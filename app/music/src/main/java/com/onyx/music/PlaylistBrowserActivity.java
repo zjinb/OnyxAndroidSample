@@ -93,7 +93,6 @@ public class PlaylistBrowserActivity extends ListActivity
         }
 
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mToken = MusicUtils.bindToService(this, new ServiceConnection() {
             public void onServiceConnected(ComponentName classname, IBinder obj) {
@@ -215,6 +214,7 @@ public class PlaylistBrowserActivity extends ListActivity
 
         MusicUtils.setSpinnerState(this);
         MusicUtils.updateNowPlaying(PlaylistBrowserActivity.this);
+        MusicUtils.setActionBarOptions(this);
     }
     @Override
     public void onPause() {
@@ -286,6 +286,9 @@ public class PlaylistBrowserActivity extends ListActivity
             case PARTY_SHUFFLE:
                 MusicUtils.togglePartyShuffle();
                 break;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

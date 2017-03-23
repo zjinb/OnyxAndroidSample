@@ -71,7 +71,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dip"
             android:layout_marginRight="@dimen/nowplaying_icon_layout_marginRight"
-            android:background="@drawable/indicator_ic_mp_playing_large"
+            android:background="@drawable/ic_music_play"
             />
 
     </LinearLayout>

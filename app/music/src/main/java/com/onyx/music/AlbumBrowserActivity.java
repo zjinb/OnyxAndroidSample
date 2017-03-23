@@ -89,7 +89,6 @@ public class AlbumBrowserActivity extends ListActivity
         }
         super.onCreate(icicle);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mToken = MusicUtils.bindToService(this, this);
 
@@ -184,6 +183,7 @@ public class AlbumBrowserActivity extends ListActivity
         mTrackListListener.onReceive(null, null);
 
         MusicUtils.setSpinnerState(this);
+        MusicUtils.setActionBarOptions(this);
     }
 
     private BroadcastReceiver mTrackListListener = new BroadcastReceiver() {
@@ -426,7 +426,9 @@ public class AlbumBrowserActivity extends ListActivity
             case PARTY_SHUFFLE:
                 MusicUtils.togglePartyShuffle();
                 break;
-
+            case android.R.id.home:
+                onBackPressed();
+                return true;
             case SHUFFLE_ALL:
                 cursor = MusicUtils.query(this, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                         new String [] { MediaStore.Audio.Media._ID},
@@ -591,7 +593,7 @@ public class AlbumBrowserActivity extends ListActivity
                 displayname = mUnknownAlbum;
             }
             vh.line1.setText(displayname);
-            
+
             name = cursor.getString(mArtistIdx);
             displayname = name;
             if (name == null || name.equals(MediaStore.UNKNOWN_STRING)) {
