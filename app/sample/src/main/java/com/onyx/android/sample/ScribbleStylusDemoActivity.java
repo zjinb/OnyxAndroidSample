@@ -41,7 +41,6 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
         buttonPen.setOnClickListener(this);
         buttonEraser.setOnClickListener(this);
 
-
         initSurfaceView();
     }
 
@@ -62,9 +61,16 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
 
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
-
             }
         });
+    }
+
+
+    public PenReader getPenReader() {
+        if (penReader == null) {
+            penReader = new PenReader(this);
+        }
+        return penReader;
     }
 
     private void updateViewMatrix() {
@@ -72,13 +78,6 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
         surfaceView.getLocationOnScreen(viewPosition);
         viewMatrix = new Matrix();
         viewMatrix.postTranslate(-viewPosition[0], -viewPosition[1]);
-    }
-
-    public PenReader getPenReader() {
-        if (penReader  == null) {
-            penReader = new PenReader(this);
-        }
-        return penReader;
     }
 
     private void initPenReader() {
@@ -90,6 +89,11 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
             @Override
             public void onBeginRawData() {
                 begin = true;
+            }
+
+            @Override
+            public void onEndRawData() {
+
             }
 
             @Override
@@ -112,21 +116,23 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
             }
 
             @Override
-            public void onEraseTouchPointListReceived(TouchPointList touchPointList) {
-
-            }
-
-            @Override
             public void onEndErasing() {
 
             }
 
             @Override
-            public void onEndRawData() {
-                
+            public void onEraseTouchPointListReceived(TouchPointList touchPointList) {
+
             }
+
         });
 
+        surfaceView.post(new Runnable() {
+            @Override
+            public void run() {
+                enterScribbleMode();
+            }
+        });
         surfaceView.post(new Runnable() {
             @Override
             public void run() {
@@ -218,8 +224,8 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
 
     @Override
     protected void onResume() {
-        super.onResume();
         getPenReader().resume();
+        super.onResume();
     }
 
 }
