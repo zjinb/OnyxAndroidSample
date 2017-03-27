@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -22,6 +20,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ScribbleDemoActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "ScribbleDemoActivity";
 
     @Bind(R.id.button_pen)
     Button buttonPen;
@@ -38,15 +37,19 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scribble_demo);
-        penReader = new PenReader(this);
 
         ButterKnife.bind(this);
         buttonPen.setOnClickListener(this);
         buttonEraser.setOnClickListener(this);
 
+        initSurfaceView();
+    }
+
+    private void initSurfaceView() {
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
+                initPenReader();
                 cleanSurfaceView();
                 updateViewMatrix();
             }
@@ -59,11 +62,16 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
 
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
-
             }
         });
+    }
 
-        setPenReaderCallback();
+
+    public PenReader getPenReader() {
+        if (penReader == null) {
+            penReader = new PenReader(this);
+        }
+        return penReader;
     }
 
     private void updateViewMatrix() {
@@ -73,8 +81,8 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
         viewMatrix.postTranslate(-viewPosition[0], -viewPosition[1]);
     }
 
-    private void setPenReaderCallback() {
-        penReader.setPenReaderCallback(new PenReader.PenReaderCallback() {
+    private void initPenReader() {
+        getPenReader().setPenReaderCallback(new PenReader.PenReaderCallback() {
             final float baseWidth = 5;
             final float pressure = 1;
             final float size = 1;
@@ -82,6 +90,11 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onBeginRawData() {
                 begin = true;
+            }
+
+            @Override
+            public void onEndRawData() {
+
             }
 
             @Override
@@ -104,8 +117,19 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
             }
 
             @Override
+            public void onEndErasing() {
+
+            }
+
+            @Override
             public void onEraseTouchPointListReceived(TouchPointList touchPointList) {
 
+            }
+        });
+        surfaceView.post(new Runnable() {
+            @Override
+            public void run() {
+                enterScribbleMode();
             }
         });
     }
@@ -118,7 +142,7 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     protected void onPause() {
-        leaveScribbleMode();
+        getPenReader().pause();
         super.onPause();
     }
 
@@ -149,14 +173,14 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
     private void enterScribbleMode() {
         EpdController.enterScribbleMode(surfaceView);
         scribbleMode = true;
-        penReader.start();
-        penReader.resume();
+        getPenReader().start();
+        getPenReader().resume();
     }
 
     private void leaveScribbleMode() {
         scribbleMode = false;
         EpdController.leaveScribbleMode(surfaceView);
-        penReader.stop();
+        getPenReader().stop();
     }
 
     private float[] mapPoint(float x, float y) {
@@ -193,8 +217,8 @@ public class ScribbleDemoActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     protected void onResume() {
+        getPenReader().resume();
         super.onResume();
-        penReader.resume();
     }
 
 }
