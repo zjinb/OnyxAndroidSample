@@ -133,12 +133,6 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
                 enterScribbleMode();
             }
         });
-        surfaceView.post(new Runnable() {
-            @Override
-            public void run() {
-                enterScribbleMode();
-            }
-        });
     }
 
     @Override
