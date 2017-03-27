@@ -36,15 +36,20 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scribble_stylus_demo);
-        penReader = new PenReader(this);
 
         ButterKnife.bind(this);
         buttonPen.setOnClickListener(this);
         buttonEraser.setOnClickListener(this);
 
+
+        initSurfaceView();
+    }
+
+    private void initSurfaceView() {
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
+                initPenReader();
                 cleanSurfaceView();
                 updateViewMatrix();
             }
@@ -60,8 +65,6 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
 
             }
         });
-
-        setPenReaderCallback();
     }
 
     private void updateViewMatrix() {
@@ -71,8 +74,15 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
         viewMatrix.postTranslate(-viewPosition[0], -viewPosition[1]);
     }
 
-    private void setPenReaderCallback() {
-        penReader.setPenReaderCallback(new PenReader.PenReaderCallback() {
+    public PenReader getPenReader() {
+        if (penReader  == null) {
+            penReader = new PenReader(this);
+        }
+        return penReader;
+    }
+
+    private void initPenReader() {
+        getPenReader().setPenReaderCallback(new PenReader.PenReaderCallback() {
             final float baseWidth = 5;
             final float pressure = 1;
             final float size = 1;
@@ -116,6 +126,13 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
                 
             }
         });
+
+        surfaceView.post(new Runnable() {
+            @Override
+            public void run() {
+                enterScribbleMode();
+            }
+        });
     }
 
     @Override
@@ -126,7 +143,7 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
 
     @Override
     protected void onPause() {
-        leaveScribbleMode();
+        getPenReader().pause();
         super.onPause();
     }
 
@@ -157,14 +174,14 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
     private void enterScribbleMode() {
         EpdController.enterScribbleMode(surfaceView);
         scribbleMode = true;
-        penReader.start();
-        penReader.resume();
+        getPenReader().start();
+        getPenReader().resume();
     }
 
     private void leaveScribbleMode() {
         scribbleMode = false;
         EpdController.leaveScribbleMode(surfaceView);
-        penReader.stop();
+        getPenReader().stop();
     }
 
     private float[] mapPoint(float x, float y) {
@@ -202,7 +219,7 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
     @Override
     protected void onResume() {
         super.onResume();
-        penReader.resume();
+        getPenReader().resume();
     }
 
 }
