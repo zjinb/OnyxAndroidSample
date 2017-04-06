@@ -18,7 +18,7 @@
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dip"
+    android:layout_height="@dimen/audio_player_common_play_the_interface_height"
     android:background="@drawable/list_selector"
     android:gravity="center_vertical"
     android:ignoreGravity="@+id/icon">
