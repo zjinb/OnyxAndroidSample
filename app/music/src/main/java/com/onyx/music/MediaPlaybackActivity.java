@@ -1173,7 +1173,7 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
                     break;
 
                 case REFRESH:
-                    long next = 8*refreshNow();
+                    long next = 10*refreshNow();
                     queueNextRefresh(next);
                     break;
                     

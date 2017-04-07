@@ -19,14 +19,17 @@
 -->
 
 <resources>
-    <dimen name="audio_player_picture_Height">500dip</dimen>
-    <dimen name="audio_player_picture_width">500dip</dimen>
+    <dimen name="audio_player_picture_height">450dip</dimen>
+    <dimen name="audio_player_picture_width">450dip</dimen>
+    <dimen name="audio_player_ImageView_marginLeft">330dip</dimen>
+    <dimen name="audio_player_TextView_textSize">25sp</dimen>
     <dimen name="audio_player_spacing">20dip</dimen>
     <dimen name="audio_player_ImageButton_Height">54dip</dimen>
     <dimen name="audio_player_LinearLayout_paddingLeft">11dip</dimen>
     <dimen name="audio_player_LinearLayout_paddingTop">0dip</dimen>
     <dimen name="audio_player_LinearLayout_paddingBottom">8dip</dimen>
     <dimen name="audio_player_common_currenttime_textSize">20sp</dimen>
+    <dimen name="audio_player_common_play_the_interface_height">80dip</dimen>
     <dimen name="track_list_item_layout_height">80dip</dimen>
     <dimen name="track_list_item_padding">10dip</dimen>
     <dimen name="track_list_item_common_ImageView_packup_marginBottom">2dip</dimen>
@@ -34,7 +37,11 @@
     <dimen name="track_list_item_common_duration_marginLeft">20dip</dimen>
     <dimen name="track_list_item_common_duration_paddingRight">25dip</dimen>
     <dimen name="track_list_item_common_play_indicator_layout_marginRight">25dip</dimen>
+    <dimen name="track_list_item_common_TextView_paddingTop">5dip</dimen>
+    <dimen name="track_list_item_common_TextView_paddingBottom">5dip</dimen>
+    <dimen name="track_list_item_common_SeekBar_height">20dip</dimen>
     <dimen name="edit_track_list_item_layout_height">80dip</dimen>
     <dimen name="nowplaying_layout_marginLeft">30dip</dimen>
     <dimen name="nowplaying_icon_layout_marginRight">16dip</dimen>
+    <dimen name="buttonbar_TextView_paddingTop">12dip</dimen>
 </resources>
