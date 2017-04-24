@@ -2,11 +2,14 @@ package com.onyx.android.sample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.onyx.android.sdk.api.device.EpdDeviceManager;
+import com.onyx.android.sdk.api.device.epd.EpdController;
+import com.onyx.android.sdk.api.device.epd.UpdateMode;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,6 +28,8 @@ public class EpdDemoActivity extends AppCompatActivity implements View.OnClickLi
     Button button_screen_refresh;
     @Bind(R.id.textview)
     TextView textView;
+    @Bind(R.id.surfaceview)
+    SurfaceView surfaceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +57,7 @@ public class EpdDemoActivity extends AppCompatActivity implements View.OnClickLi
             EpdDeviceManager.applyWithGCIntervalWitRegal(textView, true);
         } else if (v.equals(button_screen_refresh)) {
             updateTextView();
-            EpdDeviceManager.applyGCUpdate(textView);
+            EpdController.invalidate(textView, UpdateMode.GC);
         } else if (v.equals(button_enter_fast_mode)) {
             EpdDeviceManager.enterAnimationUpdate(true);
         } else if (v.equals(button_quit_fast_mode)) {

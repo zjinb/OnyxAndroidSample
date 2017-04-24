@@ -52,10 +52,18 @@
     <TextView
         android:id="@+id/textview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:layout_below="@id/layout_function"
+        android:background="@android:color/darker_gray"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:text="Hello World!" />
+
+    <SurfaceView
+        android:id="@+id/surfaceview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/textview"
+        android:background="@android:color/white"/>
 
 </RelativeLayout>
