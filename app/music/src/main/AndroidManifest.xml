@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
 
 
-    <application android:icon="@drawable/ic_music_small"
+    <application android:icon="@drawable/app_music"
         android:label="@string/musicbrowserlabel"
         android:taskAffinity="android.task.music"
         android:allowTaskReparenting="true">
@@ -21,6 +21,7 @@
             />
 
         <activity android:name="com.onyx.music.MusicBrowserActivity"
+            android:icon="@drawable/ic_music_small"
             android:theme="@android:style/Theme.Holo.Light"
             android:exported="true"
             >
@@ -50,6 +51,7 @@
              recents since this is accessible through a notification when
              appropriate. -->
         <activity android:name="com.onyx.music.MediaPlaybackActivity"
+            android:icon="@drawable/ic_music_small"
             android:theme="@android:style/Theme.Holo.Light"
             android:label="@string/mediaplaybacklabel"
             android:taskAffinity=""
@@ -109,6 +111,7 @@
         </activity>
 
         <activity android:name="com.onyx.music.ArtistAlbumBrowserActivity"
+                  android:icon="@drawable/ic_music_small"
                   android:theme="@android:style/Theme.Holo.Light"
                   android:exported="false" >
             <intent-filter>
@@ -118,6 +121,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.onyx.music.AlbumBrowserActivity"
+                  android:icon="@drawable/ic_music_small"
                   android:theme="@android:style/Theme.Holo.Light"
                   android:exported="false" >
             <intent-filter>
@@ -134,6 +138,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.onyx.music.TrackBrowserActivity"
+                  android:icon="@drawable/ic_music_small"
                   android:theme="@android:style/Theme.Holo.Light"
                   android:exported="false" >
             <intent-filter>
@@ -157,6 +162,7 @@
                 />
         </activity>
         <activity android:name="com.onyx.music.PlaylistBrowserActivity"
+            android:icon="@drawable/ic_music_small"
             android:theme="@android:style/Theme.Holo.Light"
             android:label="@string/musicbrowserlabel"
             android:exported="true" >
