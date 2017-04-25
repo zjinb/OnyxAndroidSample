@@ -4,7 +4,7 @@ Sample project of SDKs from Onyx-Intl, including [onyxsdk-base](https://github.c
 To use the SDK, please add the following statement to your build.gradle:
 
     compile 'com.onyx.android.sdk:onyxsdk-base:1.3.2'
-    compile 'com.onyx.android.sdk:onyxsdk-scribble:1.0.2'
+    compile 'com.onyx.android.sdk:onyxsdk-scribble:1.0.4'
     
 For onyxsdk-scribble SDK, dbflow library is inside the jitpack, so you have to add the following statement to your project build.gradle:
 
