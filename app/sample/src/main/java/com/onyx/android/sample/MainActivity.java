@@ -65,4 +65,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     void onSdkDataTestClick() {
         startActivity(new Intent(this, SdkDataOTATestActivity.class));
     }
+
+    @OnClick(R.id.button_settings)
+    void settingsClick() {
+        startActivity(new Intent(this, SettingsDemoActivity.class));
+    }
 }
