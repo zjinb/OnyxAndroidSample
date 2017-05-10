@@ -39,8 +39,7 @@
             latin:keyboardLayout="@xml/rowkeys_qwerty2"
             latin:keyXPos="4.5%p" />
         <Key
-            latin:keyStyle="enterKeyStyle"
-            latin:keyWidth="fillRight" />
+            latin:keyStyle="enterKeyStyle" />
     </Row>
     <Row
         latin:keyWidth="9.0%p"
