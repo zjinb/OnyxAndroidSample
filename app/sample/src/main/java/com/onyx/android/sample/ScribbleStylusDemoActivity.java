@@ -89,6 +89,7 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
             @Override
             public void onBeginRawData() {
                 begin = true;
+                enterScribbleMode();
             }
 
             @Override
@@ -130,7 +131,7 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
         surfaceView.post(new Runnable() {
             @Override
             public void run() {
-                enterScribbleMode();
+                penStart();
             }
         });
     }
@@ -150,7 +151,7 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
     @Override
     public void onClick(View v) {
         if (v.equals(buttonPen)) {
-            enterScribbleMode();
+            penStart();
             return;
         } else if (v.equals(buttonEraser)) {
             leaveScribbleMode();
@@ -174,6 +175,9 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
     private void enterScribbleMode() {
         EpdController.enterScribbleMode(surfaceView);
         scribbleMode = true;
+    }
+
+    private void penStart() {
         getPenReader().start();
         getPenReader().resume();
     }
