@@ -53,6 +53,18 @@
             android:layout_height="wrap_content"
             android:text="SdkData OTA-Test Demo" />
 
+        <Button
+            android:id="@+id/button_full_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Full Screen Demo" />
+
+        <Button
+            android:id="@+id/button_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings Demo" />
+
     </LinearLayout>
 
 </RelativeLayout>

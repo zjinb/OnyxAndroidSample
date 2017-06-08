@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button buttonTouchScreenScribble;
     @Bind(R.id.button_stylus_scribble)
     Button buttonStylusScribble;
+    @Bind(R.id.button_full_screen)
+    Button buttonFullScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonFrontLight.setOnClickListener(this);
         buttonTouchScreenScribble.setOnClickListener(this);
         buttonStylusScribble.setOnClickListener(this);
+        buttonFullScreen.setOnClickListener(this);
     }
 
     @Override
@@ -53,11 +56,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (v.equals(buttonStylusScribble)) {
             startActivity(new Intent(this, ScribbleStylusDemoActivity.class));
             return;
+        } else if (v.equals(buttonFullScreen)) {
+            startActivity(new Intent(this, FullScreenDemoActivity.class));
         }
     }
 
     @OnClick(R.id.button_sdk_data_ota_test)
     void onSdkDataTestClick() {
         startActivity(new Intent(this, SdkDataOTATestActivity.class));
+    }
+
+    @OnClick(R.id.button_settings)
+    void settingsClick() {
+        startActivity(new Intent(this, SettingsDemoActivity.class));
     }
 }

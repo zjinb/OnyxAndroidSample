@@ -96,6 +96,7 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         ExpandableListView lv = getExpandableListView();
         lv.setOnCreateContextMenuListener(this);
         lv.setTextFilterEnabled(true);
+        lv.setGroupIndicator(null);
 
         mAdapter = (ArtistAlbumListAdapter) getLastNonConfigurationInstance();
         if (mAdapter == null) {
@@ -552,7 +553,6 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         private AsyncQueryHandler mQueryHandler;
         private String mConstraint = null;
         private boolean mConstraintIsValid = false;
-        private ImageView mNextIcon;
         private ViewHolder vh;
 
         static class ViewHolder {
@@ -560,7 +560,8 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             TextView line2;
             ImageView play_indicator;
             ImageView icon;
-            ImageView mNextIcon;
+            ImageView mPackUp;
+            ImageView mUnfold;
         }
         class QueryHandler extends AsyncQueryHandler {
             QueryHandler(ContentResolver res) {
@@ -621,7 +622,8 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
         public View newGroupView(Context context, Cursor cursor, boolean isExpanded, ViewGroup parent) {
             View v = super.newGroupView(context, cursor, isExpanded, parent);
             ImageView iv = (ImageView) v.findViewById(R.id.icon);
-            mNextIcon = (ImageView) v.findViewById(R.id.icon_next);
+            ImageView PackUp = (ImageView) v.findViewById(R.id.pack_up);
+            PackUp.setVisibility(View.VISIBLE);
             ViewGroup.LayoutParams p = iv.getLayoutParams();
             p.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             p.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -631,7 +633,8 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             vh.play_indicator = (ImageView) v.findViewById(R.id.play_indicator);
             vh.icon = (ImageView) v.findViewById(R.id.icon);
             vh.icon.setPadding(0, 0, 1, 0);
-            vh.mNextIcon = (ImageView) v.findViewById(R.id.icon_next);
+            vh.mPackUp = (ImageView) v.findViewById(R.id.pack_up);
+            vh.mUnfold = (ImageView) v.findViewById(R.id.unfold);
             v.setTag(vh);
             return v;
         }
@@ -679,11 +682,14 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
                 vh.play_indicator.setImageDrawable(null);
             }
             if (isExpanded) {
-                vh.mNextIcon.setBackgroundResource(R.drawable.ic_music_unfold);
+                vh.mUnfold.setBackgroundResource(R.drawable.ic_music_unfold);
+                vh.mUnfold.setVisibility(View.VISIBLE);
+                vh.mPackUp.setVisibility(View.GONE);
             } else {
-                vh.mNextIcon.setBackgroundResource(R.drawable.ic_music_pack_up);
+                vh.mPackUp.setBackgroundResource(R.drawable.ic_music_pack_up);
+                vh.mPackUp.setVisibility(View.VISIBLE);
+                vh.mUnfold.setVisibility(View.GONE);
             }
-            vh.mNextIcon.setVisibility(View.VISIBLE);
         }
 
         @Override

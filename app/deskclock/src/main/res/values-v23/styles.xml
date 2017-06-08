@@ -26,4 +26,15 @@
         <item name="android:shadowColor">@color/digital_widget_shadow_color</item>
         <item name="android:shadowDy">@dimen/digital_widget_shadow_dy</item>
     </style>
+
+    <style name="CitiesTheme" parent="TranslucentDecorActivityTheme">
+        <item name="android:fastScrollPreviewBackgroundLeft">@drawable/fastscroll_preview</item>
+        <item name="android:fastScrollPreviewBackgroundRight">@drawable/fastscroll_preview</item>
+        <item name="android:fastScrollTextColor">@color/white</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
+        <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_track</item>
+        <!-- Attributes from support.v7.appcompat -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

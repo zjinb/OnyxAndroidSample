@@ -357,7 +357,7 @@ public class MediaPlaybackService extends Service {
         registerReceiver(mIntentReceiver, commandFilter);
         
         PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
-        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, this.getClass().getName());
+        mWakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, this.getClass().getName());
         mWakeLock.setReferenceCounted(false);
 
         // If the service was idle, but got killed before it stopped itself, the
@@ -1154,6 +1154,7 @@ public class MediaPlaybackService extends Service {
      * Starts playback of a previously opened file.
      */
     public void play() {
+        mWakeLock.acquire();
         mAudioManager.requestAudioFocus(mAudioFocusListener, AudioManager.STREAM_MUSIC,
                 AudioManager.AUDIOFOCUS_GAIN);
         mAudioManager.registerMediaButtonEventReceiver(new ComponentName(this.getPackageName(),
@@ -1252,6 +1253,9 @@ public class MediaPlaybackService extends Service {
         synchronized(this) {
             mMediaplayerHandler.removeMessages(FADEUP);
             if (isPlaying()) {
+                if (mWakeLock != null && mWakeLock.isHeld()) {
+                    mWakeLock.release();
+                }
                 mPlayer.pause();
                 gotoIdleState();
                 mIsSupposedToBePlaying = false;

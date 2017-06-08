@@ -19,23 +19,33 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- icon is used for albumart, the grabber in edit playlist mode, and the playlist icon in the list of playlists -->
-            <ImageView android:id="@+id/icon"
-                android:layout_centerInParent="true"
-                android:layout_alignParentLeft="true"
-                android:layout_width="wrap_content"
-                android:background="@android:color/white"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_music_singer_cd"
-                />
-            <ImageView android:id="@+id/icon_next"
-                android:layout_toRightOf ="@id/icon"
-                android:layout_alignParentBottom="true"
-                android:layout_width="wrap_content"
-                android:background="@android:color/white"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_music_pack_up"
-                android:visibility="gone"
-                />
+        <ImageView android:id="@+id/icon"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:background="@android:color/white"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_music_singer_cd" />
+
+        <ImageView android:id="@+id/pack_up"
+            android:layout_toRightOf ="@id/icon"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/track_list_item_common_ImageView_packup_marginBottom"
+            android:layout_width="wrap_content"
+            android:background="@android:color/white"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_music_pack_up"
+            android:visibility="gone" />
+
+        <ImageView android:id="@+id/unfold"
+            android:layout_toRightOf ="@id/icon"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/track_list_item_common_ImageView_packup_marginBottom"
+            android:layout_width="wrap_content"
+            android:background="@android:color/white"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_music_unfold"
+            android:visibility="gone" />
 
         <TextView android:id="@+id/duration"
             android:textSize="@dimen/track_list_item_common_duration_textSize"
@@ -56,10 +66,11 @@
             android:textAppearance="@style/MusicHomeTitleTextStyle"
             android:layout_width="wrap_content"
             android:paddingLeft="9dip"
-            android:paddingTop="10dp"
+            android:paddingTop="@dimen/track_list_item_common_TextView_paddingTop"
             android:layout_height="wrap_content"
             android:layout_alignWithParentIfMissing="true"
-            android:layout_toRightOf="@id/icon_next"
+            android:layout_toRightOf="@id/icon"
+            android:layout_marginLeft="@dimen/track_list_item_common_duration_marginLeft"
             android:layout_toLeftOf="@id/duration"
             android:ellipsize="marquee"
             android:singleLine="true" />
@@ -70,10 +81,12 @@
             android:singleLine="true"
             android:ellipsize="end"
             android:paddingLeft="9dip"
+            android:paddingBottom="@dimen/track_list_item_common_TextView_paddingBottom"
             android:scrollHorizontally="true"
             android:layout_below="@id/line1"
             android:layout_alignWithParentIfMissing="true"
-            android:layout_toRightOf="@id/icon_next"
+            android:layout_toRightOf="@id/icon"
+            android:layout_marginLeft="@dimen/track_list_item_common_duration_marginLeft"
             android:layout_toLeftOf="@id/duration"
             android:textColor="@android:color/black"
             android:layout_width="wrap_content"
