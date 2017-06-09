@@ -141,7 +141,7 @@ ifeq ($(FLAG_DBG), true)
 endif # FLAG_DBG
 endif # FLAG_DO_PROFILE
 
-LOCAL_MODULE := libjni_latinime
+LOCAL_MODULE := libjni_library_latinime
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_SDK_VERSION := 14
