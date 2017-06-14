@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import com.onyx.android.sample.device.DeviceConfig;
@@ -26,7 +28,7 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
     @Bind(R.id.button_eraser)
     Button buttonEraser;
     @Bind(R.id.surfaceview)
-    SurfaceView surfaceView;
+    WebView surfaceView;
 
     boolean scribbleMode = false;
     private PenReader penReader;
@@ -41,28 +43,46 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
         buttonPen.setOnClickListener(this);
         buttonEraser.setOnClickListener(this);
 
+        surfaceView.loadUrl("http://baidu.com");
+        surfaceView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO Auto-generated method stub
+                view.loadUrl(url);
+                return true;
+            }
+        });
+
         initSurfaceView();
     }
 
     private void initSurfaceView() {
-        surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
+        surfaceView.post(new Runnable() {
             @Override
-            public void surfaceCreated(SurfaceHolder holder) {
+            public void run() {
                 initPenReader();
                 cleanSurfaceView();
                 updateViewMatrix();
             }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-                cleanSurfaceView();
-                updateViewMatrix();
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-            }
         });
+//        surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
+//            @Override
+//            public void surfaceCreated(SurfaceHolder holder) {
+//                initPenReader();
+//                cleanSurfaceView();
+//                updateViewMatrix();
+//            }
+//
+//            @Override
+//            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+//                cleanSurfaceView();
+//                updateViewMatrix();
+//            }
+//
+//            @Override
+//            public void surfaceDestroyed(SurfaceHolder holder) {
+//            }
+//        });
     }
 
 
@@ -161,15 +181,15 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
     }
 
     private void cleanSurfaceView() {
-        if (surfaceView.getHolder() == null) {
-            return;
-        }
-        Canvas canvas = surfaceView.getHolder().lockCanvas();
-        if (canvas == null) {
-            return;
-        }
-        canvas.drawColor(Color.WHITE);
-        surfaceView.getHolder().unlockCanvasAndPost(canvas);
+//        if (surfaceView.getHolder() == null) {
+//            return;
+//        }
+//        Canvas canvas = surfaceView.getHolder().lockCanvas();
+//        if (canvas == null) {
+//            return;
+//        }
+//        canvas.drawColor(Color.WHITE);
+//        surfaceView.getHolder().unlockCanvasAndPost(canvas);
     }
 
     private void enterScribbleMode() {
