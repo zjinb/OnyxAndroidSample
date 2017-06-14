@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.onyx.android.sdk.api.device.epd.EpdController;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonTouchScreenScribble.setOnClickListener(this);
         buttonStylusScribble.setOnClickListener(this);
         buttonFullScreen.setOnClickListener(this);
+        final View view = findViewById(android.R.id.content);
+        EpdController.enablePost(view, 1);
     }
 
     @Override
