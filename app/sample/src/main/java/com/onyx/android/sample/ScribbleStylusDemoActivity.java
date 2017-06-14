@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -181,6 +182,13 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
     }
 
     private void cleanSurfaceView() {
+        surfaceView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
 //        if (surfaceView.getHolder() == null) {
 //            return;
 //        }
