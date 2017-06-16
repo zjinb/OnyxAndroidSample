@@ -1,90 +1,130 @@
 package com.onyx.android.sample;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
+import android.content.Context;
 import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.JavascriptInterface;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.onyx.android.sample.device.DeviceConfig;
 import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.scribble.api.PenReader;
 import com.onyx.android.sdk.scribble.data.TouchPoint;
 import com.onyx.android.sdk.scribble.data.TouchPointList;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ScribbleStylusDemoActivity extends AppCompatActivity implements View.OnClickListener {
+public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Bind(R.id.button_pen)
     Button buttonPen;
     @Bind(R.id.button_eraser)
     Button buttonEraser;
     @Bind(R.id.surfaceview)
-    WebView surfaceView;
+    WebView webView;
 
     boolean scribbleMode = false;
     private PenReader penReader;
     private Matrix viewMatrix;
+    List<RectF> btnRectList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scribble_stylus_demo);
+        setContentView(R.layout.activity_scribble_webview_stylus_demo);
 
         ButterKnife.bind(this);
         buttonPen.setOnClickListener(this);
         buttonEraser.setOnClickListener(this);
 
-        surfaceView.loadUrl("http://baidu.com");
-        surfaceView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // TODO Auto-generated method stub
-                view.loadUrl(url);
-                return true;
-            }
-        });
-
-        initSurfaceView();
+        initWebView();
     }
 
-    private void initSurfaceView() {
-        surfaceView.post(new Runnable() {
+    private class MyWebViewClient extends WebViewClient {
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            String js = "android.btns(getBtns());";
+            webView.loadUrl("javascript:" + js);
+        }
+    }
+
+    public class WebJsInterface {
+        Context mContext;
+
+        WebJsInterface(Context context) {
+            mContext = context;
+        }
+
+        @JavascriptInterface
+        public void btns(String data) {
+            btnRectList = JSON.parseObject(data, new TypeReference<List<RectF>>(){});
+        }
+    }
+
+    private String readHtmlFile() {
+        InputStream in = getResources().openRawResource(R.raw.demo);
+        StringBuilder builder = new StringBuilder();
+        try {
+            int count;
+            byte[] bytes = new byte[32768];
+            while ( (count = in.read(bytes,0, 32768)) > 0) {
+                builder.append(new String(bytes, 0, count));
+            }
+
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return builder.toString();
+    }
+
+    private void initWebView() {
+        webView.setWebViewClient(new MyWebViewClient());
+        webView.addJavascriptInterface(new WebJsInterface(this), "android");
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                return super.onJsAlert(view, url, message, result);
+            }
+        });
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadData(readHtmlFile(), "text/html", "utf-8");
+        webView.post(new Runnable() {
             @Override
             public void run() {
                 initPenReader();
-                cleanSurfaceView();
                 updateViewMatrix();
             }
         });
-//        surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
-//            @Override
-//            public void surfaceCreated(SurfaceHolder holder) {
-//                initPenReader();
-//                cleanSurfaceView();
-//                updateViewMatrix();
-//            }
-//
-//            @Override
-//            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-//                cleanSurfaceView();
-//                updateViewMatrix();
-//            }
-//
-//            @Override
-//            public void surfaceDestroyed(SurfaceHolder holder) {
-//            }
-//        });
+        webView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                for (RectF rect : btnRectList) {
+                    if (rect.contains(event.getX(), event.getY())) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        });
     }
-
 
     public PenReader getPenReader() {
         if (penReader == null) {
@@ -95,7 +135,7 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
 
     private void updateViewMatrix() {
         int viewPosition[] = {0, 0};
-        surfaceView.getLocationOnScreen(viewPosition);
+        webView.getLocationOnScreen(viewPosition);
         viewMatrix = new Matrix();
         viewMatrix.postTranslate(-viewPosition[0], -viewPosition[1]);
     }
@@ -148,7 +188,7 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
 
         });
 
-        surfaceView.post(new Runnable() {
+        webView.post(new Runnable() {
             @Override
             public void run() {
                 penStart();
@@ -175,25 +215,12 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
             return;
         } else if (v.equals(buttonEraser)) {
             leaveScribbleMode();
-            cleanSurfaceView();
             return;
         }
     }
 
-    private void cleanSurfaceView() {
-//        if (surfaceView.getHolder() == null) {
-//            return;
-//        }
-//        Canvas canvas = surfaceView.getHolder().lockCanvas();
-//        if (canvas == null) {
-//            return;
-//        }
-//        canvas.drawColor(Color.WHITE);
-//        surfaceView.getHolder().unlockCanvasAndPost(canvas);
-    }
-
     private void enterScribbleMode() {
-        EpdController.enterScribbleMode(surfaceView);
+        EpdController.enterScribbleMode(webView);
         scribbleMode = true;
     }
 
@@ -204,16 +231,16 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
 
     private void leaveScribbleMode() {
         scribbleMode = false;
-        EpdController.leaveScribbleMode(surfaceView);
+        EpdController.leaveScribbleMode(webView);
         getPenReader().stop();
     }
 
     private float[] mapPoint(float x, float y) {
-        x = Math.min(Math.max(0, x), surfaceView.getWidth());
-        y = Math.min(Math.max(0, y), surfaceView.getHeight());
+        x = Math.min(Math.max(0, x), webView.getWidth());
+        y = Math.min(Math.max(0, y), webView.getHeight());
 
         final int viewLocation[] = {0, 0};
-        surfaceView.getLocationOnScreen(viewLocation);
+        webView.getLocationOnScreen(viewLocation);
         final Matrix viewMatrix = new Matrix();
         DeviceConfig deviceConfig = DeviceConfig.sharedInstance(this, "note");
         viewMatrix.postRotate(deviceConfig.getViewPostOrientation());
