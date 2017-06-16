@@ -118,12 +118,17 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
             public boolean onTouch(View v, MotionEvent event) {
                 for (RectF rect : btnRectList) {
                     if (rect.contains(event.getX(), event.getY())) {
+                        saveShapeData();
                         return false;
                     }
                 }
                 return true;
             }
         });
+    }
+
+    private void saveShapeData() {
+
     }
 
     public PenReader getPenReader() {
