@@ -22,8 +22,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button buttonFrontLight;
     @Bind(R.id.button_touch_screen_scribble)
     Button buttonTouchScreenScribble;
-    @Bind(R.id.button_stylus_scribble)
+    @Bind(R.id.button_surfaceview_stylus_scribble)
     Button buttonStylusScribble;
+    @Bind(R.id.button_webview_stylus_scribble)
+    Button buttonStylusWebviewScribble;
     @Bind(R.id.button_full_screen)
     Button buttonFullScreen;
 
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonTouchScreenScribble.setOnClickListener(this);
         buttonStylusScribble.setOnClickListener(this);
         buttonFullScreen.setOnClickListener(this);
+        buttonStylusWebviewScribble.setOnClickListener(this);
         final View view = findViewById(android.R.id.content);
         EpdController.enablePost(view, 1);
     }
@@ -58,10 +61,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, ScribbleTouchScreenDemoActivity.class));
             return;
         } else if (v.equals(buttonStylusScribble)) {
-            startActivity(new Intent(this, ScribbleStylusDemoActivity.class));
+            startActivity(new Intent(this, ScribbleStylusSurfaceViewDemoActivity.class));
             return;
         } else if (v.equals(buttonFullScreen)) {
             startActivity(new Intent(this, FullScreenDemoActivity.class));
+        } else if (v.equals(buttonStylusWebviewScribble)) {
+            startActivity(new Intent(this, ScribbleStylusWebViewDemoActivity.class));
         }
     }
 

@@ -26,7 +26,8 @@
         </activity>
         <activity android:name=".EpdDemoActivity" />
         <activity android:name=".ScribbleTouchScreenDemoActivity" />
-        <activity android:name=".ScribbleStylusDemoActivity" />
+        <activity android:name=".ScribbleStylusSurfaceViewDemoActivity" />
+        <activity android:name=".ScribbleStylusWebViewDemoActivity"/>
         <activity android:name=".EnvironmentDemoActivity" />
         <activity android:name=".FrontLightDemoActivity" />
         <activity android:name=".SdkDataOTATestActivity" />

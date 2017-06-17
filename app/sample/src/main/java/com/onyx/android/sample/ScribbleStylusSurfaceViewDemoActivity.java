@@ -9,8 +9,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import com.onyx.android.sample.device.DeviceConfig;
@@ -22,14 +20,14 @@ import com.onyx.android.sdk.scribble.data.TouchPointList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ScribbleStylusDemoActivity extends AppCompatActivity implements View.OnClickListener {
+public class ScribbleStylusSurfaceViewDemoActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Bind(R.id.button_pen)
     Button buttonPen;
     @Bind(R.id.button_eraser)
     Button buttonEraser;
     @Bind(R.id.surfaceview)
-    WebView surfaceView;
+    SurfaceView surfaceView;
 
     boolean scribbleMode = false;
     private PenReader penReader;
@@ -38,52 +36,34 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scribble_stylus_demo);
+        setContentView(R.layout.activity_scribble_surfaceview_stylus_demo);
 
         ButterKnife.bind(this);
         buttonPen.setOnClickListener(this);
         buttonEraser.setOnClickListener(this);
 
-        surfaceView.loadUrl("http://baidu.com");
-        surfaceView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // TODO Auto-generated method stub
-                view.loadUrl(url);
-                return true;
-            }
-        });
-
         initSurfaceView();
     }
 
     private void initSurfaceView() {
-        surfaceView.post(new Runnable() {
+        surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
-            public void run() {
+            public void surfaceCreated(SurfaceHolder holder) {
                 initPenReader();
                 cleanSurfaceView();
                 updateViewMatrix();
             }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+                cleanSurfaceView();
+                updateViewMatrix();
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+            }
         });
-//        surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
-//            @Override
-//            public void surfaceCreated(SurfaceHolder holder) {
-//                initPenReader();
-//                cleanSurfaceView();
-//                updateViewMatrix();
-//            }
-//
-//            @Override
-//            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-//                cleanSurfaceView();
-//                updateViewMatrix();
-//            }
-//
-//            @Override
-//            public void surfaceDestroyed(SurfaceHolder holder) {
-//            }
-//        });
     }
 
 
@@ -182,22 +162,15 @@ public class ScribbleStylusDemoActivity extends AppCompatActivity implements Vie
     }
 
     private void cleanSurfaceView() {
-        surfaceView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
-
-//        if (surfaceView.getHolder() == null) {
-//            return;
-//        }
-//        Canvas canvas = surfaceView.getHolder().lockCanvas();
-//        if (canvas == null) {
-//            return;
-//        }
-//        canvas.drawColor(Color.WHITE);
-//        surfaceView.getHolder().unlockCanvasAndPost(canvas);
+        if (surfaceView.getHolder() == null) {
+            return;
+        }
+        Canvas canvas = surfaceView.getHolder().lockCanvas();
+        if (canvas == null) {
+            return;
+        }
+        canvas.drawColor(Color.WHITE);
+        surfaceView.getHolder().unlockCanvasAndPost(canvas);
     }
 
     private void enterScribbleMode() {
