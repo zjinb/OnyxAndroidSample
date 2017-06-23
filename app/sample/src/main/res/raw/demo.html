@@ -5,7 +5,7 @@
   <script language="javascript">
       /* This function is invoked by the activity */
       function wave() {
-          alert("Android调用Js啦");
+          alert("Android calling Js");
       }
       function getBtns() {
          var btns = document.getElementsByTagName('button');
@@ -25,13 +25,13 @@
   </script>
   <body>
       <!-- Js调用Android代码 -->
-      <button onClick="wave();"><div style="width:80px;
+      <button onClick="javascript:android.testJsCallback();"><div style="width:80px;
           margin:0px auto;
           padding:10px;
           text-align:center;
           border:2px solid #202020;" >
               <img id="droid"/><br>
-              Click me!
+              Quit scribble!
       </div></button>
   </body>
 </html>
