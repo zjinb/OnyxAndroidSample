@@ -2,10 +2,8 @@ package com.onyx.android.sample;
 
 import android.content.Context;
 import android.graphics.Matrix;
-import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
@@ -13,9 +11,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.onyx.android.sample.device.DeviceConfig;
 import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.scribble.api.PenReader;
@@ -24,8 +21,6 @@ import com.onyx.android.sdk.scribble.data.TouchPointList;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,7 +37,6 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
     boolean scribbleMode = false;
     private PenReader penReader;
     private Matrix viewMatrix;
-    List<RectF> btnRectList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +67,12 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
         }
 
         @JavascriptInterface
-        public void btns(String data) {
-            btnRectList = JSON.parseObject(data, new TypeReference<List<RectF>>(){});
+        public void testJsCallback() {
+            leaveScribbleMode();
+            getWindow().getDecorView().postInvalidate();
+            Toast.makeText(mContext, "Quit scribble from WebView", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private String readHtmlFile() {
@@ -113,21 +110,6 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
                 updateViewMatrix();
             }
         });
-        webView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                for (RectF rect : btnRectList) {
-                    if (rect.contains(event.getX(), event.getY())) {
-                        saveShapeData();
-                        return false;
-                    }
-                }
-                return true;
-            }
-        });
-    }
-
-    private void saveShapeData() {
 
     }
 
@@ -191,13 +173,6 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
 
             }
 
-        });
-
-        webView.post(new Runnable() {
-            @Override
-            public void run() {
-                penStart();
-            }
         });
     }
 
