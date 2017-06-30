@@ -15,9 +15,11 @@ import android.widget.Toast;
 
 import com.onyx.android.sample.device.DeviceConfig;
 import com.onyx.android.sdk.api.device.epd.EpdController;
+import com.onyx.android.sdk.common.request.WakeLockHolder;
 import com.onyx.android.sdk.scribble.api.PenReader;
 import com.onyx.android.sdk.scribble.data.TouchPoint;
 import com.onyx.android.sdk.scribble.data.TouchPointList;
+import com.onyx.android.sdk.utils.DeviceUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,6 +39,8 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
     boolean scribbleMode = false;
     private PenReader penReader;
     private Matrix viewMatrix;
+
+    private WakeLockHolder wakeLockHolder = new WakeLockHolder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,6 +209,8 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
     }
 
     private void penStart() {
+        wakeLockHolder.acquireWakeLock(this, "scribble");
+
         getPenReader().start();
         getPenReader().resume();
     }
@@ -213,6 +219,8 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
         scribbleMode = false;
         EpdController.leaveScribbleMode(webView);
         getPenReader().stop();
+
+        wakeLockHolder.forceReleaseWakeLock();
     }
 
     private float[] mapPoint(float x, float y) {
