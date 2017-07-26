@@ -54,6 +54,12 @@
             android:text="Stylus Scribble WebView Demo"/>
 
         <Button
+            android:id="@+id/button_scribble_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scribble State Demo" />
+
+        <Button
             android:id="@+id/button_sdk_data_ota_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,12 +76,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Settings Demo" />
-
-        <Button
-            android:id="@+id/button_scribble_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Scribble State Demo" />
 
     </LinearLayout>
 
