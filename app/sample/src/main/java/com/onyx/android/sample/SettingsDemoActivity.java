@@ -26,4 +26,12 @@ public class SettingsDemoActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.button_power)
+    void powerClick() {
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("com.android.settings",
+                "com.android.settings.DisplaySettings"));
+        startActivity(intent);
+    }
+
 }
