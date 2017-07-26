@@ -33,6 +33,7 @@
         <activity android:name=".SdkDataOTATestActivity" />
         <activity android:name=".FullScreenDemoActivity" />
         <activity android:name=".SettingsDemoActivity" />
+        <activity android:name=".ScribbleStateDemoActivity" />
     </application>
 
 </manifest>

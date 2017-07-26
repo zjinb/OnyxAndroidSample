@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button buttonStylusWebviewScribble;
     @Bind(R.id.button_full_screen)
     Button buttonFullScreen;
+    @Bind(R.id.button_scribble_state)
+    Button buttonScribbleState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonStylusScribble.setOnClickListener(this);
         buttonFullScreen.setOnClickListener(this);
         buttonStylusWebviewScribble.setOnClickListener(this);
+        buttonScribbleState.setOnClickListener(this);
         final View view = findViewById(android.R.id.content);
         EpdController.enablePost(view, 1);
     }
@@ -67,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, FullScreenDemoActivity.class));
         } else if (v.equals(buttonStylusWebviewScribble)) {
             startActivity(new Intent(this, ScribbleStylusWebViewDemoActivity.class));
+        } else if (v.equals(buttonScribbleState)) {
+            startActivity(new Intent(this, ScribbleStateDemoActivity.class));
         }
     }
 
