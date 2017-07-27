@@ -88,10 +88,10 @@ public class ScribbleStateDemoActivity extends Activity {
         float[] leftTop = mapPoint(region.left, region.top);
         float[] rightBottom = mapPoint(region.right, region.bottom);
 
-        int left = (int)Math.max(leftTop[0], rightBottom[0]);
-        int top = (int)Math.max(leftTop[1], rightBottom[1]);
-        int right = (int)Math.min(leftTop[0], rightBottom[0]);
-        int bottom = (int)Math.min(leftTop[1], rightBottom[1]);
+        int left = (int)Math.min(leftTop[0], rightBottom[0]);
+        int top = (int)Math.min(leftTop[1], rightBottom[1]);
+        int right = (int)Math.max(leftTop[0], rightBottom[0]);
+        int bottom = (int)Math.max(leftTop[1], rightBottom[1]);
 
         EpdController.setScreenHandWritingRegionLimit(surfaceView, left, top, right, bottom);
     }
