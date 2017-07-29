@@ -33,6 +33,7 @@ import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.audiofx.AudioEffect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -104,6 +105,7 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
         mAlbumName = (TextView) findViewById(R.id.albumname);
         mTrackName = (TextView) findViewById(R.id.trackname);
 
+        /*
         View v = (View)mArtistName.getParent(); 
         v.setOnTouchListener(this);
         v.setOnLongClickListener(this);
@@ -115,7 +117,7 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
         v = (View)mTrackName.getParent();
         v.setOnTouchListener(this);
         v.setOnLongClickListener(this);
-
+        */
         mPrevButton = (RepeatingImageButton) findViewById(R.id.prev);
         mPrevButton.setOnClickListener(mPrevListener);
         mPrevButton.setRepeatListener(mRewListener, 260);
@@ -1005,6 +1007,9 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
                 filename = uri.getPath();
             } else {
                 filename = uri.toString();
+            }
+            if (filename.startsWith("/mnt/sdcard/") && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                filename = filename.replace("/mnt/sdcard/", "/storage/emulated/0/");
             }
             try {
                 mService.stop();
