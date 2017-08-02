@@ -6,16 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.onyx.android.sdk.api.device.EpdDeviceManager;
-
-import java.util.Random;
+import com.onyx.android.sdk.utils.TestUtils;
 
 /**
  * Created by wangxu on 17-8-2.
  */
 
 public class FastUpdateModeActivity extends AppCompatActivity {
-
-    private final static String TAG = FastUpdateModeActivity.class.getSimpleName();
+    
     private boolean isFastMode = false;
     private CountDownTimer timer;
     private TextView textView;
@@ -34,17 +32,17 @@ public class FastUpdateModeActivity extends AppCompatActivity {
     }
 
     private long generateRandomTime() {
-        return (new Random().nextInt(10) + 1) * 1000;
+        return TestUtils.randInt(1, 10) * 1000;
     }
 
-    private void enterFastMode() {
-        EpdDeviceManager.enterAnimationUpdate(true);
-        isFastMode = true;
-    }
-
-    private void quitFastMode() {
-        EpdDeviceManager.exitAnimationUpdate(true);
-        isFastMode = false;
+    private void toggleFastMode () {
+        textView.setText(isFastMode ? "quit fast update mode..." : "enter fast update mode...");
+        if (isFastMode) {
+            EpdDeviceManager.exitAnimationUpdate(true);
+        } else {
+            EpdDeviceManager.enterAnimationUpdate(true);
+        }
+        isFastMode = !isFastMode;
     }
 
     private void startTimer() {
@@ -60,13 +58,7 @@ public class FastUpdateModeActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                if (isFastMode) {
-                    textView.setText("quit fast update mode...");
-                    quitFastMode();
-                } else {
-                    textView.setText("enter fast update mode...");
-                    enterFastMode();
-                }
+                toggleFastMode();
                 startTimer();
             }
         };
@@ -84,7 +76,7 @@ public class FastUpdateModeActivity extends AppCompatActivity {
             timer.cancel();
         }
         if (isFastMode) {
-            quitFastMode();
+            EpdDeviceManager.exitAnimationUpdate(true);
         }
     }
 }
