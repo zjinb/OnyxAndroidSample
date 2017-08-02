@@ -57,7 +57,7 @@ public class ScribbleStateDemoActivity extends Activity {
     void onButtonPenClicked() {
         EpdController.setScreenHandWritingPenState(surfaceView, PEN_DRAWING);
 
-        setScribbleRegion(new Rect(0, 0, 500, 500));
+        setScribbleRegion(new Rect[] { new Rect(0, 0, 300, 300), new Rect(300, 400, 500, 600) });
     }
 
     @OnClick(R.id.button_eraser)
@@ -84,15 +84,24 @@ public class ScribbleStateDemoActivity extends Activity {
         return dst;
     }
 
-    private void setScribbleRegion(Rect region) {
-        float[] leftTop = mapPoint(region.left, region.top);
-        float[] rightBottom = mapPoint(region.right, region.bottom);
+    private void setScribbleRegion(Rect[] regionList) {
+        int array[] = new int[regionList.length * 4];
+        for (int i = 0; i < regionList.length; i++) {
+            Rect region = regionList[i];
+            float[] leftTop = mapPoint(region.left, region.top);
+            float[] rightBottom = mapPoint(region.right, region.bottom);
 
-        int left = (int)Math.min(leftTop[0], rightBottom[0]);
-        int top = (int)Math.min(leftTop[1], rightBottom[1]);
-        int right = (int)Math.max(leftTop[0], rightBottom[0]);
-        int bottom = (int)Math.max(leftTop[1], rightBottom[1]);
+            int left = (int) Math.min(leftTop[0], rightBottom[0]);
+            int top = (int) Math.min(leftTop[1], rightBottom[1]);
+            int right = (int) Math.max(leftTop[0], rightBottom[0]);
+            int bottom = (int) Math.max(leftTop[1], rightBottom[1]);
 
-        EpdController.setScreenHandWritingRegionLimit(surfaceView, left, top, right, bottom);
+            array[4 * i] = left;
+            array[4 * i + 1] = top;
+            array[4 * i + 2] = right;
+            array[4 * i + 3] = bottom;
+        }
+
+        EpdController.setScreenHandWritingRegionLimit(surfaceView, array);
     }
 }
