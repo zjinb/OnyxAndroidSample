@@ -27,13 +27,15 @@
         <activity android:name=".EpdDemoActivity" />
         <activity android:name=".ScribbleTouchScreenDemoActivity" />
         <activity android:name=".ScribbleStylusSurfaceViewDemoActivity" />
-        <activity android:name=".ScribbleStylusWebViewDemoActivity"/>
+        <activity android:name=".ScribbleStylusWebViewDemoActivity" />
         <activity android:name=".EnvironmentDemoActivity" />
         <activity android:name=".FrontLightDemoActivity" />
         <activity android:name=".SdkDataOTATestActivity" />
         <activity android:name=".FullScreenDemoActivity" />
         <activity android:name=".SettingsDemoActivity" />
         <activity android:name=".ScribbleStateDemoActivity" />
+        <activity android:name=".ParallelUpdateActivity"/>
+        <activity android:name=".FastUpdateModeActivity" />
     </application>
 
 </manifest>

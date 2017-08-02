@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button buttonFullScreen;
     @Bind(R.id.button_scribble_state)
     Button buttonScribbleState;
+    @Bind(R.id.button_parallel_update)
+    Button buttonParallelUpdate;
+    @Bind(R.id.button_fast_update)
+    Button buttonFastUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonFullScreen.setOnClickListener(this);
         buttonStylusWebviewScribble.setOnClickListener(this);
         buttonScribbleState.setOnClickListener(this);
+        buttonParallelUpdate.setOnClickListener(this);
+        buttonFastUpdate.setOnClickListener(this);
         final View view = findViewById(android.R.id.content);
         EpdController.enablePost(view, 1);
     }
@@ -72,6 +78,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, ScribbleStylusWebViewDemoActivity.class));
         } else if (v.equals(buttonScribbleState)) {
             startActivity(new Intent(this, ScribbleStateDemoActivity.class));
+        } else if (v.equals(buttonParallelUpdate)) {
+            startActivity(new Intent(this, ParallelUpdateActivity.class));
+        } else if (v.equals(buttonFastUpdate)) {
+            startActivity(new Intent(this, FastUpdateModeActivity.class));
         }
     }
 
