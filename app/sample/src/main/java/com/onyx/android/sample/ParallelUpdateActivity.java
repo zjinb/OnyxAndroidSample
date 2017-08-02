@@ -1,16 +1,14 @@
 package com.onyx.android.sample;
 
+import android.annotation.TargetApi;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.ViewGroup;
+import android.support.v7.widget.GridLayout;
 import android.widget.Button;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
-
 import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.api.device.epd.UpdateMode;
 import com.onyx.android.sdk.utils.TestUtils;
@@ -55,13 +53,21 @@ public class ParallelUpdateActivity extends AppCompatActivity {
 
     private void addButtons() {
         GridLayout gridLayout = (GridLayout)findViewById(R.id.grid_layout);
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 0; i < 20; i++) {
             Button btn = new Button(this);
             btn.setId(i);
             final int id_ = btn.getId();
             btn.setText("button " + id_);
             btn.setBackgroundColor(Color.GRAY);
-            gridLayout.addView(btn);
+            btn.setTextSize(20.0f);
+            GridLayout.Spec rowSpec = GridLayout.spec(i / 5, 1f);
+            GridLayout.Spec columnSpec = GridLayout.spec(i % 5, 1f);
+            GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams(rowSpec, columnSpec);
+            layoutParams.height = 0;
+            layoutParams.width = 0;
+            layoutParams.setMargins(10, 10, 10, 10);
+
+            gridLayout.addView(btn, layoutParams);
             buttonList.add(btn);
         }
     }

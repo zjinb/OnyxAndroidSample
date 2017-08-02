@@ -44,4 +44,5 @@ ext {
     okhttpurlconnectionVersion = '2.0.0'
     aliyunOssSdkVersion = '2.3.0'
     wechatSdkWithMtaVersion = '1.0.2'
+    gridlayoutVersion = '23.0.0'
 }
