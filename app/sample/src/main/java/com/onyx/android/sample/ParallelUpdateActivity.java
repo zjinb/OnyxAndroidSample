@@ -42,7 +42,7 @@ public class ParallelUpdateActivity extends AppCompatActivity {
                 updateButton();
                 triggerUpdate();
             }
-        }, 10);
+        }, 1);
 
     }
 
@@ -53,7 +53,7 @@ public class ParallelUpdateActivity extends AppCompatActivity {
 
     private void addButtons() {
         GridLayout gridLayout = (GridLayout)findViewById(R.id.grid_layout);
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 60; i++) {
             Button btn = new Button(this);
             btn.setId(i);
             final int id_ = btn.getId();
