@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button buttonParallelUpdate;
     @Bind(R.id.button_fast_update)
     Button buttonFastUpdate;
+    @Bind(R.id.button_overlay_update)
+    Button buttonOverlayUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonScribbleState.setOnClickListener(this);
         buttonParallelUpdate.setOnClickListener(this);
         buttonFastUpdate.setOnClickListener(this);
+        buttonOverlayUpdate.setOnClickListener(this);
         final View view = findViewById(android.R.id.content);
         EpdController.enablePost(view, 1);
     }
@@ -82,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, ParallelUpdateActivity.class));
         } else if (v.equals(buttonFastUpdate)) {
             startActivity(new Intent(this, FastUpdateModeActivity.class));
+        } else if (v.equals(buttonOverlayUpdate)) {
+            startActivity(new Intent(this, OverlayUpdateActivity.class));
         }
     }
 

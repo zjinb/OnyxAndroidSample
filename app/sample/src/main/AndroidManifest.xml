@@ -36,6 +36,7 @@
         <activity android:name=".ScribbleStateDemoActivity" />
         <activity android:name=".ParallelUpdateActivity"/>
         <activity android:name=".FastUpdateModeActivity" />
+        <activity android:name=".OverlayUpdateActivity" />
     </application>
 
 </manifest>
