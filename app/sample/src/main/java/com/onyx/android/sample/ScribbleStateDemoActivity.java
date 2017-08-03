@@ -85,7 +85,6 @@ public class ScribbleStateDemoActivity extends Activity {
     }
 
     private void setScribbleRegion(Rect[] regionList) {
-        int array[] = new int[regionList.length * 4];
         for (int i = 0; i < regionList.length; i++) {
             Rect region = regionList[i];
             float[] leftTop = mapPoint(region.left, region.top);
@@ -96,12 +95,9 @@ public class ScribbleStateDemoActivity extends Activity {
             int right = (int) Math.max(leftTop[0], rightBottom[0]);
             int bottom = (int) Math.max(leftTop[1], rightBottom[1]);
 
-            array[4 * i] = left;
-            array[4 * i + 1] = top;
-            array[4 * i + 2] = right;
-            array[4 * i + 3] = bottom;
+            region.set(left, top, right, bottom);
         }
 
-        EpdController.setScreenHandWritingRegionLimit(surfaceView, array);
+        EpdController.setScreenHandWritingRegionLimit(surfaceView, regionList);
     }
 }
