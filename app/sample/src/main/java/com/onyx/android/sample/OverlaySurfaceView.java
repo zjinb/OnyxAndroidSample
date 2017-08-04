@@ -14,6 +14,12 @@ import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.api.device.epd.UpdateMode;
 import com.onyx.android.sdk.utils.TestUtils;
 
+import junit.framework.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.WeakHashMap;
+
 /**
  * Created by wangxu on 17-8-4.
  */
@@ -22,17 +28,9 @@ public class OverlaySurfaceView extends SurfaceView implements SurfaceHolder.Cal
 
     private SurfaceHolder holder;
     private Thread thread;
-    private Canvas canvas;
-    private Paint paint;
+
     private boolean threadFlag;
-    private int spac = 20;
-    private int rectWidth;
-    private int rectHeight;
-    private int COLUMN_COUNT = 10;
-    private int ROW_COUNT = 8;
-    private int dx;
-    Rect[] rects = new Rect[ROW_COUNT];
-    Rect[][] allRect = new Rect[ROW_COUNT][COLUMN_COUNT];
+    private List<Rect> rectList = new ArrayList<>();
 
     public OverlaySurfaceView(Activity context) {
         this(context, null);
@@ -43,11 +41,6 @@ public class OverlaySurfaceView extends SurfaceView implements SurfaceHolder.Cal
 
         holder = getHolder();
         holder.addCallback(this);
-        paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setColor(Color.BLACK);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(4);
         setFocusable(true);
 
     }
@@ -61,9 +54,6 @@ public class OverlaySurfaceView extends SurfaceView implements SurfaceHolder.Cal
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        rectWidth = width / ROW_COUNT;
-        rectHeight = (height - spac * ROW_COUNT) / ROW_COUNT;
-        dx = rectWidth - rectWidth / 4;
     }
 
     @Override
@@ -73,77 +63,66 @@ public class OverlaySurfaceView extends SurfaceView implements SurfaceHolder.Cal
 
     @Override
     public void run() {
-        calculateRects();
-        draw();
         while (threadFlag) {
-            try {
-                update();
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            update();
+            TestUtils.sleep(5 * 1000);
+        }
+    }
+
+    private void generateRects() {
+        rectList.clear();
+        int rows = TestUtils.randInt(1, 10);
+        int cols = TestUtils.randInt(1, 10);
+        int width = getWidth() / cols;
+        int height = getHeight() / rows;
+        int tweak = TestUtils.randInt(0, 2);
+        int range = 5;
+        for(int r = 0; r < rows; ++r) {
+            for(int c = 0; c < cols; ++c) {
+                int left = c * width - tweak * TestUtils.randInt(0, range);
+                int top = r * height - tweak * TestUtils.randInt(0, range);
+                int right = left + width + tweak *TestUtils.randInt(0, range);
+                int bottom = top + height + tweak *TestUtils.randInt(0, range);
+                Rect rect = new Rect(
+                        Math.max(0, left),
+                        Math.max(0, top),
+                        Math.min(right, getWidth()),
+                        Math.min(bottom, getHeight()));
+                rectList.add(rect);
             }
         }
+
+    }
+
+    private void renderRects() {
+        Canvas canvas = holder.lockCanvas();
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.WHITE);
+        canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
+
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.BLACK);
+        paint.setStrokeWidth(3.0f);
+        for(Rect rect : rectList) {
+            canvas.drawRect(rect, paint);
+        }
+        holder.unlockCanvasAndPost(canvas);
+        TestUtils.sleep(1200);
     }
 
     private void update() {
-        int row = TestUtils.randInt(0, ROW_COUNT -1);
-        int column = TestUtils.randInt(0, COLUMN_COUNT -1);
-        Rect rect = allRect[row][column];
-        EpdController.invalidate(this, rect.left, rect.top, rect.right, rect.bottom, UpdateMode.GC);
-        Rect r;
-        if (column == COLUMN_COUNT -1) {
-            r = allRect[row][column - 1];
-        } else {
-            r = allRect[row][column +1];
-        }
-        EpdController.invalidate(this, r.left, r.top, r.right, r.bottom, UpdateMode.GC);
+        generateRects();
+        renderRects();
+        screenUpdate();
     }
 
-    private void draw() {
-        canvas = holder.lockCanvas();
-        if (canvas != null) {
-            canvas.drawColor(Color.WHITE);
-            for (int i = 0; i < COLUMN_COUNT; i++) {
-                if (i == 0) {
-                    drawRects(canvas);
-                    continue;
-                }
-                canvas.translate(dx, 0);
-                drawRects(canvas);
-            }
-            holder.unlockCanvasAndPost(canvas);
+    private void screenUpdate() {
+        for(Rect rect : rectList) {
+            EpdController.refreshScreenRegion(this, rect.left, rect.top, rect.width(), rect.height(), UpdateMode.GC);
+            TestUtils.sleep(20);
         }
     }
 
-    private void drawRects(final Canvas canvas) {
-        for (int j = 0; j < ROW_COUNT; j++) {
-            canvas.drawRect(rects[j], paint);
-        }
-    }
 
-    private void calculateRects() {
-        for (int i = 0; i < ROW_COUNT; i++) {
-            int left  = 0;
-            int top = rectHeight * i + spac * i;
-            int right = left + rectWidth;
-            int bottom = rectHeight + top;
-            Rect rect = new Rect(left, top, right, bottom);
-            rects[i] = rect;
-        }
-        calculateAllRegion();
-    }
-
-    private void calculateAllRegion() {
-        for (int i = 0; i < ROW_COUNT; i++) {
-            Rect firstRect = rects[i];
-            for (int j = 0; j < COLUMN_COUNT; j++) {
-                int left = firstRect.left + j * dx;
-                int top = firstRect.top;
-                int right = firstRect.right + j * dx;
-                int bottom = firstRect.bottom;
-                Rect rect = new Rect(left, top, right, bottom);
-                allRect[i][j] = rect;
-            }
-        }
-    }
 }
