@@ -71,12 +71,12 @@ public class OverlaySurfaceView extends SurfaceView implements SurfaceHolder.Cal
 
     private void generateRects() {
         rectList.clear();
-        int rows = TestUtils.randInt(2, 2);
-        int cols = TestUtils.randInt(2, 2);
+        int rows = TestUtils.randInt(2, 5);
+        int cols = TestUtils.randInt(2, 5);
         int width = getWidth() / cols;
         int height = getHeight() / rows;
         int tweak = TestUtils.randInt(1, 1);
-        int range = 30;
+        int range = 50;
         for(int r = 0; r < rows; ++r) {
             for(int c = 0; c < cols; ++c) {
                 int left = c * width - tweak * TestUtils.randInt(0, range);
@@ -118,7 +118,13 @@ public class OverlaySurfaceView extends SurfaceView implements SurfaceHolder.Cal
     }
 
     private void screenUpdate() {
-        for(Rect rect : rectList) {
+        int order = TestUtils.randInt(0, 1);
+        for(int i = 0; i < rectList.size(); ++i) {
+            int pos = i;
+            if (order > 0) {
+                pos = rectList.size() - 1 - pos;
+            }
+            Rect rect = rectList.get(pos);
             EpdController.refreshScreenRegion(this, rect.left, rect.top, rect.width(), rect.height(), UpdateMode.GC);
             TestUtils.sleep(100);
         }
