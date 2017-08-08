@@ -29,15 +29,6 @@ public class RectangleSurfaceView extends SurfaceView implements SurfaceHolder.C
     private Paint paint;
     private List<Rect> rectList = new ArrayList<>();
 
-    private Runnable updateRunnable = new Runnable() {
-        @Override
-        public void run() {
-            drawRectangle();
-            screenUpdate();
-            startUpdate();
-        }
-    };
-
     public enum UpdateMode {
         A, B, C, D, E
     }
@@ -60,9 +51,7 @@ public class RectangleSurfaceView extends SurfaceView implements SurfaceHolder.C
 
     public void setUpdateMode(final UpdateMode mode) {
         currentMode = mode;
-        stopUpdate();
         startUpdate();
-
     }
 
     @Override
@@ -76,82 +65,151 @@ public class RectangleSurfaceView extends SurfaceView implements SurfaceHolder.C
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        stopUpdate();
+
     }
 
     private void startUpdate() {
-        handler.postDelayed(updateRunnable, 500);
-    }
-
-    private void stopUpdate() {
-        handler.removeCallbacks(updateRunnable);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                generateRectangles();
+                drawRectangle();
+                screenUpdate();
+                startUpdate();
+            }
+        }, 5000);
     }
 
     private void screenUpdate() {
+        TestUtils.sleep(2000);
         for (Rect rect : rectList) {
             EpdController.refreshScreenRegion(this, rect.left, rect.top, rect.width(), rect.height(), com.onyx.android.sdk.api.device.epd.UpdateMode.GC);
-            TestUtils.sleep(100);
         }
     }
 
-    private void drawRectangle() {
+    private void generateRectangles() {
         rectList.clear();
-        Canvas canvas = holder.lockCanvas();
-        canvas.drawColor(Color.WHITE);
-        final int rectWidth = TestUtils.randInt(100, 200);
-        final int x = TestUtils.randInt(0, getWidth() - rectWidth * 2);
-        final int y = TestUtils.randInt(0, getHeight() - rectWidth * 2);
-
-        Rect rect1 = new Rect(x, y, x + rectWidth, y + rectWidth);
-        rectList.add(rect1);
-        canvas.drawRect(rect1, paint);
-
         switch (currentMode) {
             case A:
-                int l1 = x + rectWidth / 2;
-                int t1 = y + rectWidth / 2;
-                int r1 = l1 + rectWidth;
-                int b1 = t1 + rectWidth;
-                Rect rect2 = new Rect(l1, t1 , r1, b1);
-                rectList.add(rect2);
-                canvas.drawRect(rect2, paint);
+                generateRectanglesTypeA();
                 break;
             case B:
-                int l2 = x;
-                int t2 = y + rectWidth;
-                int r2 = l2 + rectWidth;
-                int b2 = t2 + rectWidth;
-                Rect rect3 = new Rect(l2, t2 , r2, b2);
-                rectList.add(rect3);
-                canvas.drawRect(rect3, paint);
+                generateRectanglesTypeB();
                 break;
             case C:
-                int l3 = x;
-                int t3 = y + rectWidth / 2;
-                int r3 = l3 + rectWidth;
-                int b3 = t3 + rectWidth;
-                Rect rect4 = new Rect(l3, t3 , r3, b3);
-                rectList.add(rect4);
-                canvas.drawRect(rect4, paint);
+                generateRectanglesTypeC();
                 break;
             case D:
-                int l4 = x - rectWidth / 2;
-                int t4 = y - rectWidth / 2;
-                int r4 = l4 + rectWidth * 2;
-                int b4 = t4 + rectWidth * 2;
-                Rect rect5 = new Rect(l4, t4 , r4, b4);
-                rectList.add(rect5);
-                canvas.drawRect(rect5, paint);
+                generateRectanglesTypeD();
                 break;
             case E:
-                int l5 = x + rectWidth / 4;
-                int t5 = y + rectWidth / 4;
-                int r5 = l5 + rectWidth / 2;
-                int b5 = t5 + rectWidth / 2;
-                Rect rect6 = new Rect(l5, t5 , r5, b5);
-                rectList.add(rect6);
-                canvas.drawRect(rect6, paint);
+                generateRectanglesTypeE();
                 break;
+            default:
+                break;
+        }
+    }
+
+    private void generateRectanglesTypeA() {
+        int div = 3;
+        int left = TestUtils.randInt(0, getWidth() / div);
+        int top = TestUtils.randInt(0, getHeight() / div);
+        int width = TestUtils.randInt(getWidth() /  (div * 2), getWidth() /  div);
+        int height = TestUtils.randInt(getWidth() /  (div * 2), getHeight() / div);
+        Rect r1 = new Rect(left, top, left + width, top + height);
+
+        int left2 = left + width / 2;
+        int top2 = top + height / 2;
+        Rect r2 = new Rect(left2, top2, left2 + width, top2 + height);
+
+        rectList.add(r1);
+        rectList.add(r2);
+    }
+
+    private void generateRectanglesTypeB() {
+        int div = 4;
+        int left = TestUtils.randInt(0, getWidth() / div);
+        int top = TestUtils.randInt(0, getHeight() / div);
+        int width = TestUtils.randInt(0, getWidth() /  div);
+        int height = TestUtils.randInt(0, getHeight() / div);
+        Rect r1 = new Rect(left, top, left + width, top + height);
+
+        int left2 = left;
+        int top2 = top + height - 1;
+        Rect r2 = new Rect(left2, top2, left2 + width, top2 + height);
+
+        rectList.add(r1);
+        rectList.add(r2);
+    }
+
+    private void generateRectanglesTypeC() {
+        int div = 4;
+        int left = TestUtils.randInt(0, getWidth() / div);
+        int top = TestUtils.randInt(0, getHeight() / div);
+        int width = TestUtils.randInt(0, getWidth() /  div);
+        int height = TestUtils.randInt(0, getHeight() / div);
+        Rect r1 = new Rect(left, top, left + width, top + height);
+
+        int left2 = left;
+        int top2 = top + height - 1;
+        Rect r2 = new Rect(left2, top2, left2 + width, top2 + height);
+
+        rectList.add(r1);
+        rectList.add(r2);
+    }
+
+    private void generateRectanglesTypeD() {
+        int div = 4;
+        int left = TestUtils.randInt(0, getWidth() / div);
+        int top = TestUtils.randInt(0, getHeight() / div);
+        int width = TestUtils.randInt(0, getWidth() /  div);
+        int height = TestUtils.randInt(0, getHeight() / div);
+        Rect r1 = new Rect(left, top, left + width, top + height);
+
+        int lowLimit = 20;
+        int upLimit = 30;
+        int left2 = left + TestUtils.randInt(lowLimit, upLimit);
+        int top2 = top + TestUtils.randInt(lowLimit, upLimit);
+        int width2 = width - TestUtils.randInt(lowLimit, upLimit);
+        int height2 = height - TestUtils.randInt(lowLimit, upLimit);
+        Rect r2 = new Rect(left2, top2, left2 + width2, top2 + height2);
+
+        rectList.add(r1);
+        rectList.add(r2);
+    }
+
+    private void generateRectanglesTypeE() {
+        int div = 4;
+        int left = TestUtils.randInt(0, getWidth() / div);
+        int top = TestUtils.randInt(0, getHeight() / div);
+        int width = TestUtils.randInt(0, getWidth() /  div);
+        int height = TestUtils.randInt(0, getHeight() / div);
+        Rect r1 = new Rect(left, top, left + width, top + height);
+
+        int lowLimit = 20;
+        int upLimit = 30;
+        int left2 = left - TestUtils.randInt(lowLimit, upLimit);
+        int top2 = top - TestUtils.randInt(lowLimit, upLimit);
+        int width2 = width + TestUtils.randInt(lowLimit, upLimit);
+        int height2 = height + TestUtils.randInt(lowLimit, upLimit);
+        Rect r2 = new Rect(left2, top2, left2 + width2, top2 + height2);
+
+        rectList.add(r1);
+        rectList.add(r2);
+    }
+
+    private void drawRectangle() {
+        Canvas canvas = holder.lockCanvas();
+        paint.setColor(Color.WHITE);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
+        int index = 0;
+        for(Rect rect: rectList) {
+            int value = index * 128;
+            paint.setColor(Color.rgb(value, value, value));
+            paint.setStyle(Paint.Style.FILL_AND_STROKE);
+            canvas.drawRect(rect, paint);
+            ++index;
         }
         holder.unlockCanvasAndPost(canvas);
     }
