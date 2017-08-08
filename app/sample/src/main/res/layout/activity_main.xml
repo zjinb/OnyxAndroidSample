@@ -101,6 +101,11 @@
             android:layout_height="wrap_content"
             android:text="Text Select Demo" />
 
+        <Button
+            android:id="@+id/button_rect_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rectangle Update Demo" />
     </LinearLayout>
 
 </RelativeLayout>

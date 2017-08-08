@@ -38,6 +38,7 @@
         <activity android:name=".FastUpdateModeActivity" />
         <activity android:name=".OverlayUpdateActivity" />
         <activity android:name=".TextSelectionActivity" />
+        <activity android:name=".RectangleUpdateTest" />
     </application>
 
 </manifest>
