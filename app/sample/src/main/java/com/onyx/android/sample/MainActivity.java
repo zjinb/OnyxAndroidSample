@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button buttonOverlayUpdate;
     @Bind(R.id.button_text_select)
     Button buttonTextSelect;
+    @Bind(R.id.button_rect_update)
+    Button buttonRectUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonFastUpdate.setOnClickListener(this);
         buttonOverlayUpdate.setOnClickListener(this);
         buttonTextSelect.setOnClickListener(this);
+        buttonRectUpdate.setOnClickListener(this);
         final View view = findViewById(android.R.id.content);
         EpdController.enablePost(view, 1);
     }
@@ -92,6 +95,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, OverlayUpdateActivity.class));
         } else if (v.equals(buttonTextSelect)) {
             startActivity(new Intent(this, TextSelectionActivity.class));
+        } else if (v.equals(buttonRectUpdate)) {
+            startActivity(new Intent(this, RectangleUpdateTest.class));
         }
     }
 
