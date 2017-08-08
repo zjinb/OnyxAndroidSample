@@ -32,7 +32,8 @@ public class RectangleSurfaceView extends SurfaceView implements SurfaceHolder.C
     private Runnable updateRunnable = new Runnable() {
         @Override
         public void run() {
-            drawRectangle();
+            generateRectangles();
+            drawRectangles();
             screenUpdate();
             startUpdate();
         }
@@ -87,6 +88,48 @@ public class RectangleSurfaceView extends SurfaceView implements SurfaceHolder.C
         handler.removeCallbacks(updateRunnable);
     }
 
+    private void generateRectangles() {
+        rectList.clear();
+        final int rectWidth = TestUtils.randInt(100, 200);
+        final int x = TestUtils.randInt(0, getWidth() - rectWidth * 2);
+        final int y = TestUtils.randInt(0, getHeight() - rectWidth * 2);
+        rectList.add(new Rect(x, y, x + rectWidth, y + rectWidth));
+        int l = 0, t = 0, r = 0, b = 0;
+        switch (currentMode) {
+            case A:
+                l = x + rectWidth / 2;
+                t = y + rectWidth / 2;
+                r = l + rectWidth;
+                b = t + rectWidth;
+                break;
+            case B:
+                l = x;
+                t = y + rectWidth;
+                r = l + rectWidth;
+                b = t + rectWidth;
+                break;
+            case C:
+                l = x;
+                t = y + rectWidth / 2;
+                r = l + rectWidth;
+                b = t + rectWidth;
+                break;
+            case D:
+                l = x - rectWidth / 2;
+                t = y - rectWidth / 2;
+                r = l + rectWidth * 2;
+                b = t + rectWidth * 2;
+                break;
+            case E:
+                l = x + rectWidth / 4;
+                t = y + rectWidth / 4;
+                r = l + rectWidth / 2;
+                b = t + rectWidth / 2;
+                break;
+        }
+        rectList.add(new Rect(l, t, r, b));
+    }
+
     private void screenUpdate() {
         for (Rect rect : rectList) {
             EpdController.refreshScreenRegion(this, rect.left, rect.top, rect.width(), rect.height(), com.onyx.android.sdk.api.device.epd.UpdateMode.GC);
@@ -94,64 +137,11 @@ public class RectangleSurfaceView extends SurfaceView implements SurfaceHolder.C
         }
     }
 
-    private void drawRectangle() {
-        rectList.clear();
+    private void drawRectangles() {
         Canvas canvas = holder.lockCanvas();
         canvas.drawColor(Color.WHITE);
-        final int rectWidth = TestUtils.randInt(100, 200);
-        final int x = TestUtils.randInt(0, getWidth() - rectWidth * 2);
-        final int y = TestUtils.randInt(0, getHeight() - rectWidth * 2);
-
-        Rect rect1 = new Rect(x, y, x + rectWidth, y + rectWidth);
-        rectList.add(rect1);
-        canvas.drawRect(rect1, paint);
-
-        switch (currentMode) {
-            case A:
-                int l1 = x + rectWidth / 2;
-                int t1 = y + rectWidth / 2;
-                int r1 = l1 + rectWidth;
-                int b1 = t1 + rectWidth;
-                Rect rect2 = new Rect(l1, t1 , r1, b1);
-                rectList.add(rect2);
-                canvas.drawRect(rect2, paint);
-                break;
-            case B:
-                int l2 = x;
-                int t2 = y + rectWidth;
-                int r2 = l2 + rectWidth;
-                int b2 = t2 + rectWidth;
-                Rect rect3 = new Rect(l2, t2 , r2, b2);
-                rectList.add(rect3);
-                canvas.drawRect(rect3, paint);
-                break;
-            case C:
-                int l3 = x;
-                int t3 = y + rectWidth / 2;
-                int r3 = l3 + rectWidth;
-                int b3 = t3 + rectWidth;
-                Rect rect4 = new Rect(l3, t3 , r3, b3);
-                rectList.add(rect4);
-                canvas.drawRect(rect4, paint);
-                break;
-            case D:
-                int l4 = x - rectWidth / 2;
-                int t4 = y - rectWidth / 2;
-                int r4 = l4 + rectWidth * 2;
-                int b4 = t4 + rectWidth * 2;
-                Rect rect5 = new Rect(l4, t4 , r4, b4);
-                rectList.add(rect5);
-                canvas.drawRect(rect5, paint);
-                break;
-            case E:
-                int l5 = x + rectWidth / 4;
-                int t5 = y + rectWidth / 4;
-                int r5 = l5 + rectWidth / 2;
-                int b5 = t5 + rectWidth / 2;
-                Rect rect6 = new Rect(l5, t5 , r5, b5);
-                rectList.add(rect6);
-                canvas.drawRect(rect6, paint);
-                break;
+        for (Rect rect : rectList) {
+            canvas.drawRect(rect, paint);
         }
         holder.unlockCanvasAndPost(canvas);
     }
