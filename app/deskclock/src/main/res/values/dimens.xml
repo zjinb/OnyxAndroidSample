@@ -213,7 +213,8 @@
 
     <!-- Floating action button style -->
     <dimen name="fab_margin">0dp</dimen>
-    <dimen name="fab_elevation">8dp</dimen>
+    <dimen name="fab_elevation">0dp</dimen>
+    <dimen name="fab_elevation_translationZ">2dp</dimen>
 
     <!-- Height of the bar containing the floating action button -->
     <dimen name="fab_height">88dp</dimen>
