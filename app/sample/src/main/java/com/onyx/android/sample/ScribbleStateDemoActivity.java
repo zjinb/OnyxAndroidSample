@@ -67,28 +67,11 @@ public class ScribbleStateDemoActivity extends Activity {
         surfaceView.invalidate();
     }
 
-    private float[] mapPoint(float x, float y) {
-        x = Math.min(Math.max(0, x), surfaceView.getWidth());
-        y = Math.min(Math.max(0, y), surfaceView.getHeight());
-
-        final int viewLocation[] = {0, 0};
-        surfaceView.getLocationOnScreen(viewLocation);
-        final Matrix viewMatrix = new Matrix();
-        DeviceConfig deviceConfig = DeviceConfig.sharedInstance(this, "note");
-        viewMatrix.postRotate(deviceConfig.getViewPostOrientation());
-        viewMatrix.postTranslate(deviceConfig.getViewPostTx(), deviceConfig.getViewPostTy());
-
-        float screenPoints[] = {viewLocation[0] + x, viewLocation[1] + y};
-        float dst[] = {0, 0};
-        viewMatrix.mapPoints(dst, screenPoints);
-        return dst;
-    }
-
     private void setScribbleRegion(Rect[] regionList) {
         for (int i = 0; i < regionList.length; i++) {
             Rect region = regionList[i];
-            float[] leftTop = mapPoint(region.left, region.top);
-            float[] rightBottom = mapPoint(region.right, region.bottom);
+            float[] leftTop = new float[] {region.left, region.top };
+            float[] rightBottom = new float[] {region.right, region.bottom };
 
             int left = (int) Math.min(leftTop[0], rightBottom[0]);
             int top = (int) Math.min(leftTop[1], rightBottom[1]);
