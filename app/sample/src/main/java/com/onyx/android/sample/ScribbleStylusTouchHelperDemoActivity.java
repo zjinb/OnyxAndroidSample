@@ -10,6 +10,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
+import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.scribble.api.TouchHelper;
 import com.onyx.android.sdk.scribble.api.event.BeginRawDataEvent;
 import com.onyx.android.sdk.scribble.api.event.BeginRawErasingEvent;
@@ -64,7 +65,8 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity imp
 
     @Override
     protected void onDestroy() {
-        touchHelper.quit();
+        EpdController.leaveScribbleMode(surfaceView);
+        touchHelper.stopRawDrawing();
         super.onDestroy();
     }
 
@@ -90,7 +92,8 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity imp
                 touchHelper.setup(surfaceView)
                         .setStrokeWidth(3.0f)
                         .setUseRawInput(true)
-                        .setLimitRect(limit, exclude);
+                        .setLimitRect(limit, exclude)
+                        .initRawDrawing();
             }
         });
     }
@@ -98,11 +101,11 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity imp
     @Override
     public void onClick(View v) {
         if (v.equals(buttonPen)) {
-            touchHelper.startRawDrawing();
             touchHelper.resumeRawDrawing();
             return;
         } else if (v.equals(buttonEraser)) {
-            touchHelper.quitRawDrawing();
+            EpdController.leaveScribbleMode(surfaceView);
+            touchHelper.pauseRawDrawing();
             cleanSurfaceView();
             return;
         }
