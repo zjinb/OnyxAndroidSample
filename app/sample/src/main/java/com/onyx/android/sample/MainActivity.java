@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button buttonFullScreen;
     @Bind(R.id.button_scribble_state)
     Button buttonScribbleState;
+    @Bind(R.id.button_scribble_touch_helper)
+    Button buttonScribbleTouchHelper;
     @Bind(R.id.button_parallel_update)
     Button buttonParallelUpdate;
     @Bind(R.id.button_fast_update)
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonFullScreen.setOnClickListener(this);
         buttonStylusWebviewScribble.setOnClickListener(this);
         buttonScribbleState.setOnClickListener(this);
+        buttonScribbleTouchHelper.setOnClickListener(this);
         buttonParallelUpdate.setOnClickListener(this);
         buttonFastUpdate.setOnClickListener(this);
         buttonOverlayUpdate.setOnClickListener(this);
@@ -87,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, ScribbleStylusWebViewDemoActivity.class));
         } else if (v.equals(buttonScribbleState)) {
             startActivity(new Intent(this, ScribbleStateDemoActivity.class));
+        } else if (v.equals(buttonScribbleTouchHelper)) {
+            startActivity(new Intent(this, ScribbleStylusTouchHelperDemoActivity.class));
         } else if (v.equals(buttonParallelUpdate)) {
             startActivity(new Intent(this, ParallelUpdateActivity.class));
         } else if (v.equals(buttonFastUpdate)) {
