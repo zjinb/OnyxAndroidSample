@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.onyx.android.sample.device.DeviceConfig;
 import com.onyx.android.sdk.api.device.epd.EpdController;
+import com.onyx.android.sdk.api.device.epd.UpdateMode;
 import com.onyx.android.sdk.common.request.WakeLockHolder;
 import com.onyx.android.sdk.scribble.api.PenReader;
 import com.onyx.android.sdk.scribble.data.TouchPoint;
@@ -119,7 +120,7 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
 
     public PenReader getPenReader() {
         if (penReader == null) {
-            penReader = new PenReader(this);
+            penReader = new PenReader(this, webView);
         }
         return penReader;
     }
@@ -149,17 +150,17 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
             }
 
             @Override
-            public void onRawTouchPointListReceived(TouchPointList touchPointList) {
-                for (TouchPoint touchPoint : touchPointList.getPoints()) {
-                    TouchPoint point = mapScreenPointToPage(touchPoint);
-                    float dst[] = mapPoint(point.getX(), point.getY());
-                    if (begin) {
-                        EpdController.startStroke(baseWidth, dst[0], dst[1], pressure, size, System.currentTimeMillis());
-                    }else {
-                        EpdController.addStrokePoint(baseWidth, dst[0], dst[1], pressure, size, System.currentTimeMillis());
-                    }
-                    begin = false;
+            public void onRawTouchPointMoveReceived(TouchPoint touchPoint) {
+                if (begin) {
+                    EpdController.moveTo(webView, touchPoint.x, touchPoint.y, baseWidth);
+                } else {
+                    EpdController.quadTo(webView, touchPoint.x, touchPoint.y, UpdateMode.DU);
                 }
+                begin = false;
+            }
+
+            @Override
+            public void onRawTouchPointListReceived(TouchPointList touchPointList) {
             }
 
             @Override
@@ -169,6 +170,11 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
 
             @Override
             public void onEndErasing() {
+
+            }
+
+            @Override
+            public void onEraseTouchPointMoveReceived(TouchPoint touchPoint) {
 
             }
 
@@ -221,38 +227,6 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
         getPenReader().stop();
 
         wakeLockHolder.forceReleaseWakeLock();
-    }
-
-    private float[] mapPoint(float x, float y) {
-        x = Math.min(Math.max(0, x), webView.getWidth());
-        y = Math.min(Math.max(0, y), webView.getHeight());
-
-        final int viewLocation[] = {0, 0};
-        webView.getLocationOnScreen(viewLocation);
-        final Matrix viewMatrix = new Matrix();
-        DeviceConfig deviceConfig = DeviceConfig.sharedInstance(this, "note");
-        viewMatrix.postRotate(deviceConfig.getViewPostOrientation());
-        viewMatrix.postTranslate(deviceConfig.getViewPostTx(), deviceConfig.getViewPostTy());
-
-        float screenPoints[] = {viewLocation[0] + x, viewLocation[1] + y};
-        float dst[] = {0, 0};
-        viewMatrix.mapPoints(dst, screenPoints);
-        return dst;
-    }
-
-    private TouchPoint mapScreenPointToPage(final TouchPoint touchPoint) {
-        float dstPoint[] = {0, 0};
-        float srcPoint[] = {0, 0};
-        dstPoint[0] = touchPoint.x;
-        dstPoint[1] = touchPoint.y;
-        if (viewMatrix != null) {
-            srcPoint[0] = touchPoint.x;
-            srcPoint[1] = touchPoint.y;
-            viewMatrix.mapPoints(dstPoint, srcPoint);
-        }
-        touchPoint.x = dstPoint[0];
-        touchPoint.y = dstPoint[1];
-        return touchPoint;
     }
 
     @Override
