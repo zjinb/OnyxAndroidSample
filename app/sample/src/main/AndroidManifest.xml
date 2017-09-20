@@ -34,6 +34,7 @@
         <activity android:name=".FullScreenDemoActivity" />
         <activity android:name=".SettingsDemoActivity" />
         <activity android:name=".ScribbleStateDemoActivity" />
+        <activity android:name=".ScribbleStylusTouchHelperDemoActivity" />
         <activity android:name=".ParallelUpdateActivity"/>
         <activity android:name=".FastUpdateModeActivity" />
         <activity android:name=".OverlayUpdateActivity" />
