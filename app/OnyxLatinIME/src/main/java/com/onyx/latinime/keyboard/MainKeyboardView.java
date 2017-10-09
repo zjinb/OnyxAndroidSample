@@ -653,10 +653,10 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         }
         getLocationInWindow(mOriginCoords);
         final DisplayMetrics dm = getResources().getDisplayMetrics();
-        if (CoordinateUtils.y(mOriginCoords) < dm.heightPixels / 4) {
-            // In transient state.
-            return;
-        }
+//        if (CoordinateUtils.y(mOriginCoords) < dm.heightPixels / 4) {
+//            // In transient state.
+//            return;
+//        }
         final View rootView = getRootView();
         if (rootView == null) {
             Log.w(TAG, "Cannot find root view");
@@ -1000,7 +1000,7 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         }
         mPreviewPlacerView.addView(panel.getContainerView());
         mMoreKeysPanel = panel;
-        dimEntireKeyboard(true /* dimmed */);
+        dimEntireKeyboard(false /* dimmed */);
     }
 
     public boolean isShowingMoreKeysPanel() {
