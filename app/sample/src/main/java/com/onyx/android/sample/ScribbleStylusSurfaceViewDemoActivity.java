@@ -30,6 +30,57 @@ public class ScribbleStylusSurfaceViewDemoActivity extends AppCompatActivity imp
     boolean scribbleMode = false;
     private PenReader penReader;
 
+    PenReader.PenReaderCallback callback = new PenReader.PenReaderCallback() {
+        final float baseWidth = 5;
+        final float pressure = 1;
+        final float size = 1;
+        boolean begin = false;
+        @Override
+        public void onBeginRawData() {
+            begin = true;
+            enterScribbleMode();
+        }
+
+        @Override
+        public void onEndRawData() {
+        }
+
+        @Override
+        public void onRawTouchPointMoveReceived(TouchPoint touchPoint) {
+            if (begin) {
+                EpdController.moveTo(surfaceView, touchPoint.x, touchPoint.y, baseWidth);
+            } else {
+                EpdController.quadTo(surfaceView, touchPoint.x, touchPoint.y, UpdateMode.DU);
+            }
+            begin = false;
+        }
+
+        @Override
+        public void onRawTouchPointListReceived(TouchPointList touchPointList) {
+        }
+
+        @Override
+        public void onBeginErasing() {
+
+        }
+
+        @Override
+        public void onEndErasing() {
+
+        }
+
+        @Override
+        public void onEraseTouchPointMoveReceived(TouchPoint touchPoint) {
+
+        }
+
+        @Override
+        public void onEraseTouchPointListReceived(TouchPointList touchPointList) {
+
+        }
+
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,58 +138,6 @@ public class ScribbleStylusSurfaceViewDemoActivity extends AppCompatActivity imp
     }
 
     private void initPenReader() {
-        getPenReader().setPenReaderCallback(new PenReader.PenReaderCallback() {
-            final float baseWidth = 5;
-            final float pressure = 1;
-            final float size = 1;
-            boolean begin = false;
-            @Override
-            public void onBeginRawData() {
-                begin = true;
-                enterScribbleMode();
-            }
-
-            @Override
-            public void onEndRawData() {
-                EpdController.leaveScribbleMode(surfaceView);
-            }
-
-            @Override
-            public void onRawTouchPointMoveReceived(TouchPoint touchPoint) {
-                if (begin) {
-                    EpdController.moveTo(surfaceView, touchPoint.x, touchPoint.y, baseWidth);
-                } else {
-                    EpdController.quadTo(surfaceView, touchPoint.x, touchPoint.y, UpdateMode.DU);
-                }
-                begin = false;
-            }
-
-            @Override
-            public void onRawTouchPointListReceived(TouchPointList touchPointList) {
-            }
-
-            @Override
-            public void onBeginErasing() {
-
-            }
-
-            @Override
-            public void onEndErasing() {
-
-            }
-
-            @Override
-            public void onEraseTouchPointMoveReceived(TouchPoint touchPoint) {
-
-            }
-
-            @Override
-            public void onEraseTouchPointListReceived(TouchPointList touchPointList) {
-
-            }
-
-        });
-
         surfaceView.post(new Runnable() {
             @Override
             public void run() {
@@ -177,6 +176,7 @@ public class ScribbleStylusSurfaceViewDemoActivity extends AppCompatActivity imp
     }
 
     private void penStart() {
+        getPenReader().setPenReaderCallback(callback);
         getPenReader().start();
         getPenReader().resume();
     }
@@ -184,7 +184,14 @@ public class ScribbleStylusSurfaceViewDemoActivity extends AppCompatActivity imp
     private void leaveScribbleMode() {
         scribbleMode = false;
         EpdController.leaveScribbleMode(surfaceView);
-        getPenReader().stop();
+        closePenReader();
+    }
+
+    private void closePenReader() {
+        if (penReader != null) {
+            penReader.stop();
+            penReader = null;
+        }
     }
 
 }
