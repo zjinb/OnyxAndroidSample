@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.onyx.android.sample">
+<manifest package="com.onyx.android.sample"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".SampleApplication"
@@ -19,27 +19,29 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".EpdDemoActivity" />
-        <activity android:name=".ScribbleTouchScreenDemoActivity" />
-        <activity android:name=".ScribbleStylusSurfaceViewDemoActivity" />
-        <activity android:name=".ScribbleStylusWebViewDemoActivity" />
-        <activity android:name=".EnvironmentDemoActivity" />
-        <activity android:name=".FrontLightDemoActivity" />
-        <activity android:name=".SdkDataOTATestActivity" />
-        <activity android:name=".FullScreenDemoActivity" />
-        <activity android:name=".SettingsDemoActivity" />
-        <activity android:name=".ScribbleStateDemoActivity" />
-        <activity android:name=".ScribbleStylusTouchHelperDemoActivity" />
+        <activity android:name=".EpdDemoActivity"/>
+        <activity android:name=".ScribbleTouchScreenDemoActivity"/>
+        <activity android:name=".ScribbleStylusSurfaceViewDemoActivity"/>
+        <activity android:name=".ScribbleStylusWebViewDemoActivity"/>
+        <activity android:name=".EnvironmentDemoActivity"/>
+        <activity android:name=".FrontLightDemoActivity"/>
+        <activity android:name=".SdkDataOTATestActivity"/>
+        <activity android:name=".FullScreenDemoActivity"/>
+        <activity android:name=".SettingsDemoActivity"/>
+        <activity android:name=".ScribbleStateDemoActivity"/>
+        <activity android:name=".ScribbleStylusTouchHelperDemoActivity"/>
         <activity android:name=".ParallelUpdateActivity"/>
-        <activity android:name=".FastUpdateModeActivity" />
-        <activity android:name=".OverlayUpdateActivity" />
-        <activity android:name=".TextSelectionActivity" />
-        <activity android:name=".RectangleUpdateTest" />
+        <activity android:name=".FastUpdateModeActivity"/>
+        <activity android:name=".OverlayUpdateActivity"/>
+        <activity android:name=".TextSelectionActivity"/>
+        <activity android:name=".RectangleUpdateTest"/>
+        <activity android:name=".OnyxTestActivity">
+        </activity>
     </application>
 
 </manifest>

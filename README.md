@@ -15,7 +15,16 @@ For onyxsdk-scribble SDK, dbflow library is inside the jitpack, so you have to a
 
 # Demo
 The project contains following examples that you should take care of:
-## 1.Scribble
+
+## 1.Screen
+* [EpdDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/EpdDemoActivity.java): basic demo of [EPD Screen Update](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EPD-Screen-Update)  with [EpdController](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EpdController)
+* [FrontLightDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/FrontLightDemoActivity.java): demo of [FrontLightController](https://github.com/onyx-intl/OnyxAndroidSample/wiki/FrontLightController). If device support frontLight, you can switch the screen brightness.
+* [FullScreenDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/FullScreenDemoActivity.java): example of full screen switch. If you want to switch full screen , please call the api ` DeviceUtils.setFullScreenOnResume(this, fullscreen);`.That  supports all devices.
+
+## 2.SDCard
+* [EnvironmentDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/EnvironmentDemoActivity.java): shows how to use [DeviceEnvironment](https://github.com/onyx-intl/OnyxAndroidSample/wiki/DeviceEnvironment) to access removeable sdcard. You can call `DeviceEnvironment.getRemovableSDCardDirectory().getAbsolutePath();`
+
+## 3.Scribble
 `TouchHelper` is the latest api that you can write with stylus. You should call it.
 * [ScribbleStylusTouchHelperDemoActivity ](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/ScribbleStylusTouchHelperDemoActivity.java): 
 
@@ -29,13 +38,4 @@ If the device supports touch, you write with your fingers.
 
 If you want to enable or disable pen, you can call the api `EpdController.setScreenHandWritingPenState(view, PEN_START);`
 * [ScribbleStateDemoActivity ](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/ScribbleStateDemoActivity.java): example of [Scribble API](https://github.com/onyx-intl/OnyxAndroidSample/wiki/Scribble-API) from [EpdController](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EpdController) for IMX6 devices
-
-## 2.Screen
-* [EpdDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/EpdDemoActivity.java): basic demo of [EPD Screen Update](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EPD-Screen-Update)  with [EpdController](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EpdController)
-* [FrontLightDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/FrontLightDemoActivity.java): demo of [FrontLightController](https://github.com/onyx-intl/OnyxAndroidSample/wiki/FrontLightController). If device support frontLight, you can switch the screen brightness.
-* [FullScreenDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/FullScreenDemoActivity.java): example of full screen switch. If you want to switch full screen , please call the api ` DeviceUtils.setFullScreenOnResume(this, fullscreen);`.That  supports all devices.
-
-## 3.SDCard
-* [EnvironmentDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/EnvironmentDemoActivity.java): shows how to use [DeviceEnvironment](https://github.com/onyx-intl/OnyxAndroidSample/wiki/DeviceEnvironment) to access removeable sdcard. You can call `DeviceEnvironment.getRemovableSDCardDirectory().getAbsolutePath();`
-
 

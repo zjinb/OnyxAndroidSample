@@ -23,6 +23,30 @@
             android:text="You should take care of ths following demo:"/>
 
         <Button
+            android:id="@+id/button_epd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EPD Demo"/>
+
+        <Button
+            android:id="@+id/button_front_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Front Light"/>
+
+        <Button
+            android:id="@+id/button_full_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Full Screen Demo" />
+
+        <Button
+            android:id="@+id/button_environment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Environment Demo"/>
+
+        <Button
             android:id="@+id/button_scribble_touch_helper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,85 +71,11 @@
             android:text="Scribble Touch Screen Demo"/>
 
         <Button
-            android:id="@+id/button_scribble_state"
+            android:id="@+id/btn_onyx_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Scribble State Demo" />
-
-        <Button
-            android:id="@+id/button_epd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="EPD Demo"/>
-
-        <Button
-            android:id="@+id/button_front_light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Front Light"/>
-
-        <Button
-            android:id="@+id/button_full_screen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Full Screen Demo" />
-
-        <Button
-            android:id="@+id/button_environment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Environment Demo"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:background="#000"
-            android:layout_height="1dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="You dont't take care of ths following demo:"/>
-        <Button
-            android:id="@+id/button_sdk_data_ota_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SdkData OTA-Test Demo" />
-
-        <Button
-            android:id="@+id/button_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Settings Demo" />
-
-        <Button
-            android:id="@+id/button_parallel_update"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Parallel Update Demo" />
-
-        <Button
-            android:id="@+id/button_fast_update"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fast Update Demo" />
-
-        <Button
-            android:id="@+id/button_overlay_update"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Parallel Overlay Update Demo" />
-
-        <Button
-            android:id="@+id/button_text_select"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Text Select Demo" />
-
-        <Button
-            android:id="@+id/button_rect_update"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rectangle Update Demo" />
+            android:visibility="visible"
+            android:text="Onyx Test" />
     </LinearLayout>
 
 </RelativeLayout>
