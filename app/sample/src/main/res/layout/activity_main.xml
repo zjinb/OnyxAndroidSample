@@ -17,6 +17,11 @@
         android:orientation="vertical"
         android:layout_alignParentTop="true">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You should take care of ths following demo:"/>
+
         <Button
             android:id="@+id/button_environment"
             android:layout_width="wrap_content"
@@ -39,19 +44,19 @@
             android:id="@+id/button_touch_screen_scribble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Touch Screen Scribble Demo"/>
+            android:text="Scribble Touch Screen Demo"/>
 
         <Button
             android:id="@+id/button_surfaceview_stylus_scribble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stylus Scribble SurfaceView Demo"/>
+            android:text="Scribble Stylus SurfaceView Demo"/>
 
         <Button
             android:id="@+id/button_webview_stylus_scribble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stylus Scribble WebView Demo"/>
+            android:text="Scribble Stylus WebView Demo"/>
 
         <Button
             android:id="@+id/button_scribble_state"
@@ -63,19 +68,28 @@
             android:id="@+id/button_scribble_touch_helper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Scribble Touch Helper Demo" />
-
-        <Button
-            android:id="@+id/button_sdk_data_ota_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SdkData OTA-Test Demo" />
+            android:text="Scribble Stylus Touch Helper Demo" />
 
         <Button
             android:id="@+id/button_full_screen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Full Screen Demo" />
+
+        <View
+            android:layout_width="match_parent"
+            android:background="#000"
+            android:layout_height="1dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You dont't take care of ths following demo:"/>
+        <Button
+            android:id="@+id/button_sdk_data_ota_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SdkData OTA-Test Demo" />
 
         <Button
             android:id="@+id/button_settings"
