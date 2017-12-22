@@ -1,13 +1,11 @@
 package com.onyx.android.sample;
 
 import android.app.Activity;
-import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.SurfaceView;
 
-import com.onyx.android.sample.device.DeviceConfig;
 import com.onyx.android.sdk.api.device.epd.EpdController;
 
 import butterknife.Bind;
@@ -55,6 +53,7 @@ public class ScribbleStateDemoActivity extends Activity {
 
     @OnClick(R.id.button_pen)
     void onButtonPenClicked() {
+        EpdController.setScreenHandWritingPenState(surfaceView, PEN_START);
         EpdController.setScreenHandWritingPenState(surfaceView, PEN_DRAWING);
 
         setScribbleRegion(new Rect[] { new Rect(0, 0, 300, 300), new Rect(300, 400, 500, 600) });
