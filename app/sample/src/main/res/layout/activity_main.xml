@@ -23,28 +23,10 @@
             android:text="You should take care of ths following demo:"/>
 
         <Button
-            android:id="@+id/button_environment"
+            android:id="@+id/button_scribble_touch_helper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Environment Demo"/>
-
-        <Button
-            android:id="@+id/button_epd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="EPD Demo"/>
-
-        <Button
-            android:id="@+id/button_front_light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Front Light"/>
-
-        <Button
-            android:id="@+id/button_touch_screen_scribble"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Scribble Touch Screen Demo"/>
+            android:text="Scribble Stylus Touch Helper Demo" />
 
         <Button
             android:id="@+id/button_surfaceview_stylus_scribble"
@@ -59,22 +41,40 @@
             android:text="Scribble Stylus WebView Demo"/>
 
         <Button
+            android:id="@+id/button_touch_screen_scribble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scribble Touch Screen Demo"/>
+
+        <Button
             android:id="@+id/button_scribble_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Scribble State Demo" />
 
         <Button
-            android:id="@+id/button_scribble_touch_helper"
+            android:id="@+id/button_epd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Scribble Stylus Touch Helper Demo" />
+            android:text="EPD Demo"/>
+
+        <Button
+            android:id="@+id/button_front_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Front Light"/>
 
         <Button
             android:id="@+id/button_full_screen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Full Screen Demo" />
+
+        <Button
+            android:id="@+id/button_environment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Environment Demo"/>
 
         <View
             android:layout_width="match_parent"
