@@ -25,16 +25,26 @@
             </intent-filter>
         </activity>
         <activity android:name=".EpdDemoActivity"/>
-        <activity android:name=".ScribbleTouchScreenDemoActivity"/>
-        <activity android:name=".ScribbleStylusSurfaceViewDemoActivity"/>
-        <activity android:name=".ScribbleStylusWebViewDemoActivity"/>
+        <activity
+            android:name=".ScribbleTouchScreenDemoActivity"
+            android:label="ScribbleTouchScreenDemoActivity"/>
+        <activity
+            android:name=".ScribbleStylusSurfaceViewDemoActivity"
+            android:label="ScribbleStylusSurfaceViewDemoActivity"/>
+        <activity
+            android:name=".ScribbleStylusWebViewDemoActivity"
+            android:label="ScribbleStylusWebViewDemoActivity"/>
         <activity android:name=".EnvironmentDemoActivity"/>
         <activity android:name=".FrontLightDemoActivity"/>
         <activity android:name=".SdkDataOTATestActivity"/>
         <activity android:name=".FullScreenDemoActivity"/>
         <activity android:name=".SettingsDemoActivity"/>
-        <activity android:name=".ScribbleStateDemoActivity"/>
-        <activity android:name=".ScribbleStylusTouchHelperDemoActivity"/>
+        <activity
+            android:name=".ScribbleStateDemoActivity"
+            android:label="ScribbleStateDemoActivity"/>
+        <activity
+            android:name=".ScribbleStylusTouchHelperDemoActivity"
+            android:label="ScribbleStylusTouchHelperDemoActivity"/>
         <activity android:name=".ParallelUpdateActivity"/>
         <activity android:name=".FastUpdateModeActivity"/>
         <activity android:name=".OverlayUpdateActivity"/>

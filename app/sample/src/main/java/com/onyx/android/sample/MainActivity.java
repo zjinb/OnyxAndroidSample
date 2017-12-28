@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_scribble_touch_helper)
     void button_scribble_touch_helper() {
-        startActivity(new Intent(this, ScribbleTouchScreenDemoActivity.class));
+        startActivity(new Intent(this, ScribbleStylusTouchHelperDemoActivity.class));
     }
 
     @OnClick(R.id.button_surfaceview_stylus_scribble)
