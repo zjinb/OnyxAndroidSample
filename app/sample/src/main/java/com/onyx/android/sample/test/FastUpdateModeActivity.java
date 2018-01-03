@@ -1,10 +1,11 @@
-package com.onyx.android.sample;
+package com.onyx.android.sample.test;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.onyx.android.sample.R;
 import com.onyx.android.sdk.api.device.EpdDeviceManager;
 import com.onyx.android.sdk.utils.TestUtils;
 

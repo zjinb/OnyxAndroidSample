@@ -36,21 +36,21 @@
             android:label="ScribbleStylusWebViewDemoActivity"/>
         <activity android:name=".EnvironmentDemoActivity"/>
         <activity android:name=".FrontLightDemoActivity"/>
-        <activity android:name=".SdkDataOTATestActivity"/>
+        <activity android:name=".test.SdkDataOTATestActivity"/>
         <activity android:name=".FullScreenDemoActivity"/>
-        <activity android:name=".SettingsDemoActivity"/>
+        <activity android:name=".test.SettingsDemoActivity"/>
         <activity
-            android:name=".ScribbleStateDemoActivity"
+            android:name=".test.ScribbleStateDemoActivity"
             android:label="ScribbleStateDemoActivity"/>
         <activity
             android:name=".ScribbleStylusTouchHelperDemoActivity"
             android:label="ScribbleStylusTouchHelperDemoActivity"/>
-        <activity android:name=".ParallelUpdateActivity"/>
-        <activity android:name=".FastUpdateModeActivity"/>
-        <activity android:name=".OverlayUpdateActivity"/>
-        <activity android:name=".TextSelectionActivity"/>
-        <activity android:name=".RectangleUpdateTest"/>
-        <activity android:name=".OnyxTestActivity">
+        <activity android:name=".test.ParallelUpdateActivity"/>
+        <activity android:name=".test.FastUpdateModeActivity"/>
+        <activity android:name=".test.OverlayUpdateActivity"/>
+        <activity android:name=".test.TextSelectionActivity"/>
+        <activity android:name=".test.RectangleUpdateTest"/>
+        <activity android:name=".test.OnyxTestActivity">
         </activity>
     </application>
 

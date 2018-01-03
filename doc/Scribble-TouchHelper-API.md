@@ -1,4 +1,5 @@
-To simplify the interface of scribble, we introduce TouchHelper class in onyxsdk-scribble 1.0.7.
+# Including in your project
+To simplify the interface of scribble, we introduce TouchHelper class in onyxsdk-scribble 1.0.8.
 
 You can init it using the code below:
 ```
@@ -6,29 +7,13 @@ touchHelper.setup(view)
            .setStrokeWidth(3.0f)
            .setUseRawInput(true)
            .setLimitRect(limit, exclude)
-           .initRawDrawing();
+           .openRawDrawing();
 ```
 limit is a rect specify the region you want to scribble on the view, exclude is a list of Rect to be excluded from the view.
 
-After TouchHelper().initRawDrawing(), you can call TouchHelper.resumeRawDrawing() to start scribbling, touchHelper.pauseRawDrawing() to pause, as code below:
-```
-if (v.equals(buttonPen)) {
-    touchHelper.resumeRawDrawing();
-    return;
-} else if (v.equals(buttonEraser)) {
-    EpdController.leaveScribbleMode(surfaceView);
-    touchHelper.pauseRawDrawing();
-    cleanSurfaceView();
-    return;
-}
-```
-EpdController.leaveScribbleMode(surfaceView) is also needed to leave scribble mode.
+After `TouchHelper().openRawDrawing()`, you can call `touchHelper.setRawDrawingEnabled(true)` to start scribbling, ` touchHelper.setRawDrawingEnabled(false);` to pause.
 
-In order to fully stop TouchHelper, you need call TouchHelper.stopRawDrawing(), as below:
-```
-EpdController.leaveScribbleMode(surfaceView);
-touchHelper.stopRawDrawing();
-```
+In order to fully stop TouchHelper, you need call ` touchHelper.closeRawDrawing()`.
 
 After TouchHelper is correctly setup, you can scribble on screen with stylus, but you may also want to receive data being scribbled, we pass back scribble touch point data with EventBus, below are the events being sent from TouchHelper:
 ```
@@ -83,3 +68,14 @@ public void onRawErasePointListReceivedEvent(RawErasePointListReceivedEvent e) {
 }
 ```
 You can see sample code in [ScribbleStylusTouchHelperDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/ScribbleStylusTouchHelperDemoActivity.java)
+
+# API
+
+ - `setup(View view)` view, you want to scrrible 
+ - `setLimitRect(Rect limit)`limit, a rect specify the region you want to scribble on the view.
+ - `setLimitRect(Rect limit, List<Rect> exclude)` limit, a rect specify the region you want to scribble on the view. exclude, a list of Rect to be excluded from the view.
+ - `setStrokeWidth(float var1)`set the width for stroking.
+ - `setUseRawInput(boolean var1)`true, you can get touch point data
+ - `setRawDrawingEnabled(boolean enable)`: Set true, you enter scribble mode, and the screen will not refresh.
+ - `openRawDrawing()` Turn on scribble and initialize resources.
+ - `closeRawDrawing()` Turn off scribble and release resources. Unlock the screen, screen can refresh..

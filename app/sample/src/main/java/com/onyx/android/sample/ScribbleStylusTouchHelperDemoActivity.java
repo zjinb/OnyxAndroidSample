@@ -10,7 +10,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
-import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.scribble.api.TouchHelper;
 import com.onyx.android.sdk.scribble.api.event.BeginRawDataEvent;
 import com.onyx.android.sdk.scribble.api.event.BeginRawErasingEvent;
@@ -30,8 +29,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity implements View.OnClickListener {
+public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity {
 
     private static final String TAG = ScribbleStylusTouchHelperDemoActivity.class.getSimpleName();
 
@@ -51,29 +51,26 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity imp
         setContentView(R.layout.activity_scribble_touch_helper_stylus_demo);
 
         ButterKnife.bind(this);
-        buttonPen.setOnClickListener(this);
-        buttonEraser.setOnClickListener(this);
 
         initSurfaceView();
     }
 
     @Override
     protected void onResume() {
-        touchHelper.resumeRawDrawing();
+        touchHelper.setRawDrawingEnabled(true);
         super.onResume();
     }
 
     @Override
-    protected void onDestroy() {
-        EpdController.leaveScribbleMode(surfaceView);
-        touchHelper.stopRawDrawing();
-        super.onDestroy();
+    protected void onPause() {
+        touchHelper.setRawDrawingEnabled(false);
+        super.onPause();
     }
 
     @Override
-    protected void onPause() {
-        touchHelper.pauseRawDrawing();
-        super.onPause();
+    protected void onDestroy() {
+        touchHelper.closeRawDrawing();
+        super.onDestroy();
     }
 
     private void initSurfaceView() {
@@ -93,22 +90,20 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity imp
                         .setStrokeWidth(3.0f)
                         .setUseRawInput(true)
                         .setLimitRect(limit, exclude)
-                        .initRawDrawing();
+                        .openRawDrawing();
             }
         });
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.equals(buttonPen)) {
-            touchHelper.resumeRawDrawing();
-            return;
-        } else if (v.equals(buttonEraser)) {
-            EpdController.leaveScribbleMode(surfaceView);
-            touchHelper.pauseRawDrawing();
-            cleanSurfaceView();
-            return;
-        }
+    @OnClick(R.id.button_pen)
+    public void onPenClick(){
+        touchHelper.setRawDrawingEnabled(true);
+    }
+
+    @OnClick(R.id.button_eraser)
+    public void onEraserClick(){
+        touchHelper.setRawDrawingEnabled(false);
+        cleanSurfaceView();
     }
 
     private void cleanSurfaceView() {

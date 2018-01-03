@@ -1,4 +1,4 @@
-package com.onyx.android.sample;
+package com.onyx.android.sample.test;
 
 import android.annotation.TargetApi;
 import android.graphics.Color;
@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayout;
 import android.widget.Button;
+
+import com.onyx.android.sample.R;
 import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.api.device.epd.UpdateMode;
 import com.onyx.android.sdk.utils.TestUtils;

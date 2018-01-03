@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.onyx.android.sample.RectangleUpdateTest">
+    tools:context="com.onyx.android.sample.test.RectangleUpdateTest">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,7 +48,7 @@
 
     </LinearLayout>
 
-    <com.onyx.android.sample.RectangleSurfaceView
+    <com.onyx.android.sample.widget.RectangleSurfaceView
         android:id="@+id/rect_surfaceView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
