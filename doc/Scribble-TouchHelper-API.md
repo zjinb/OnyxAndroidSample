@@ -11,7 +11,7 @@ touchHelper.setup(view)
 ```
 limit is a rect specify the region you want to scribble on the view, exclude is a list of Rect to be excluded from the view.
 
-After `TouchHelper().openRawDrawing()`, you can call `touchHelper.setRawDrawingState(true)` to start scribbling, ` touchHelper.setRawDrawingState(false);` to pause.
+After `TouchHelper().openRawDrawing()`, you can call `touchHelper.setRawDrawingEnabled(true)` to start scribbling, ` touchHelper.setRawDrawingEnabled(false);` to pause.
 
 In order to fully stop TouchHelper, you need call ` touchHelper.closeRawDrawing()`.
 
