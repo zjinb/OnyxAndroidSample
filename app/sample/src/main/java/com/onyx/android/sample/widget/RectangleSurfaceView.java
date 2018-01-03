@@ -1,4 +1,4 @@
-package com.onyx.android.sample;
+package com.onyx.android.sample.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
