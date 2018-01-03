@@ -1,4 +1,5 @@
-To simplify the interface of scribble, we introduce TouchHelper class in onyxsdk-scribble 1.0.7.
+# Including in your project
+To simplify the interface of scribble, we introduce TouchHelper class in onyxsdk-scribble 1.0.8.
 
 You can init it using the code below:
 ```
@@ -6,7 +7,7 @@ touchHelper.setup(view)
            .setStrokeWidth(3.0f)
            .setUseRawInput(true)
            .setLimitRect(limit, exclude)
-           .initRawDrawing();
+           .startRawDrawing();
 ```
 limit is a rect specify the region you want to scribble on the view, exclude is a list of Rect to be excluded from the view.
 
@@ -83,3 +84,15 @@ public void onRawErasePointListReceivedEvent(RawErasePointListReceivedEvent e) {
 }
 ```
 You can see sample code in [ScribbleStylusTouchHelperDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/ScribbleStylusTouchHelperDemoActivity.java)
+
+# API
+
+ - `setup(View view)` view, you want to scrrible 
+ - `setLimitRect(Rect limit)`limit, a rect specify the region you want to scribble on the view.
+ - `setLimitRect(Rect limit, List<Rect> exclude)` limit, a rect specify the region you want to scribble on the view. exclude, a list of Rect to be excluded from the view.
+ - `setStrokeWidth(float var1)`set the width for stroking.
+ - `setUseRawInput(boolean var1)`true, you can get touch point data
+ - `pauseRawDrawing()` you can't scrrible.
+ - `resumeRawDrawing()` you can scrrible.
+ - `startRawDrawing()` lock the screen , you can scrrible.
+ - `stopRawDrawing()` is the same as `quit()`. Unlock the screen, screen can refresh.

@@ -93,7 +93,7 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity imp
                         .setStrokeWidth(3.0f)
                         .setUseRawInput(true)
                         .setLimitRect(limit, exclude)
-                        .initRawDrawing();
+                        .startRawDrawing();
             }
         });
     }

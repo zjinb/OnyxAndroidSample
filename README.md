@@ -3,8 +3,8 @@ Sample project of SDKs from Onyx-Intl, including [onyxsdk-base](https://github.c
 
 To use the SDK, please add the following statement to your build.gradle:
 ```gradle
-    compile ('com.onyx.android.sdk:onyxsdk-base:1.3.7') { changing = true }
-    compile ('com.onyx.android.sdk:onyxsdk-scribble:1.0.6') { changing = true }
+    compile ('com.onyx.android.sdk:onyxsdk-base:1.3.7') 
+    compile ('com.onyx.android.sdk:onyxsdk-scribble:1.0.8')
 ```
 
     
@@ -25,7 +25,7 @@ The project contains following examples that you should take care of:
 * [EnvironmentDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/EnvironmentDemoActivity.java): shows how to use [DeviceEnvironment](https://github.com/onyx-intl/OnyxAndroidSample/wiki/DeviceEnvironment) to access removeable sdcard. You can call `DeviceEnvironment.getRemovableSDCardDirectory().getAbsolutePath();`
 
 ## 3.Scribble
-`TouchHelper` is the latest api that you can scribble with stylus. You should call it.
+`TouchHelper` is the latest api that you can scribble with stylus. You should call it.For more detailed usage, check out it out [here](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/doc/Scribble-TouchHelper-API.md)
 * [ScribbleStylusTouchHelperDemoActivity ](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/ScribbleStylusTouchHelperDemoActivity.java): 
 
 We have no restrictions on the view,  you can set anything view.For example, SurfaceView , webview.
