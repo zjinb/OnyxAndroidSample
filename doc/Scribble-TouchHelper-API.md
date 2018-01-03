@@ -76,6 +76,6 @@ You can see sample code in [ScribbleStylusTouchHelperDemoActivity](https://githu
  - `setLimitRect(Rect limit, List<Rect> exclude)` limit, a rect specify the region you want to scribble on the view. exclude, a list of Rect to be excluded from the view.
  - `setStrokeWidth(float var1)`set the width for stroking.
  - `setUseRawInput(boolean var1)`true, you can get touch point data
- - `setRawDrawingState(boolean enable)`: Set true, you enter scribble mode, and the screen will not refresh.
+ - `setRawDrawingEnabled(boolean enable)`: Set true, you enter scribble mode, and the screen will not refresh.
  - `openRawDrawing()` Turn on scribble and initialize resources.
  - `closeRawDrawing()` Turn off scribble and release resources. Unlock the screen, screen can refresh..
