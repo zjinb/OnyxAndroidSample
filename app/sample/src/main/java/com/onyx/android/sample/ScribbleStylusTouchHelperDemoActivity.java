@@ -57,13 +57,13 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        touchHelper.setRawDrawingState(true);
+        touchHelper.setRawDrawingEnabled(true);
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        touchHelper.setRawDrawingState(false);
+        touchHelper.setRawDrawingEnabled(false);
         super.onPause();
     }
 
@@ -97,12 +97,12 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_pen)
     public void onPenClick(){
-        touchHelper.setRawDrawingState(true);
+        touchHelper.setRawDrawingEnabled(true);
     }
 
     @OnClick(R.id.button_eraser)
     public void onEraserClick(){
-        touchHelper.setRawDrawingState(false);
+        touchHelper.setRawDrawingEnabled(false);
         cleanSurfaceView();
     }
 
