@@ -1,8 +1,8 @@
 Base SDK for Onyx-Intl Android E-Ink devices
 
-Latest version is 1.3.2, can be referenced with following gradle statement:
+Latest version is 1.3.7, can be referenced with following gradle statement:
 ```gradle
-  compile ('com.onyx.android.sdk:onyxsdk-base:1.3.7') { changing = true }
+  compile ('com.onyx.android.sdk:onyxsdk-base:1.3.7')
 ```
 
 Change logs:

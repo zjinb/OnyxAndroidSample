@@ -7,29 +7,13 @@ touchHelper.setup(view)
            .setStrokeWidth(3.0f)
            .setUseRawInput(true)
            .setLimitRect(limit, exclude)
-           .startRawDrawing();
+           .openRawDrawing();
 ```
 limit is a rect specify the region you want to scribble on the view, exclude is a list of Rect to be excluded from the view.
 
-After TouchHelper().initRawDrawing(), you can call TouchHelper.resumeRawDrawing() to start scribbling, touchHelper.pauseRawDrawing() to pause, as code below:
-```
-if (v.equals(buttonPen)) {
-    touchHelper.resumeRawDrawing();
-    return;
-} else if (v.equals(buttonEraser)) {
-    EpdController.leaveScribbleMode(surfaceView);
-    touchHelper.pauseRawDrawing();
-    cleanSurfaceView();
-    return;
-}
-```
-EpdController.leaveScribbleMode(surfaceView) is also needed to leave scribble mode.
+After `TouchHelper().openRawDrawing()`, you can call `touchHelper.setRawDrawingState(true)` to start scribbling, ` touchHelper.setRawDrawingState(false);` to pause.
 
-In order to fully stop TouchHelper, you need call TouchHelper.stopRawDrawing(), as below:
-```
-EpdController.leaveScribbleMode(surfaceView);
-touchHelper.stopRawDrawing();
-```
+In order to fully stop TouchHelper, you need call ` touchHelper.closeRawDrawing()`.
 
 After TouchHelper is correctly setup, you can scribble on screen with stylus, but you may also want to receive data being scribbled, we pass back scribble touch point data with EventBus, below are the events being sent from TouchHelper:
 ```
@@ -92,7 +76,6 @@ You can see sample code in [ScribbleStylusTouchHelperDemoActivity](https://githu
  - `setLimitRect(Rect limit, List<Rect> exclude)` limit, a rect specify the region you want to scribble on the view. exclude, a list of Rect to be excluded from the view.
  - `setStrokeWidth(float var1)`set the width for stroking.
  - `setUseRawInput(boolean var1)`true, you can get touch point data
- - `pauseRawDrawing()` you can't scrrible.
- - `resumeRawDrawing()` you can scrrible.
- - `startRawDrawing()` lock the screen , you can scrrible.
- - `stopRawDrawing()` is the same as `quit()`. Unlock the screen, screen can refresh.
+ - `setRawDrawingState(boolean enable)`: Set true, you enter scribble mode, and the screen will not refresh.
+ - `openRawDrawing()` Turn on scribble and initialize resources.
+ - `closeRawDrawing()` Turn off scribble and release resources. Unlock the screen, screen can refresh..

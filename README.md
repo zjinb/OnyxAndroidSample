@@ -36,3 +36,4 @@ We will return relative coordinates, According to the view you set.
 If the device supports touch, you scribble with your fingers.
 * [ScribbleTouchScreenDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/ScribbleTouchScreenDemoActivity.java): example of [Scribble API](https://github.com/onyx-intl/OnyxAndroidSample/wiki/Scribble-API) from [EpdController](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EpdController) for IMX6 devices
 
+## [onyxsdk-scribble SDK Change logs](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/doc/Onyx-Scribble-SDK.md)

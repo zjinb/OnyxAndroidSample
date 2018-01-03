@@ -1,8 +1,8 @@
 Scribble SDK for devices with stylus.
 
-Latest version is 1.0.5, can be referenced with following gradle statement:
+Latest version is 1.0.8, can be referenced with following gradle statement:
 
-    compile 'com.onyx.android.sdk:onyxsdk-scribble:1.0.6'
+    compile 'com.onyx.android.sdk:onyxsdk-scribble:1.0.8'
 
 You can see sample code in [ScribbleStylusSurfaceViewDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/ScribbleStylusSurfaceViewDemoActivity.java) 
 
@@ -11,11 +11,17 @@ For onyxsdk-scribble SDK, dbflow library is inside the jitpack, so you have to a
    `maven { url "https://jitpack.io" }`
 
 EpdController.enterScribbleMode must be use after surface view showed, so we use as:
-
-  `surfaceView.post(new Runnable() {
+```java
+   surfaceView.post(new Runnable() {
                @Override
                public void run() {
                    enterScribbleMode();
                }
            });
-  `
+```
+#Change logs
+
+## 1.0.8
+1. Remove `initRawDrawing()` (use `openRawDrawing()` instead): Turn on scribble and initialize resources.
+2. Add `closeRawDrawing()`: Turn off scribble and release resources. Unlock the screen, screen can refresh.
+3. Add `setRawDrawingState(boolean enable)`: Set true, you enter scribble mode, and the screen will not refresh.
