@@ -1,10 +1,13 @@
 # Overview
-Sample project of SDKs from Onyx-Intl, including [onyxsdk-base](doc/Onyx-Base-SDK.md), [onyxsdk-scribble](doc/Onyx-Scribble-SDK.md)
+Sample project of SDKs from Onyx-Intl, including [onyxsdk-base](doc/Onyx-Base-SDK.md), [onyxsdk-scribble](doc/Onyx-Scribble-SDK.md), [onyxsdk-pen](doc/Onyx-Pen-SDK.md)
 
 To use the SDK, please add the following statement to your build.gradle:
 ```gradle
-    compile ('com.onyx.android.sdk:onyxsdk-base:1.3.7') 
-    compile ('com.onyx.android.sdk:onyxsdk-scribble:1.0.8')
+    compile ('com.onyx.android.sdk:onyxsdk-base:1.3.7')
+	// a tiny scribble sdk, Recommend you to use
+    compile('com.onyx.android.sdk:onyxsdk-pen:1.0.0')
+	
+    // compile ('com.onyx.android.sdk:onyxsdk-scribble:1.0.8')
 ```
 
     
@@ -24,9 +27,18 @@ The project contains following examples that you should take care of:
 ## 2.SDCard
 * [EnvironmentDemoActivity](app/sample/src/main/java/com/onyx/android/sample/EnvironmentDemoActivity.java): shows how to use [DeviceEnvironment](doc/DeviceEnvironment.md) to access removeable sdcard. You can call `DeviceEnvironment.getRemovableSDCardDirectory().getAbsolutePath();`
 
-## 3.Scribble
-`TouchHelper` is the latest api that you can scribble with stylus. You should call it.For more detailed usage, check out it out [here](doc/Scribble-TouchHelper-API.md)
-* [ScribbleStylusTouchHelperDemoActivity ](app/sample/src/main/java/com/onyx/android/sample/ScribbleStylusTouchHelperDemoActivity.java): 
+## 3.Pen
+
+`TouchHelper` is the latest api that you can scribble with stylus. You should call it.For more detailed usage, check out it out [onyxsdk-pen](doc/Onyx-Pen-SDK.md)
+
+* [PenStylusTouchHelperDemoActivity](app/sample/src/main/java/com/onyx/android/sample/PenStylusTouchHelperDemoActivity.java) is an example of [onyxsdk-pen](doc/Onyx-Pen-SDK.md).
+
+## 4.Scribble
+Following demos are example of [onyxsdk-scribble](doc/Onyx-Scribble-SDK.md).
+
+There is `TouchHelper` in the [onyxsdk-scribble](doc/Onyx-Scribble-SDK.md).
+For more detailed usage, check out it out [Scribble-TouchHelper](doc/Scribble-TouchHelper-API.md) 
+* [ScribbleStylusTouchHelperDemoActivity ](app/sample/src/main/java/com/onyx/android/sample/ScribbleStylusTouchHelperDemoActivity.java) 
 
 We have no restrictions on the view,  you can set anything view.For example, SurfaceView , webview.
 We will return relative coordinates, According to the view you set.
