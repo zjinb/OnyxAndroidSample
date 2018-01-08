@@ -79,7 +79,9 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity {
         surfaceView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                surfaceView.removeOnLayoutChangeListener(this);
+                if (cleanSurfaceView()){
+                    surfaceView.removeOnLayoutChangeListener(this);
+                }
                 List<Rect> exclude = new ArrayList<>();
                 exclude.add(touchHelper.getRelativeRect(surfaceView, buttonEraser));
                 exclude.add(touchHelper.getRelativeRect(surfaceView, buttonPen));
@@ -107,16 +109,17 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity {
         cleanSurfaceView();
     }
 
-    private void cleanSurfaceView() {
+    private boolean cleanSurfaceView() {
         if (surfaceView.getHolder() == null) {
-            return;
+            return false;
         }
         Canvas canvas = surfaceView.getHolder().lockCanvas();
         if (canvas == null) {
-            return;
+            return false;
         }
         canvas.drawColor(Color.WHITE);
         surfaceView.getHolder().unlockCanvasAndPost(canvas);
+        return true;
     }
 
     // below are callback events sent from TouchHelper
