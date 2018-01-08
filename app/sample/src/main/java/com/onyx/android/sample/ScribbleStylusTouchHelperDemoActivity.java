@@ -9,19 +9,26 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 
-import com.onyx.android.sdk.pen.RawInputCallback;
-import com.onyx.android.sdk.pen.TouchHelper;
-import com.onyx.android.sdk.pen.data.TouchPoint;
-import com.onyx.android.sdk.pen.data.TouchPointList;
+import com.onyx.android.sdk.scribble.api.TouchHelper;
+import com.onyx.android.sdk.scribble.api.event.BeginRawDataEvent;
+import com.onyx.android.sdk.scribble.api.event.BeginRawErasingEvent;
+import com.onyx.android.sdk.scribble.api.event.DrawingTouchEvent;
+import com.onyx.android.sdk.scribble.api.event.EndRawDataEvent;
+import com.onyx.android.sdk.scribble.api.event.ErasingTouchEvent;
+import com.onyx.android.sdk.scribble.api.event.RawErasePointListReceivedEvent;
+import com.onyx.android.sdk.scribble.api.event.RawErasePointMoveReceivedEvent;
+import com.onyx.android.sdk.scribble.api.event.RawTouchPointListReceivedEvent;
+import com.onyx.android.sdk.scribble.api.event.RawTouchPointMoveReceivedEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity {
@@ -34,9 +41,8 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity {
     Button buttonEraser;
     @Bind(R.id.surfaceview)
     SurfaceView surfaceView;
-    @Bind(R.id.cb_render)
-    CheckBox cbRender;
 
+    private EventBus eventBus = new EventBus();
     private TouchHelper touchHelper;
 
     @Override
@@ -68,21 +74,21 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity {
     }
 
     private void initSurfaceView() {
-        touchHelper = TouchHelper.create(surfaceView, callback);
-
+        eventBus.register(this);
+        touchHelper = new TouchHelper(eventBus);
         surfaceView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int
-                    oldRight, int oldBottom) {
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 List<Rect> exclude = new ArrayList<>();
-                exclude.add(getRelativeRect(surfaceView, buttonEraser));
-                exclude.add(getRelativeRect(surfaceView, buttonPen));
-                exclude.add(getRelativeRect(surfaceView, cbRender));
+                exclude.add(touchHelper.getRelativeRect(surfaceView, buttonEraser));
+                exclude.add(touchHelper.getRelativeRect(surfaceView, buttonPen));
 
                 Rect limit = new Rect();
                 surfaceView.getLocalVisibleRect(limit);
                 cleanSurfaceView();
-                touchHelper.setStrokeWidth(3.0f)
+                touchHelper.setup(surfaceView)
+                           .setStrokeWidth(3.0f)
+                           .setUseRawInput(true)
                            .setLimitRect(limit, exclude)
                            .openRawDrawing();
             }
@@ -90,32 +96,14 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.button_pen)
-    public void onPenClick() {
+    public void onPenClick(){
         touchHelper.setRawDrawingEnabled(true);
-        onRenderEnableClick();
     }
 
     @OnClick(R.id.button_eraser)
-    public void onEraserClick() {
+    public void onEraserClick(){
         touchHelper.setRawDrawingEnabled(false);
         cleanSurfaceView();
-    }
-
-    @OnCheckedChanged(R.id.cb_render)
-    public void onRenderEnableClick() {
-        touchHelper.setRawDrawingRenderEnabled(cbRender.isChecked());
-        Log.d(TAG,"onRenderEnableClick setRawDrawingRenderEnabled =  " + cbRender.isChecked());
-    }
-
-    public Rect getRelativeRect(View var1, View var2) {
-        int[] var3 = new int[2];
-        int[] var4 = new int[2];
-        var1.getLocationOnScreen(var3);
-        var2.getLocationOnScreen(var4);
-        Rect var5 = new Rect();
-        var2.getLocalVisibleRect(var5);
-        var5.offset(var4[0] - var3[0], var4[1] - var3[1]);
-        return var5;
     }
 
     private void cleanSurfaceView() {
@@ -130,47 +118,57 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity {
         surfaceView.getHolder().unlockCanvasAndPost(canvas);
     }
 
+    // below are callback events sent from TouchHelper
 
-    private RawInputCallback callback = new RawInputCallback() {
+    @Subscribe
+    public void onErasingTouchEvent(ErasingTouchEvent e) {
+        Log.d(TAG, "onErasingTouchEvent");
+    }
 
-        @Override
-        public void onBeginRawDrawing(boolean b, TouchPoint touchPoint) {
-            Log.d(TAG, "onBeginRawDrawing");
-        }
+    @Subscribe
+    public void onDrawingTouchEvent(DrawingTouchEvent e) {
+        Log.d(TAG, "onDrawingTouchEvent");
+    }
 
-        @Override
-        public void onEndRawDrawing(boolean b, TouchPoint touchPoint) {
-            Log.d(TAG, "onEndRawDrawing");
-        }
+    @Subscribe
+    public void onBeginRawDataEvent(BeginRawDataEvent e) {
+        Log.d(TAG, "onBeginRawDataEvent");
+    }
 
-        @Override
-        public void onRawDrawingTouchPointMoveReceived(TouchPoint touchPoint) {
-            Log.d(TAG, "onRawDrawingTouchPointMoveReceived");
-        }
+    @Subscribe
+    public void onEndRawDataEvent(EndRawDataEvent e) {
+        Log.d(TAG, "onEndRawDataEvent");
+    }
 
-        @Override
-        public void onRawDrawingTouchPointListReceived(TouchPointList touchPointList) {
-            Log.d(TAG, "onRawDrawingTouchPointListReceived");
-        }
+    @Subscribe
+    public void onRawTouchPointMoveReceivedEvent(RawTouchPointMoveReceivedEvent e) {
+        Log.d(TAG, "onRawTouchPointMoveReceivedEvent");
+    }
 
-        @Override
-        public void onBeginRawErasing(boolean b, TouchPoint touchPoint) {
-            Log.d(TAG, "onBeginRawErasing");
-        }
+    @Subscribe
+    public void onRawTouchPointListReceivedEvent(RawTouchPointListReceivedEvent e) {
+        Log.d(TAG, "onRawTouchPointListReceivedEvent");
+    }
 
-        @Override
-        public void onEndRawErasing(boolean b, TouchPoint touchPoint) {
-            Log.d(TAG, "onEndRawErasing");
-        }
+    @Subscribe
+    public void onRawErasingStartEvent(BeginRawErasingEvent e) {
+        Log.d(TAG, "onRawErasingStartEvent");
+    }
 
-        @Override
-        public void onRawErasingTouchPointMoveReceived(TouchPoint touchPoint) {
-            Log.d(TAG, "onRawErasingTouchPointMoveReceived");
-        }
+    @Subscribe
+    public void onRawErasingFinishEvent(RawErasePointListReceivedEvent e) {
+        Log.d(TAG, "onRawErasingFinishEvent");
+    }
 
-        @Override
-        public void onRawErasingTouchPointListReceived(TouchPointList touchPointList) {
-            Log.d(TAG, "onRawErasingTouchPointListReceived");
-        }
-    };
+    @Subscribe
+    public void onRawErasePointMoveReceivedEvent(RawErasePointMoveReceivedEvent e) {
+        Log.d(TAG, "onRawErasePointMoveReceivedEvent");
+
+    }
+
+    @Subscribe
+    public void onRawErasePointListReceivedEvent(RawErasePointListReceivedEvent e) {
+        Log.d(TAG, "onRawErasePointListReceivedEvent");
+    }
+
 }
