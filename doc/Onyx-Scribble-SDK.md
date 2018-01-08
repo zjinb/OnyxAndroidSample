@@ -9,7 +9,7 @@ For onyxsdk-scribble SDK, dbflow library is inside the jitpack, so you have to a
    maven { url "https://jitpack.io" }
 ```
 
-`TouchHelper` is the latest api that you can scribble with stylus. You should call it.For more detailed usage, check out it out [here](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/doc/Scribble-TouchHelper-API.md)
+`TouchHelper` is the latest api that you can scribble with stylus. You should call it.For more detailed usage, check out it out [here](Scribble-TouchHelper-API.md)
 
 # Change logs
 
