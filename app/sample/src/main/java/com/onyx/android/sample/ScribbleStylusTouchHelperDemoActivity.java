@@ -79,6 +79,7 @@ public class ScribbleStylusTouchHelperDemoActivity extends AppCompatActivity {
         surfaceView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                surfaceView.removeOnLayoutChangeListener(this);
                 List<Rect> exclude = new ArrayList<>();
                 exclude.add(touchHelper.getRelativeRect(surfaceView, buttonEraser));
                 exclude.add(touchHelper.getRelativeRect(surfaceView, buttonPen));

@@ -74,6 +74,7 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int
                     oldRight, int oldBottom) {
+                surfaceView.removeOnLayoutChangeListener(this);
                 List<Rect> exclude = new ArrayList<>();
                 exclude.add(getRelativeRect(surfaceView, buttonEraser));
                 exclude.add(getRelativeRect(surfaceView, buttonPen));
@@ -107,15 +108,15 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
         Log.d(TAG,"onRenderEnableClick setRawDrawingRenderEnabled =  " + cbRender.isChecked());
     }
 
-    public Rect getRelativeRect(View var1, View var2) {
-        int[] var3 = new int[2];
-        int[] var4 = new int[2];
-        var1.getLocationOnScreen(var3);
-        var2.getLocationOnScreen(var4);
-        Rect var5 = new Rect();
-        var2.getLocalVisibleRect(var5);
-        var5.offset(var4[0] - var3[0], var4[1] - var3[1]);
-        return var5;
+    public Rect getRelativeRect(final View parentView, final View childView) {
+        int [] parent = new int[2];
+        int [] child = new int[2];
+        parentView.getLocationOnScreen(parent);
+        childView.getLocationOnScreen(child);
+        Rect rect = new Rect();
+        childView.getLocalVisibleRect(rect);
+        rect.offset(child[0] - parent[0], child[1] - parent[1]);
+        return rect;
     }
 
     private void cleanSurfaceView() {
