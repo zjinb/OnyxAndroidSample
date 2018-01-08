@@ -52,6 +52,8 @@
         <activity android:name=".test.RectangleUpdateTest"/>
         <activity android:name=".test.OnyxTestActivity">
         </activity>
+        <activity android:name=".PenStylusTouchHelperDemoActivity"
+                  android:label="PenStylusTouchHelperDemoActivity"/>
     </application>
 
 </manifest>
