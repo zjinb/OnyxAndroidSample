@@ -44,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
         go(EnvironmentDemoActivity.class);
     }
 
+    @OnClick(R.id.button_pen_touch_helper)
+    public void button_pen_touch_helper() {
+        go(PenStylusTouchHelperDemoActivity.class);
+    }
+
     @OnClick(R.id.button_scribble_touch_helper)
     public void button_scribble_touch_helper() {
         go(ScribbleStylusTouchHelperDemoActivity.class);
