@@ -11,6 +11,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 
 import com.onyx.android.sdk.pen.RawInputCallback;
 import com.onyx.android.sdk.pen.TouchHelper;
@@ -39,6 +40,10 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
     SurfaceView surfaceView;
     @Bind(R.id.cb_render)
     CheckBox cbRender;
+    @Bind(R.id.rb_brush)
+    RadioButton rbBrush;
+    @Bind(R.id.rb_pencil)
+    RadioButton rbPencil;
 
     private TouchHelper touchHelper;
 
@@ -95,12 +100,15 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
                 exclude.add(getRelativeRect(surfaceView, buttonEraser));
                 exclude.add(getRelativeRect(surfaceView, buttonPen));
                 exclude.add(getRelativeRect(surfaceView, cbRender));
+                exclude.add(getRelativeRect(surfaceView, rbBrush));
+                exclude.add(getRelativeRect(surfaceView, rbPencil));
 
                 Rect limit = new Rect();
                 surfaceView.getLocalVisibleRect(limit);
                 touchHelper.setStrokeWidth(3.0f)
                            .setLimitRect(limit, exclude)
                            .openRawDrawing();
+                touchHelper.setStrokeStyle(TouchHelper.STROKE_STYLE_BRUSH);
             }
         });
     }
@@ -121,6 +129,30 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
     public void onRenderEnableClick() {
         touchHelper.setRawDrawingRenderEnabled(cbRender.isChecked());
         Log.d(TAG,"onRenderEnableClick setRawDrawingRenderEnabled =  " + cbRender.isChecked());
+    }
+
+    @OnClick({R.id.rb_brush, R.id.rb_pencil})
+    public void onRadioButtonClicked(RadioButton radioButton) {
+
+        boolean checked = radioButton.isChecked();
+        Log.d(TAG, radioButton.toString());
+        switch (radioButton.getId()) {
+            case R.id.rb_brush:
+                if (checked) {
+                    touchHelper.setStrokeStyle(TouchHelper.STROKE_STYLE_BRUSH);
+                    Log.d(TAG, "STROKE_STYLE_BRUSH");
+                }
+                break;
+            case R.id.rb_pencil:
+                if (checked) {
+                    touchHelper.setStrokeStyle(TouchHelper.STROKE_STYLE_PENCIL);
+                    Log.d(TAG, "STROKE_STYLE_PENCIL");
+                }
+                break;
+        }
+        // refresh ui
+        onEraserClick();
+        onPenClick();
     }
 
     public Rect getRelativeRect(final View parentView, final View childView) {

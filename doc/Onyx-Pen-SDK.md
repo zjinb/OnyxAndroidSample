@@ -12,7 +12,7 @@ Add the following dependencies to your app's `build.gradle` file
 
 ```gradle
     compile('com.onyx.android.sdk:onyxsdk-base:1.3.7')
-    compile('com.onyx.android.sdk:onyxsdk-pen:1.0.0')
+    compile('com.onyx.android.sdk:onyxsdk-pen:1.0.1')
 ```
 ## 2.Init TouchHelper
 
@@ -31,6 +31,8 @@ Add the following dependencies to your app's `build.gradle` file
 After `TouchHelper().openRawDrawing()`, you can call `touchHelper.setRawDrawingEnabled(true)` to start scribbling, ` touchHelper.setRawDrawingEnabled(false);` to pause.
 
 You can call `touchHelper.setRawDrawingRenderEnabled(false)` to disable render during scribble.
+
+You can call ` touchHelper.setStrokeStyle();` to set stroke style.
 
 In order to fully stop TouchHelper, you need call ` touchHelper.closeRawDrawing()`.
 
@@ -96,8 +98,12 @@ Reference to the [PenStylusTouchHelperDemoActivity](../app/sample/src/main/java/
  - `setRawDrawingRenderEnabled(boolean enable)` set false, disable render during scribble.
  - `openRawDrawing()` Turn on scribble and initialize resources.
  - `closeRawDrawing()` Turn off scribble and release resources. Unlock the screen, screen can refresh..
-
+ - `setStrokeStyle(int style)` Support style: `TouchHelper.STROKE_STYLE_BRUSH`, `TouchHelper.STROKE_STYLE_PENCIL` 
 # Change logs
+
+## 1.0.1
+
+`TouchHelper` add `setStrokeStyle(int style)`.
 
 ## 1.0.0
  
