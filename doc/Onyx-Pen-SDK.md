@@ -12,7 +12,7 @@ Add the following dependencies to your app's `build.gradle` file
 
 ```gradle
     compile('com.onyx.android.sdk:onyxsdk-base:1.3.7')
-    compile('com.onyx.android.sdk:onyxsdk-pen:1.0.1')
+    compile('com.onyx.android.sdk:onyxsdk-pen:1.0.2')
 ```
 ## 2.Init TouchHelper
 
@@ -100,6 +100,10 @@ Reference to the [PenStylusTouchHelperDemoActivity](../app/sample/src/main/java/
  - `closeRawDrawing()` Turn off scribble and release resources. Unlock the screen, screen can refresh..
  - `setStrokeStyle(int style)` Support style: `TouchHelper.STROKE_STYLE_BRUSH`, `TouchHelper.STROKE_STYLE_PENCIL` 
 # Change logs
+
+## 1.0.2
+
+Fix issue of stroke style
 
 ## 1.0.1
 

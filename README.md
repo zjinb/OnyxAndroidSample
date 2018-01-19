@@ -5,7 +5,7 @@ To use the SDK, please add the following statement to your build.gradle:
 ```gradle
     compile ('com.onyx.android.sdk:onyxsdk-base:1.3.7')
 	// a tiny scribble sdk, Recommend you to use
-    compile('com.onyx.android.sdk:onyxsdk-pen:1.0.1')
+    compile('com.onyx.android.sdk:onyxsdk-pen:1.0.2')
 	
     // compile ('com.onyx.android.sdk:onyxsdk-scribble:1.0.8')
 ```
