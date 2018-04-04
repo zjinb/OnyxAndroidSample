@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.onyx.android.sdk.api.device.EpdDeviceManager;
 import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.api.device.epd.UpdateMode;
-import com.onyx.android.sdk.device.Device;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -59,10 +58,10 @@ public class EpdDemoActivity extends AppCompatActivity implements View.OnClickLi
         } else if (v.equals(button_screen_refresh)) {
             updateTextView();
             //if it's is fast mode
-            if(isFastMode) {
+            if (isFastMode) {
                 EpdDeviceManager.exitAnimationUpdate(true);
                 EpdDeviceManager.enterAnimationUpdate(true);
-            }else{
+            } else {
                 EpdController.invalidate(textView, UpdateMode.GC);
             }
         } else if (v.equals(button_enter_fast_mode)) {
