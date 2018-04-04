@@ -41,19 +41,20 @@
             android:layout_height="wrap_content"
             android:text="Enter Fast Mode"/>
 
-        <Button
-            android:id="@+id/button_quit_fast_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quit Fast Mode"/>
+
 
     </LinearLayout>
-
+    <Button
+        android:id="@+id/button_quit_fast_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_function"
+        android:text="Quit Fast Mode"/>
     <TextView
         android:id="@+id/textview"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_below="@id/layout_function"
+        android:layout_below="@id/button_quit_fast_mode"
         android:background="@android:color/darker_gray"
         android:textColor="@android:color/black"
         android:textSize="20sp"

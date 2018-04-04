@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.onyx.android.sdk.api.device.EpdDeviceManager;
 import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.api.device.epd.UpdateMode;
+import com.onyx.android.sdk.device.Device;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,7 +31,7 @@ public class EpdDemoActivity extends AppCompatActivity implements View.OnClickLi
     TextView textView;
     @Bind(R.id.surfaceview)
     SurfaceView surfaceView;
-
+    private boolean isFastMode=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,11 +58,19 @@ public class EpdDemoActivity extends AppCompatActivity implements View.OnClickLi
             EpdDeviceManager.applyWithGCIntervalWitRegal(textView, true);
         } else if (v.equals(button_screen_refresh)) {
             updateTextView();
-            EpdController.invalidate(textView, UpdateMode.GC);
+            //if it's is fast mode
+            if(isFastMode) {
+                EpdDeviceManager.exitAnimationUpdate(true);
+                EpdDeviceManager.enterAnimationUpdate(true);
+            }else{
+                EpdController.invalidate(textView, UpdateMode.GC);
+            }
         } else if (v.equals(button_enter_fast_mode)) {
+            isFastMode=true;
             EpdDeviceManager.enterAnimationUpdate(true);
         } else if (v.equals(button_quit_fast_mode)) {
             EpdDeviceManager.exitAnimationUpdate(true);
+            isFastMode=false;
         }
     }
 
