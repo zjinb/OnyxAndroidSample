@@ -22,8 +22,8 @@
     <!-- Preferable keyboard height in absolute scale: 1.285in -->
     <!-- This keyboardHeight value should match with keyboard-heights.xml -->
     <dimen name="keyboardHeight">205.6dp</dimen>
-    <fraction name="maxKeyboardHeight">46%p</fraction>
-    <fraction name="minKeyboardHeight">-61.8%p</fraction>
+    <fraction name="maxKeyboardHeight">40%p</fraction>
+    <fraction name="minKeyboardHeight">-40.8%p</fraction>
 
     <dimen name="popup_key_height">52.8dp</dimen>
 
@@ -37,8 +37,8 @@
     <fraction name="key_bottom_gap_gb">6.495%p</fraction>
     <fraction name="key_horizontal_gap_gb">1.971%p</fraction>
 
-    <dimen name="key_klp_bg_width">2dp</dimen>
-    <dimen name="key_klp_bg_radius">1dp</dimen>
+    <dimen name="key_klp_bg_width">1dp</dimen>
+    <dimen name="key_klp_bg_radius">2dp</dimen>
 
     <fraction name="keyboard_top_padding_holo">2.335%p</fraction>
     <fraction name="keyboard_bottom_padding_holo">4.669%p</fraction>
@@ -65,7 +65,7 @@
     <dimen name="key_preview_offset_gb">-8.0dp</dimen>
 
     <dimen name="key_label_horizontal_padding">4dp</dimen>
-    <dimen name="key_hint_letter_padding">1dp</dimen>
+    <dimen name="key_hint_letter_padding">3dp</dimen>
     <dimen name="key_popup_hint_letter_padding">2dp</dimen>
     <dimen name="key_uppercase_letter_padding">2dp</dimen>
 

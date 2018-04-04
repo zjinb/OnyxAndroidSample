@@ -37,6 +37,9 @@
     <fraction name="key_bottom_gap_gb">6.495%p</fraction>
     <fraction name="key_horizontal_gap_gb">1.971%p</fraction>
 
+    <dimen name="key_klp_bg_width">2dp</dimen>
+    <dimen name="key_klp_bg_radius">2dp</dimen>
+
     <fraction name="keyboard_top_padding_holo">2.335%p</fraction>
     <fraction name="keyboard_bottom_padding_holo">4.669%p</fraction>
     <fraction name="key_bottom_gap_holo">6.127%p</fraction>
@@ -62,7 +65,7 @@
     <dimen name="key_preview_offset_gb">-8.0dp</dimen>
 
     <dimen name="key_label_horizontal_padding">4dp</dimen>
-    <dimen name="key_hint_letter_padding">1dp</dimen>
+    <dimen name="key_hint_letter_padding">3dp</dimen>
     <dimen name="key_popup_hint_letter_padding">2dp</dimen>
     <dimen name="key_uppercase_letter_padding">2dp</dimen>
 

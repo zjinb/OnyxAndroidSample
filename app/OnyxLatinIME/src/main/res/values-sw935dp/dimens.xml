@@ -35,6 +35,9 @@
     <fraction name="key_bottom_gap_holo">3.312%p</fraction>
     <fraction name="key_horizontal_gap_holo">1.066%p</fraction>
 
+    <dimen name="key_klp_bg_width">2dp</dimen>
+    <dimen name="key_klp_bg_radius">1dp</dimen>
+
     <dimen name="popup_key_height">63.0dp</dimen>
 
     <dimen name="more_keys_keyboard_key_horizontal_padding">12dp</dimen>

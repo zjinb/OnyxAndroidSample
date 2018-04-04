@@ -19,16 +19,16 @@
     <item android:state_pressed="true">
         <shape>
             <solid android:color="@android:color/black" />
-            <stroke android:color="@android:color/black" android:width="2dp"/>
-            <corners android:radius="1dp" />
+            <stroke android:color="@android:color/black" android:width="@dimen/key_klp_bg_width"/>
+            <corners android:radius="@dimen/key_klp_bg_radius" />
         </shape>
     </item>
 
     <item>
        <shape>
            <solid android:color="@android:color/white" />
-           <stroke android:color="@android:color/black" android:width="2dp"/>
-           <corners android:radius="1dp" />
+           <stroke android:color="@android:color/black" android:width="@dimen/key_klp_bg_width"/>
+           <corners android:radius="@dimen/key_klp_bg_radius" />
        </shape>
   </item>
 </selector>
