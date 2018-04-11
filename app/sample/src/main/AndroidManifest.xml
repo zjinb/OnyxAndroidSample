@@ -54,6 +54,17 @@
         </activity>
         <activity android:name=".PenStylusTouchHelperDemoActivity"
                   android:label="PenStylusTouchHelperDemoActivity"/>
+
+        <activity android:name=".AppOptimizeActivity"/>
+
+        <!-- set the app optimize of receiver-->
+        <receiver
+            android:name="com.onyx.android.sample.broadcast.AppOptimizeManagerReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.onyx.app.optimize.setting" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
