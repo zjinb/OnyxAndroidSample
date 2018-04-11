@@ -58,6 +58,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rectangle Update Demo" />
+
+        <Button
+            android:id="@+id/btn_broadcast_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:text="full screen broadcast Test" />
     </LinearLayout>
 
 </RelativeLayout>
