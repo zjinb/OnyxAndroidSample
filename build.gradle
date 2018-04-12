@@ -37,7 +37,7 @@ ext {
 
     apachecommonsVersion = '4.0'
     constraintlayoutVersion = '1.0.2'
-    dbflowVersion = '4.2.2'
+    dbflowVersion = '3.0.1'
     fastjsonVersion = '1.1.34.android'
     filedownloaderVersion = '0.3.4'
     retrofit2Version = '2.1.0'

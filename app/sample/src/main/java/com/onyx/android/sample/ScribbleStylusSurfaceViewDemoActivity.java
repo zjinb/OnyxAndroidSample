@@ -11,9 +11,9 @@ import android.widget.Button;
 
 import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.api.device.epd.UpdateMode;
-import com.onyx.android.sdk.pen.data.TouchPoint;
-import com.onyx.android.sdk.pen.data.TouchPointList;
 import com.onyx.android.sdk.scribble.api.PenReader;
+import com.onyx.android.sdk.scribble.data.TouchPoint;
+import com.onyx.android.sdk.scribble.data.TouchPointList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
