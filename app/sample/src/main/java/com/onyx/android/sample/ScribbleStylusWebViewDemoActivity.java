@@ -2,6 +2,7 @@ package com.onyx.android.sample;
 
 import android.content.Context;
 import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,17 +14,17 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.onyx.android.sample.device.DeviceConfig;
 import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.api.device.epd.UpdateMode;
 import com.onyx.android.sdk.common.request.WakeLockHolder;
 import com.onyx.android.sdk.pen.data.TouchPoint;
 import com.onyx.android.sdk.pen.data.TouchPointList;
 import com.onyx.android.sdk.scribble.api.PenReader;
-import com.onyx.android.sdk.utils.DeviceUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -189,6 +190,7 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
     @Override
     protected void onDestroy() {
         leaveScribbleMode();
+        getPenReader().stop();
         super.onDestroy();
     }
 
@@ -205,6 +207,7 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
             return;
         } else if (v.equals(buttonEraser)) {
             leaveScribbleMode();
+            webView.reload();
             return;
         }
     }
@@ -219,12 +222,21 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
 
         getPenReader().start();
         getPenReader().resume();
+        setLimitRect();
+    }
+
+    private void setLimitRect() {
+        Rect rect = new Rect();
+        webView.getLocalVisibleRect(rect);
+        List<Rect> rectList = new ArrayList<>();
+        rectList.add(rect);
+        getPenReader().setLimitRect(rectList);
     }
 
     private void leaveScribbleMode() {
         scribbleMode = false;
         EpdController.leaveScribbleMode(webView);
-        getPenReader().stop();
+        getPenReader().pause();
 
         wakeLockHolder.forceReleaseWakeLock();
     }
