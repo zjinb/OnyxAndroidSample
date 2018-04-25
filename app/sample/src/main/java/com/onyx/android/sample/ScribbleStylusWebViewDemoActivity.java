@@ -5,6 +5,7 @@ import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
@@ -30,6 +31,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity implements View.OnClickListener {
+    private final String TAG = getClass().getSimpleName();
 
     @Bind(R.id.button_pen)
     Button buttonPen;
@@ -143,11 +145,14 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
             public void onBeginRawData() {
                 begin = true;
                 enterScribbleMode();
+                disableHandTouch();
+                Log.d(TAG, "onBeginRawData()");
             }
 
             @Override
             public void onEndRawData() {
-
+                enableHandTouch();
+                Log.d(TAG, "onEndRawData()");
             }
 
             @Override
@@ -158,30 +163,32 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
                     EpdController.quadTo(webView, touchPoint.x, touchPoint.y, UpdateMode.DU);
                 }
                 begin = false;
+                Log.d(TAG, "onRawTouchPointMoveReceived()");
             }
 
             @Override
             public void onRawTouchPointListReceived(TouchPointList touchPointList) {
+                Log.d(TAG, "onRawTouchPointListReceived()");
             }
 
             @Override
             public void onBeginErasing() {
-
+                Log.d(TAG, "onBeginErasing()");
             }
 
             @Override
             public void onEndErasing() {
-
+                Log.d(TAG, "onEndErasing()");
             }
 
             @Override
             public void onEraseTouchPointMoveReceived(TouchPoint touchPoint) {
-
+                Log.d(TAG, "onEraseTouchPointMoveReceived()");
             }
 
             @Override
             public void onEraseTouchPointListReceived(TouchPointList touchPointList) {
-
+                Log.d(TAG, "onEraseTouchPointListReceived()");
             }
 
         });
@@ -247,4 +254,22 @@ public class ScribbleStylusWebViewDemoActivity extends AppCompatActivity impleme
         super.onResume();
     }
 
+    private void disableHandTouch() {
+        boolean isIgnoreHandTouch = EpdController.isTouchAreaIgnoreRegionDetect(this);
+        if (!isIgnoreHandTouch) {
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            Rect rect = new Rect(0, 0, width, height);
+            Rect[] arrayRect =new Rect[]{rect};
+            EpdController.setTouchAreaIgnoreRegion(this, arrayRect);
+            EpdController.setTouchAreaIgnoreRegionDetectStatus(this, true);
+        }
+    }
+
+    private void enableHandTouch() {
+        boolean isIgnoreHandTouch = EpdController.isTouchAreaIgnoreRegionDetect(this);
+        if (isIgnoreHandTouch) {
+            EpdController.resetTouchAreaIgnoreRegion(this);
+        }
+    }
 }

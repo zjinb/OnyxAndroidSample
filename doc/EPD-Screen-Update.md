@@ -1,4 +1,4 @@
-[EpdController](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EpdController) provides API to update screen with different update mode:
+[EpdController](./EpdController.md) provides API to update screen with different update mode:
 * Partial
 
     Default update mode
