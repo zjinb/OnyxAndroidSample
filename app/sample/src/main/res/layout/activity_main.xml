@@ -23,6 +23,12 @@
             android:text="You should take care of ths following demo:"/>
 
         <Button
+            android:id="@+id/button_reader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="READER Demo"/>
+
+        <Button
             android:id="@+id/button_epd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

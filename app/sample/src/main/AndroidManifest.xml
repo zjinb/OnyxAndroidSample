@@ -56,6 +56,7 @@
                   android:label="PenStylusTouchHelperDemoActivity"/>
 
         <activity android:name=".AppOptimizeActivity"/>
+        <activity android:name=".ReaderDemoActivity"/>
 
         <!-- set the app optimize of receiver-->
         <receiver
