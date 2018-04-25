@@ -44,9 +44,7 @@ public class ReaderDemoActivity extends Activity {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         ComponentName componentName = new ComponentName("com.onyx.kreader","com.onyx.kreader.ui.ReaderTabHostActivity");
         intent.setComponent(componentName);
-        Bundle bundle = new Bundle();
         intent.setData(Uri.fromFile(f));
-        intent.putExtras(bundle);
         startActivity(intent);
     }
 }
