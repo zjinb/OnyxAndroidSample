@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 
+import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.pen.RawInputCallback;
 import com.onyx.android.sdk.pen.TouchHelper;
 import com.onyx.android.sdk.pen.data.TouchPoint;
@@ -47,9 +48,10 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
 
     private TouchHelper touchHelper;
 
-    Paint paint = new Paint();
+    private Paint paint = new Paint();
     private TouchPoint startPoint;
     private int countRec = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,6 +206,7 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
             startPoint = touchPoint;
             Log.d(TAG,touchPoint.getX() +", " +touchPoint.getY());
             countRec = 0;
+            disableHandTouch();
         }
 
         @Override
@@ -213,6 +216,7 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
                 drawRect(touchPoint);
             }
             Log.d(TAG,touchPoint.getX() +", " +touchPoint.getY());
+            enableHandTouch();
         }
 
         @Override
@@ -253,4 +257,22 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
         }
     };
 
+    private void disableHandTouch() {
+        boolean isIgnoreHandTouch = EpdController.isTouchAreaIgnoreRegionDetect(this);
+        if (!isIgnoreHandTouch) {
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            Rect rect = new Rect(0, 0, width, height);
+            Rect[] arrayRect =new Rect[]{rect};
+            EpdController.setTouchAreaIgnoreRegion(this, arrayRect);
+            EpdController.setTouchAreaIgnoreRegionDetectStatus(this, true);
+        }
+    }
+
+    private void enableHandTouch() {
+        boolean isIgnoreHandTouch = EpdController.isTouchAreaIgnoreRegionDetect(this);
+        if (isIgnoreHandTouch) {
+            EpdController.resetTouchAreaIgnoreRegion(this);
+        }
+    }
 }

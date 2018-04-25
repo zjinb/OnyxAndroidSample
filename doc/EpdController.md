@@ -1,4 +1,4 @@
-Provide [EPD Screen Update](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EPD-Screen-Update) API and [Scribble API](https://github.com/onyx-intl/OnyxAndroidSample/wiki/Scribble-API)
+Provide [EPD Screen Update](./EPD-Screen-Update.md) API and [Scribble API](./Scribble-API.md) or [Touch Disable Function](./EPD-Touch.md)
 
 
-[EPD Screen Update](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EPD-Screen-Update) API provided by `EpdController` is rather primitive, for APPs to update screen, it's recommended to use [EpdDeviceManager](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EpdDeviceManager) as wrapper
+[EPD Screen Update](./EPD-Screen-Update.md) API provided by `EpdController` is rather primitive, for APPs to update screen, it's recommended to use [EpdDeviceManager](./EpdDeviceManager.md) as wrapper

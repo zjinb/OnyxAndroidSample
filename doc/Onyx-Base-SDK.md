@@ -20,13 +20,13 @@ Change logs:
     Small fixes
 * 1.2.3
 
-    Add [EpdDeviceManager](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EpdDeviceManager)
+    Add [EpdDeviceManager](./EpdDeviceManager.md)
 * 1.2.2
 
-    Add [DeviceEnvironment](https://github.com/onyx-intl/OnyxAndroidSample/wiki/DeviceEnvironment)
+    Add [DeviceEnvironment](./DeviceEnvironment.md)
 * 1.2.1
 
-    Add [Scribble API](https://github.com/onyx-intl/OnyxAndroidSample/wiki/Scribble-API) to [EpdController](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EpdController)
+    Add [Scribble API](./Scribble-API.md) to [EpdController](./EpdController.md)
 
 * 1.2.0
 

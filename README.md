@@ -3,7 +3,7 @@ Sample project of SDKs from Onyx-Intl, including [onyxsdk-base](doc/Onyx-Base-SD
 
 To use the SDK, please add the following statement to your build.gradle:
 ```gradle
-    compile ('com.onyx.android.sdk:onyxsdk-base:1.3.7')
+    compile ('com.onyx.android.sdk:onyxsdk-base:1.4.3')
 	// a tiny scribble sdk, Recommend you to use
     compile('com.onyx.android.sdk:onyxsdk-pen:1.0.2')
 	
