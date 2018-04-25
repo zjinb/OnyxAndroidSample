@@ -1,4 +1,4 @@
-Wrapper of [EpdController](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EpdController) to provide uniform and simple [EPD Screen Update](https://github.com/onyx-intl/OnyxAndroidSample/wiki/EPD-Screen-Update) interface for both RK3026 and IMX6 devices
+Wrapper of [EpdController](./EpdController.md) to provide uniform and simple [EPD Screen Update](./EPD-Screen-Update.md) interface for both RK3026 and IMX6 devices
 
 You can set partial and full screen update intervals by calling:
 
@@ -27,4 +27,4 @@ Enter/leave fast update mode:
 
 `EpdDeviceManager.exitAnimationUpdate(true);`
 
-You can see sample code in [EpdDemoActivity](https://github.com/onyx-intl/OnyxAndroidSample/blob/master/app/sample/src/main/java/com/onyx/android/sample/EpdDemoActivity.java)
+You can see sample code in [EpdDemoActivity](../app/sample/src/main/java/com/onyx/android/sample/EpdDemoActivity.java)
