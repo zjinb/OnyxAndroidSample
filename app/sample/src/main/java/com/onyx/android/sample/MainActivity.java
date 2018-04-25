@@ -74,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
         go(OnyxTestActivity.class);
     }
 
+    @OnClick(R.id.button_reader)
+    public void btn_reader() {
+        go(ReaderDemoActivity.class);
+    }
+
+
     private void go(Class<?> activityClass){
         startActivity(new Intent(this, activityClass));
     }
