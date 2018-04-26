@@ -54,7 +54,8 @@
         </activity>
         <activity android:name=".PenStylusTouchHelperDemoActivity"
                   android:label="PenStylusTouchHelperDemoActivity"/>
-
+        <activity android:name=".PenStylusWebViewDemoActivity"/>
+        <activity android:name=".ScribbleDemoActivity"/>
         <activity android:name=".AppOptimizeActivity"/>
         <activity android:name=".ReaderDemoActivity"/>
 

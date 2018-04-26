@@ -49,24 +49,14 @@ public class MainActivity extends AppCompatActivity {
         go(PenStylusTouchHelperDemoActivity.class);
     }
 
-    @OnClick(R.id.button_scribble_touch_helper)
-    public void button_scribble_touch_helper() {
-        go(ScribbleStylusTouchHelperDemoActivity.class);
+    @OnClick(R.id.button_pen_webview_demo)
+    public void button_pen_webview_demo() {
+        go(PenStylusWebViewDemoActivity.class);
     }
 
-    @OnClick(R.id.button_surfaceview_stylus_scribble)
-    public void button_surfaceview_stylus_scribble() {
-        go(ScribbleStylusSurfaceViewDemoActivity.class);
-    }
-
-    @OnClick(R.id.button_webview_stylus_scribble)
-    public void button_webview_stylus_scribble() {
-        go(ScribbleStylusWebViewDemoActivity.class);
-    }
-
-    @OnClick(R.id.button_touch_screen_scribble)
-    public void button_touch_screen_scribble() {
-        go(ScribbleTouchScreenDemoActivity.class);
+    @OnClick(R.id.button_scribble_demo)
+    public void button_scribble_demo() {
+        go(ScribbleDemoActivity.class);
     }
 
     @OnClick(R.id.btn_onyx_test)
