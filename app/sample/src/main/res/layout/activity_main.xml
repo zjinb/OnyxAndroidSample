@@ -53,6 +53,12 @@
             android:text="Pen Stylus Touch Helper Demo" />
 
         <Button
+            android:id="@+id/button_pen_webview_demo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pen Stylus WebView Demo" />
+
+        <Button
             android:id="@+id/button_scribble_touch_helper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

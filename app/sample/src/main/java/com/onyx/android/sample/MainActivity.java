@@ -69,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
         go(ScribbleTouchScreenDemoActivity.class);
     }
 
+    @OnClick(R.id.button_pen_webview_demo)
+    public void button_pen_webview_demo() {
+        go(PenStylusWebViewDemoActivity.class);
+    }
+
     @OnClick(R.id.btn_onyx_test)
     public void btn_onyx_test() {
         go(OnyxTestActivity.class);
