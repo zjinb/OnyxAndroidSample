@@ -55,6 +55,7 @@
         <activity android:name=".PenStylusTouchHelperDemoActivity"
                   android:label="PenStylusTouchHelperDemoActivity"/>
         <activity android:name=".PenStylusWebViewDemoActivity"/>
+        <activity android:name=".ScribbleDemoActivity"/>
         <activity android:name=".AppOptimizeActivity"/>
 
         <!-- set the app optimize of receiver-->
