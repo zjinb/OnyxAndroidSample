@@ -117,6 +117,7 @@ public class PenStylusWebViewDemoActivity extends AppCompatActivity implements V
     }
 
     private void initWebView() {
+        EpdController.setWebViewContrastOptimize(webView, false);
         touchHelper = TouchHelper.create(webView, callback);
         webView.setWebViewClient(new MyWebViewClient());
         webView.addJavascriptInterface(new WebJsInterface(this), "android");
