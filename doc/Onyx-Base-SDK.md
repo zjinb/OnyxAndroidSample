@@ -2,10 +2,13 @@ Base SDK for Onyx-Intl Android E-Ink devices
 
 Latest version is 1.3.7, can be referenced with following gradle statement:
 ```gradle
-  compile ('com.onyx.android.sdk:onyxsdk-base:1.3.7')
+  compile ('com.onyx.android.sdk:onyxsdk-base:1.4.3.4')
 ```
 
 Change logs:
+* 1.4.3.4
+
+  Add method `setWebViewContrastOptimize(WebView webview, boolean enable)` prevent webview enter A2 mode
 * 1.3.2
 
     Small improvements

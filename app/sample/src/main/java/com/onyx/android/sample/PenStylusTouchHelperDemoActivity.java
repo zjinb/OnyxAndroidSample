@@ -1,8 +1,11 @@
 package com.onyx.android.sample;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PointF;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +17,13 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 
 import com.onyx.android.sdk.api.device.epd.EpdController;
+import com.onyx.android.sdk.pen.BrushRender;
 import com.onyx.android.sdk.pen.RawInputCallback;
 import com.onyx.android.sdk.pen.TouchHelper;
 import com.onyx.android.sdk.pen.data.TouchPoint;
 import com.onyx.android.sdk.pen.data.TouchPointList;
+import com.onyx.android.sdk.scribble.shape.BrushScribbleShape;
+import com.onyx.android.sdk.utils.BitmapUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +58,10 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
     private TouchPoint startPoint;
     private int countRec = 0;
 
+    private Bitmap bitmap;
+    private Canvas canvas;
+
+    private final float STROKE_WIDTH = 3.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +88,10 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         touchHelper.closeRawDrawing();
+        if (bitmap !=null) {
+            bitmap.recycle();
+            bitmap = null;
+        }
         super.onDestroy();
     }
 
@@ -85,7 +99,7 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.BLACK);
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(STROKE_WIDTH);
     }
 
     private void initSurfaceView() {
@@ -107,7 +121,7 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
 
                 Rect limit = new Rect();
                 surfaceView.getLocalVisibleRect(limit);
-                touchHelper.setStrokeWidth(3.0f)
+                touchHelper.setStrokeWidth(STROKE_WIDTH)
                            .setLimitRect(limit, exclude)
                            .openRawDrawing();
                 touchHelper.setStrokeStyle(TouchHelper.STROKE_STYLE_BRUSH);
@@ -124,12 +138,20 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
     @OnClick(R.id.button_eraser)
     public void onEraserClick() {
         touchHelper.setRawDrawingEnabled(false);
+        if (bitmap !=null) {
+            bitmap.recycle();
+            bitmap = null;
+        }
         cleanSurfaceView();
     }
 
     @OnCheckedChanged(R.id.cb_render)
     public void onRenderEnableClick() {
         touchHelper.setRawDrawingRenderEnabled(cbRender.isChecked());
+        if (bitmap !=null) {
+            bitmap.recycle();
+            bitmap = null;
+        }
         Log.d(TAG,"onRenderEnableClick setRawDrawingRenderEnabled =  " + cbRender.isChecked());
     }
 
@@ -217,6 +239,7 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
             }
             Log.d(TAG,touchPoint.getX() +", " +touchPoint.getY());
             enableHandTouch();
+            drawBitmapToSurface();
         }
 
         @Override
@@ -234,6 +257,7 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
         @Override
         public void onRawDrawingTouchPointListReceived(TouchPointList touchPointList) {
             Log.d(TAG, "onRawDrawingTouchPointListReceived");
+            drawScribbleToBitmap(touchPointList.getPoints());
         }
 
         @Override
@@ -273,6 +297,56 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
         boolean isIgnoreHandTouch = EpdController.isTouchAreaIgnoreRegionDetect(this);
         if (isIgnoreHandTouch) {
             EpdController.resetTouchAreaIgnoreRegion(this);
+        }
+
+    }
+
+    private void drawScribbleToBitmap(List<TouchPoint> list) {
+        if (!cbRender.isChecked()) {
+            return;
+        }
+        if (bitmap == null) {
+            bitmap = Bitmap.createBitmap(surfaceView.getWidth(), surfaceView.getHeight(), Bitmap.Config.ARGB_8888);
+            canvas = new Canvas(bitmap);
+        }
+
+        if (rbBrush.isChecked()) {
+            float maxPressure = EpdController.getMaxTouchPressure();
+            BrushRender.drawStroke(canvas, paint, list, STROKE_WIDTH, maxPressure);
+        }
+
+        if (rbPencil.isChecked()) {
+            Path path = new Path();
+            PointF prePoint = new PointF(list.get(0).x, list.get(0).y);
+            path.moveTo(prePoint.x, prePoint.y);
+            for (TouchPoint point : list) {
+                path.quadTo(prePoint.x, prePoint.y, point.x, point.y);
+                prePoint.x = point.x;
+                prePoint.y = point.y;
+            }
+            canvas.drawPath(path, paint);
+        }
+    }
+
+    private void drawBitmapToSurface() {
+        if (!cbRender.isChecked()) {
+            return;
+        }
+        if (bitmap == null) {
+            return;
+        }
+        Canvas lockCanvas= surfaceView.getHolder().lockCanvas();
+        if (lockCanvas == null) {
+            return;
+        }
+        lockCanvas.drawColor(Color.WHITE);
+        lockCanvas.drawBitmap(bitmap, 0f, 0f, paint);
+        surfaceView.getHolder().unlockCanvasAndPost(lockCanvas);
+        // refresh ui
+        touchHelper.setRawDrawingEnabled(false);
+        touchHelper.setRawDrawingEnabled(true);
+        if (!cbRender.isChecked()) {
+            touchHelper.setRawDrawingRenderEnabled(false);
         }
     }
 }
