@@ -1,11 +1,14 @@
 Base SDK for Onyx-Intl Android E-Ink devices
 
-Latest version is 1.3.7, can be referenced with following gradle statement:
+Latest version is 1.4.3.7, can be referenced with following gradle statement:
 ```gradle
-  compile ('com.onyx.android.sdk:onyxsdk-base:1.4.3.4')
+  compile ('com.onyx.android.sdk:onyxsdk-base:1.4.3.7')
 ```
 
 Change logs:
+* 1.4.3.7
+
+   Add Dict Query API, for more detail to see [DictionaryUtils-API](./DictionaryUtils-API.md)
 * 1.4.3.4
 
   Add method `setWebViewContrastOptimize(WebView webview, boolean enable)` prevent webview enter A2 mode

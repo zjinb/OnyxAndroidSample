@@ -66,6 +66,7 @@
                 <action android:name="com.onyx.app.optimize.setting" />
             </intent-filter>
         </receiver>
+        <activity android:name=".DictionaryActivity"/>
     </application>
 
 </manifest>
