@@ -3,7 +3,7 @@ Sample project of SDKs from Onyx-Intl, including [onyxsdk-base](doc/Onyx-Base-SD
 
 To use the SDK, please add the following statement to your build.gradle:
 ```gradle
-    compile ('com.onyx.android.sdk:onyxsdk-base:1.4.3.4')
+    compile ('com.onyx.android.sdk:onyxsdk-base:1.4.3.7')
 	// a tiny scribble sdk, Recommend you to use
     compile('com.onyx.android.sdk:onyxsdk-pen:1.0.6.5')
 	
@@ -47,3 +47,6 @@ We will return relative coordinates, According to the view you set.
 
 If the device supports touch, you scribble with your fingers.
 * [ScribbleTouchScreenDemoActivity](app/sample/src/main/java/com/onyx/android/sample/ScribbleTouchScreenDemoActivity.java): example of [Scribble API](doc/Scribble-API.md) from [EpdController](doc/EpdController.md) for IMX6 devices
+
+## 5. Other API
+* **DictionaryUtils** to query word in dictionary, for more details to see [DictionaryActivity](./app/sample/src/main/java/com/onyx/android/sample/DictionaryActivity.java)
