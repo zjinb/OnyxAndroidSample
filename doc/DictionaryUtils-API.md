@@ -14,31 +14,31 @@ This Method may block thread, Do not invoke in UI thread, for more detail to see
     public static DictionaryQuery queryKeyWord(Context context, String keyword)
 ```
 
-**DictionaryQuery** 字段说明
+POJO **DictionaryQuery**  FIELD EXPLAIN
 
 
-| 字段 |  含义 |
+| field |  meaning |
 |:--|--:|
-| state | 查询结果状态值 |
-| `List<DictionaryQuery.Dictionary>` | 多个字典查询结果的List |
-| `DictionaryQuery.Dictionary` | 字典查询结果的实体 |
-| state | 查询状态 |
-| dictName | 字典名称 |
-| keyword | 查询关键字 |
-| explanation | 关键字释义 | 
+| state | the total state of query result |
+| `List<DictionaryQuery.Dictionary>` | a list contain result from multiple dictionary |
+| `DictionaryQuery.Dictionary` | POJO for single result |
+| state | state for single result in list |
+| dictName | name of dictionary |
+| keyword | the keyword to query |
+| explanation | explanation of the keyword | 
+
+> be careful. for single result, even state field is success, the explantion field may null
+
+**state** EXPLAIN
 
 
-
-**state** 的状态值说明
-
-
-| 状态值 | 说明 |
+| field | meaning |
 |:--|--:|
-| DICT_STATE_ERROR | 查询失败，字典未安装或发生异常 |
-| DICT_STATE_PARAM_ERROR | 查询失败，参数错误 |
-| DICT_STATE_QUERY_SUCCESSFUL | 查询成功 |
-| DICT_STATE_QUERY_FAILED | 查询失败 |
-| DICT_STATE_LOADING | 加载中 |
-| DICT_STATE_NO_DATA | 未查询到数据 |
+| DICT_STATE_ERROR | query failed, the dictionary not installed or query occur exception |
+| DICT_STATE_PARAM_ERROR | query failed, the params incorrect |
+| DICT_STATE_QUERY_SUCCESSFUL | query success |
+| DICT_STATE_QUERY_FAILED | query failed |
+| DICT_STATE_LOADING | is loading |
+| DICT_STATE_NO_DATA | query success, but no data get |
 
 
