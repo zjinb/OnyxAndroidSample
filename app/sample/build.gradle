@@ -10,6 +10,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -30,6 +31,7 @@ android {
     lintOptions {
         abortOnError false
     }
+
 }
 
 configurations.all {
@@ -62,12 +64,14 @@ dependencies {
     compile "com.aliyun.dpa:oss-android-sdk:$rootProject.aliyunOssSdkVersion"
     compile "com.tencent.mm.opensdk:wechat-sdk-android-with-mta:$rootProject.wechatSdkWithMtaVersion"
     compile "com.android.support.constraint:constraint-layout:$rootProject.constraintlayoutVersion"
-    compile "com.android.support:gridlayout-v7:$rootProject.gridlayoutVersion"
+    compile ("com.android.support:gridlayout-v7:$rootProject.gridlayoutVersion") {
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
 
     //dependencies for others
-    compile('com.onyx.android.sdk:onyxsdk-base:1.4.3.7')
+    compile('com.onyx.android.sdk:onyxsdk-base:1.4.3.22')
     compile('com.onyx.android.sdk:onyxsdk-scribble:1.1.2')
-    compile('com.onyx.android.sdk:onyxsdk-pen:1.0.6.5')
+    compile('com.onyx.android.sdk:onyxsdk-pen:1.0.6.13')
     compile('com.onyx.android.sdk:onyxsdk-data:1.0.1')
 
     compile 'com.jakewharton:butterknife:7.0.1'

@@ -2,6 +2,10 @@
 
 buildscript {
     repositories {
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
         jcenter()
     }
     dependencies {
@@ -14,6 +18,10 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
         jcenter()
         maven { url "https://jitpack.io" }
     }
@@ -28,7 +36,7 @@ ext {
     // Sdk and tools
     minSdkVersion = 15
     targetSdkVersion = 21
-    compileSdkVersion = 23
+    compileSdkVersion = 27
     compatibleSdkVersion = 17 // for projects which can't be built with sdk 23
     buildToolsVersion = '23.0.3'
 
