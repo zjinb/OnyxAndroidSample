@@ -16,13 +16,13 @@
 
 package com.onyx.calculator;
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -36,7 +36,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 
-public class Calculator extends AppCompatActivity implements PanelSwitcher.Listener, Logic.Listener,
+public class Calculator extends Activity implements PanelSwitcher.Listener, Logic.Listener,
         OnClickListener, PopupMenu.OnMenuItemClickListener {
     EventListener mListener = new EventListener();
     private CalculatorDisplay mDisplay;
