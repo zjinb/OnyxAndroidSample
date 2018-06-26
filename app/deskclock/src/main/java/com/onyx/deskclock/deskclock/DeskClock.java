@@ -16,6 +16,7 @@
 
 package com.onyx.deskclock.deskclock;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -28,7 +29,6 @@ import android.support.design.widget.TabLayout.Tab;
 import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -161,7 +161,6 @@ public class DeskClock extends BaseActivity
 
         setContentView(R.layout.desk_clock);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         mFab = (ImageView) findViewById(R.id.fab);
 
@@ -327,7 +326,7 @@ public class DeskClock extends BaseActivity
         private final Set<String> mFragmentTags = new HashSet<>(4);
 
 
-        public TabsAdapter(AppCompatActivity activity, RtlViewPager pager) {
+        public TabsAdapter(Activity activity, RtlViewPager pager) {
             super(activity.getFragmentManager());
             mContext = activity;
             mPager = pager;
