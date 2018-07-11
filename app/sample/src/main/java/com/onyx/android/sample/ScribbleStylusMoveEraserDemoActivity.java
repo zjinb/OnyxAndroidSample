@@ -255,17 +255,11 @@ public class ScribbleStylusMoveEraserDemoActivity extends AppCompatActivity {
         }
         final Iterator<TouchPoint> iterator = pointList.iterator();
         TouchPoint touchPoint = iterator.next();
-        final float lastDst[] = new float[2];
         Path path = new Path();
         path.moveTo(touchPoint.getX(), touchPoint.getY());
-        lastDst[0] = touchPoint.getX();
-        lastDst[1] = touchPoint.getY();
         while (iterator.hasNext()) {
             touchPoint = iterator.next();
-            path.quadTo((lastDst[0] + touchPoint.getX()) / 2, (lastDst[1] + touchPoint.getY()) / 2,
-                    touchPoint.getX(), touchPoint.getY());
-            lastDst[0] = touchPoint.getX();
-            lastDst[1] = touchPoint.getY();
+            path.lineTo(touchPoint.getX(), touchPoint.getY());
         }
         return path;
     }
