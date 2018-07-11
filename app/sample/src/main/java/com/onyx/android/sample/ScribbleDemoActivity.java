@@ -39,6 +39,11 @@ public class ScribbleDemoActivity extends AppCompatActivity {
         go(ScribbleTouchScreenDemoActivity.class);
     }
 
+    @OnClick(R.id.button_move_erase_scribble)
+    public void button_move_erase_scribble() {
+        go(ScribbleStylusMoveEraserDemoActivity.class);
+    }
+
     private void go(Class<?> activityClass) {
         startActivity(new Intent(this, activityClass));
     }
