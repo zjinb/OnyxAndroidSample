@@ -1,6 +1,7 @@
 package com.onyx.android.sample;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -45,6 +46,7 @@ public class ScribbleStylusMoveEraserDemoActivity extends AppCompatActivity {
     private List<TouchPoint> points = new ArrayList<>();
     private SurfaceHolder.Callback surfaceCallback;
     private Bitmap renderBitmap;
+    private Bitmap bkGroundBitmap;
     private Canvas canvas;
     private Paint renderPaint;
     private Paint erasePaint;
@@ -88,6 +90,7 @@ public class ScribbleStylusMoveEraserDemoActivity extends AppCompatActivity {
                 public void surfaceCreated(SurfaceHolder holder) {
                     Rect limit = new Rect();
                     surfaceView.getLocalVisibleRect(limit);
+                    bkGroundBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.scribble_back_ground_grid);
                     renderBitmap = Bitmap.createBitmap(surfaceView.getWidth(),
                             surfaceView.getHeight(),
                             Bitmap.Config.ARGB_8888);
@@ -244,7 +247,9 @@ public class ScribbleStylusMoveEraserDemoActivity extends AppCompatActivity {
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
-        canvas.drawRect(new Rect(0, 0, surfaceView.getWidth(), surfaceView.getHeight()), paint);
+        Rect rect = new Rect(0, 0, surfaceView.getWidth(), surfaceView.getHeight());
+        canvas.drawRect(rect, paint);
+        canvas.drawBitmap(bkGroundBitmap, null, rect, paint);
         canvas.drawBitmap(renderBitmap, 0, 0, paint);
         surfaceView.getHolder().unlockCanvasAndPost(canvas);
     }
