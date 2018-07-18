@@ -35,6 +35,7 @@
             android:name=".ScribbleStylusWebViewDemoActivity"
             android:label="ScribbleStylusWebViewDemoActivity"/>
         <activity android:name=".ScribbleStylusMoveEraserDemoActivity"/>
+        <activity android:name=".ScribbleMultipleScribbleViewActivity"/>
         <activity android:name=".EnvironmentDemoActivity"/>
         <activity android:name=".FrontLightDemoActivity"/>
         <activity android:name=".test.SdkDataOTATestActivity"/>
