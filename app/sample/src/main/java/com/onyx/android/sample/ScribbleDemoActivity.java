@@ -44,6 +44,11 @@ public class ScribbleDemoActivity extends AppCompatActivity {
         go(ScribbleStylusMoveEraserDemoActivity.class);
     }
 
+    @OnClick(R.id.button_multiple_scribble)
+    public void button_multiple_scribble() {
+        go(ScribbleMultipleScribbleViewActivity.class);
+    }
+
     private void go(Class<?> activityClass) {
         startActivity(new Intent(this, activityClass));
     }
