@@ -47,11 +47,11 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private View mBackspaceButton;
     private View mOverflowMenuButton;
 
-    static final int BASIC_PANEL    = 0;
+    static final int BASIC_PANEL = 0;
     static final int ADVANCED_PANEL = 1;
 
     private static final String LOG_TAG = "Calculator";
-    private static final boolean DEBUG  = false;
+    private static final boolean DEBUG = false;
     private static final boolean LOG_ENABLED = false;
     private static final String STATE_CURRENT_VIEW = "state-current-view";
 
@@ -188,9 +188,9 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
 
     private boolean getBasicVisibility() {
-        if (mPager!=null){
+        if (mPager != null) {
             RecyclerView.LayoutManager layoutManager = mPager.getLayoutManager();
-            if (layoutManager instanceof LinearLayoutManager){
+            if (layoutManager instanceof LinearLayoutManager) {
                 int firstVisibleItemPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
                 return mPager != null && firstVisibleItemPosition == BASIC_PANEL;
             }
@@ -202,7 +202,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private boolean getAdvancedVisibility() {
         if (mPager != null) {
             RecyclerView.LayoutManager layoutManager = mPager.getLayoutManager();
-            if (layoutManager instanceof LinearLayoutManager){
+            if (layoutManager instanceof LinearLayoutManager) {
                 int firstVisibleItemPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
                 return mPager != null && firstVisibleItemPosition == ADVANCED_PANEL;
             }
@@ -284,9 +284,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         updateDeleteMode();
     }
 
-    class CalculatorAdapter extends PageRecyclerView.PageAdapter{
+    class CalculatorAdapter extends PageRecyclerView.PageAdapter {
         View mSimplePage;
         View mAdvancedPage;
+
         public CalculatorAdapter(PageRecyclerView parent) {
             final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             final View simplePage = inflater.inflate(R.layout.simple_pad, parent, false);
