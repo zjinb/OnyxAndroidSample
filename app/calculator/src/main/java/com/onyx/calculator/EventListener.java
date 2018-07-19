@@ -16,7 +16,8 @@
 
 package com.onyx.calculator;
 
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -26,9 +27,9 @@ class EventListener implements View.OnKeyListener,
                                View.OnClickListener,
                                View.OnLongClickListener {
     Logic mHandler;
-    ViewPager mPager;
+    PageRecyclerView mPager;
 
-    void setHandler(Logic handler, ViewPager pager) {
+    void setHandler(Logic handler, PageRecyclerView pager) {
         mHandler = handler;
         mPager = pager;
     }
@@ -57,8 +58,12 @@ class EventListener implements View.OnKeyListener,
                     text += '(';
                 }
                 mHandler.insert(text);
-                if (mPager != null && mPager.getCurrentItem() == Calculator.ADVANCED_PANEL) {
-                    mPager.setCurrentItem(Calculator.BASIC_PANEL);
+                if (mPager != null) {
+                    RecyclerView.LayoutManager layoutManager = mPager.getLayoutManager();
+                    if (mPager != null && ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition() == Calculator.ADVANCED_PANEL) {
+                        mPager.scrollToPosition(Calculator.BASIC_PANEL);
+                        mPager.setCurrentPage(Calculator.BASIC_PANEL);
+                    }
                 }
             }
         }

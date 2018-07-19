@@ -20,10 +20,9 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -43,7 +42,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private Persist mPersist;
     private History mHistory;
     private Logic mLogic;
-    private ViewPager mPager;
+    private PageRecyclerView mPager;
     private View mClearButton;
     private View mBackspaceButton;
     private View mOverflowMenuButton;
@@ -64,9 +63,11 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
                 WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
         setContentView(R.layout.main);
-        mPager = (ViewPager) findViewById(R.id.panelswitch);
+        mPager = (PageRecyclerView) findViewById(R.id.panelswitch);
         if (mPager != null) {
-            mPager.setAdapter(new PageAdapter(mPager));
+            mPager.setLayoutManager(new DisableScrollLinearManager(this));
+            mPager.setPageTurningCycled(false);
+            mPager.setAdapter(new CalculatorAdapter(mPager));
         } else {
             // Single page UI
             final TypedArray buttons = getResources().obtainTypedArray(R.array.buttons);
@@ -104,7 +105,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         mHistory.setObserver(historyAdapter);
 
         if (mPager != null) {
-            mPager.setCurrentItem(state == null ? 0 : state.getInt(STATE_CURRENT_VIEW, 0));
+            mPager.scrollToPosition(state == null ? 0 : state.getInt(STATE_CURRENT_VIEW, 0));
+            mPager.setCurrentPage(state == null ? 0 : state.getInt(STATE_CURRENT_VIEW, 0));
         }
 
         mListener.setHandler(mLogic, mPager);
@@ -186,11 +188,27 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     }
 
     private boolean getBasicVisibility() {
-        return mPager != null && mPager.getCurrentItem() == BASIC_PANEL;
+        if (mPager!=null){
+            RecyclerView.LayoutManager layoutManager = mPager.getLayoutManager();
+            if (layoutManager instanceof LinearLayoutManager){
+                int firstVisibleItemPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
+                return mPager != null && firstVisibleItemPosition == BASIC_PANEL;
+            }
+            return mPager != null;
+        }
+        return false;
     }
 
     private boolean getAdvancedVisibility() {
-        return mPager != null && mPager.getCurrentItem() == ADVANCED_PANEL;
+        if (mPager != null) {
+            RecyclerView.LayoutManager layoutManager = mPager.getLayoutManager();
+            if (layoutManager instanceof LinearLayoutManager){
+                int firstVisibleItemPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
+                return mPager != null && firstVisibleItemPosition == ADVANCED_PANEL;
+            }
+            return mPager != null;
+        }
+        return false;
     }
 
     @Override
@@ -203,13 +221,15 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
             case R.id.basic:
                 if (!getBasicVisibility() && mPager != null) {
-                    mPager.setCurrentItem(BASIC_PANEL, true);
+                    mPager.scrollToPosition(BASIC_PANEL);
+                    mPager.setCurrentPage(BASIC_PANEL);
                 }
                 break;
 
             case R.id.advanced:
                 if (!getAdvancedVisibility() && mPager != null) {
-                    mPager.setCurrentItem(ADVANCED_PANEL, true);
+                    mPager.scrollToPosition(ADVANCED_PANEL);
+                    mPager.setCurrentPage(ADVANCED_PANEL);
                 }
                 break;
         }
@@ -220,7 +240,11 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     protected void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
         if (mPager != null) {
-            state.putInt(STATE_CURRENT_VIEW, mPager.getCurrentItem());
+            RecyclerView.LayoutManager layoutManager = mPager.getLayoutManager();
+            if (layoutManager instanceof LinearLayoutManager) {
+                int firstVisibleItemPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
+                state.putInt(STATE_CURRENT_VIEW, firstVisibleItemPosition);
+            }
         }
     }
 
@@ -236,7 +260,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
         if (keyCode == KeyEvent.KEYCODE_BACK && getAdvancedVisibility()
                 && mPager != null) {
-            mPager.setCurrentItem(BASIC_PANEL);
+            mPager.scrollToPosition(BASIC_PANEL);
+            mPager.setCurrentPage(BASIC_PANEL);
             return true;
         } else {
             return super.onKeyDown(keyCode, keyEvent);
@@ -259,11 +284,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         updateDeleteMode();
     }
 
-    class PageAdapter extends PagerAdapter {
-        private View mSimplePage;
-        private View mAdvancedPage;
-
-        public PageAdapter(ViewPager parent) {
+    class CalculatorAdapter extends PageRecyclerView.PageAdapter{
+        View mSimplePage;
+        View mAdvancedPage;
+        public CalculatorAdapter(PageRecyclerView parent) {
             final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             final View simplePage = inflater.inflate(R.layout.simple_pad, parent, false);
             final View advancedPage = inflater.inflate(R.layout.advanced_pad, parent, false);
@@ -295,42 +319,61 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         }
 
         @Override
-        public int getCount() {
+        public int getRowCount() {
+            return 1;
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 1;
+        }
+
+        @Override
+        public int getDataCount() {
             return 2;
         }
 
         @Override
-        public void startUpdate(View container) {
+        public int getItemViewType(int position) {
+            if (position == 0) {
+                return BASIC_PANEL;
+            } else {
+                return ADVANCED_PANEL;
+            }
         }
 
         @Override
-        public Object instantiateItem(View container, int position) {
-            final View page = position == 0 ? mSimplePage : mAdvancedPage;
-            ((ViewGroup) container).addView(page);
-            return page;
+        public RecyclerView.ViewHolder onPageCreateViewHolder(ViewGroup parent, int viewType) {
+            if (viewType == BASIC_PANEL) {
+                SimpleViewHolder holder = new SimpleViewHolder(mSimplePage);
+                return holder;
+            } else {
+                AdvancedHolder holder = new AdvancedHolder(mAdvancedPage);
+                return holder;
+            }
         }
 
         @Override
-        public void destroyItem(View container, int position, Object object) {
-            ((ViewGroup) container).removeView((View) object);
+        public void onPageBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            if (getItemViewType(position) == 0) {
+                SimpleViewHolder simpleViewHolder = (SimpleViewHolder) holder;
+            } else {
+                AdvancedHolder advancedHolder = (AdvancedHolder) holder;
+            }
         }
 
-        @Override
-        public void finishUpdate(View container) {
+        class SimpleViewHolder extends PageRecyclerView.ViewHolder {
+
+            public SimpleViewHolder(View itemView) {
+                super(itemView);
+            }
         }
 
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
+        class AdvancedHolder extends PageRecyclerView.ViewHolder {
 
-        @Override
-        public Parcelable saveState() {
-            return null;
-        }
-
-        @Override
-        public void restoreState(Parcelable state, ClassLoader loader) {
+            public AdvancedHolder(View itemView) {
+                super(itemView);
+            }
         }
     }
 }
