@@ -70,7 +70,7 @@
         </FrameLayout>
     </LinearLayout>
 
-    <com.onyx.calculator.CalculatorViewPager
+    <com.onyx.calculator.PageRecyclerView
          android:id="@+id/panelswitch"
          android:layout_width="match_parent"
          android:layout_height="0dp"
