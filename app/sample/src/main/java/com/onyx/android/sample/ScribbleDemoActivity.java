@@ -49,6 +49,11 @@ public class ScribbleDemoActivity extends AppCompatActivity {
         go(ScribbleMultipleScribbleViewActivity.class);
     }
 
+    @OnClick(R.id.button_save_points)
+    public void button_save_points() {
+        go(ScribbleSavePointsDemoActivity.class);
+    }
+
     private void go(Class<?> activityClass) {
         startActivity(new Intent(this, activityClass));
     }

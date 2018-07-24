@@ -32,6 +32,12 @@ android {
         abortOnError false
     }
 
+    apt {
+        arguments {
+            targetModuleName 'Scribble'
+        }
+    }
+
 }
 
 configurations.all {
