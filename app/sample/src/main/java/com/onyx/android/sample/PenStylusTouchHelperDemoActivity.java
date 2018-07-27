@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 
+import com.onyx.android.sample.utils.TouchUtils;
 import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.pen.BrushRender;
 import com.onyx.android.sdk.pen.RawInputCallback;
@@ -228,7 +229,7 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
             startPoint = touchPoint;
             Log.d(TAG,touchPoint.getX() +", " +touchPoint.getY());
             countRec = 0;
-            disableHandTouch();
+            TouchUtils.disableFingerTouch(getApplicationContext());
         }
 
         @Override
@@ -238,7 +239,7 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
                 drawRect(touchPoint);
             }
             Log.d(TAG,touchPoint.getX() +", " +touchPoint.getY());
-            enableHandTouch();
+            TouchUtils.enableFingerTouch(getApplicationContext());
             drawBitmapToSurface();
         }
 
@@ -280,26 +281,6 @@ public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
             Log.d(TAG, "onRawErasingTouchPointListReceived");
         }
     };
-
-    private void disableHandTouch() {
-        boolean isIgnoreHandTouch = EpdController.isTouchAreaIgnoreRegionDetect(this);
-        if (!isIgnoreHandTouch) {
-            int width = getResources().getDisplayMetrics().widthPixels;
-            int height = getResources().getDisplayMetrics().heightPixels;
-            Rect rect = new Rect(0, 0, width, height);
-            Rect[] arrayRect =new Rect[]{rect};
-            EpdController.setTouchAreaIgnoreRegion(this, arrayRect);
-            EpdController.setTouchAreaIgnoreRegionDetectStatus(this, true);
-        }
-    }
-
-    private void enableHandTouch() {
-        boolean isIgnoreHandTouch = EpdController.isTouchAreaIgnoreRegionDetect(this);
-        if (isIgnoreHandTouch) {
-            EpdController.resetTouchAreaIgnoreRegion(this);
-        }
-
-    }
 
     private void drawScribbleToBitmap(List<TouchPoint> list) {
         if (!cbRender.isChecked()) {

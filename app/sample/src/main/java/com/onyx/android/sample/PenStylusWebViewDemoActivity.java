@@ -15,6 +15,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.onyx.android.sample.utils.TouchUtils;
 import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.api.device.epd.UpdateMode;
 import com.onyx.android.sdk.pen.RawInputCallback;
@@ -178,13 +179,13 @@ public class PenStylusWebViewDemoActivity extends AppCompatActivity implements V
         public void onBeginRawDrawing(boolean b, TouchPoint touchPoint) {
             Log.d(TAG, "onBeginRawDrawing");
             Log.d(TAG,touchPoint.getX() +", " +touchPoint.getY());
-            disableHandTouch();
+            TouchUtils.disableFingerTouch(getApplicationContext());
         }
 
         @Override
         public void onEndRawDrawing(boolean b, TouchPoint touchPoint) {
             Log.d(TAG, "onEndRawDrawing");
-            enableHandTouch();
+            TouchUtils.enableFingerTouch(getApplicationContext());
         }
 
         @Override
@@ -219,22 +220,4 @@ public class PenStylusWebViewDemoActivity extends AppCompatActivity implements V
         }
     };
 
-    private void disableHandTouch() {
-        boolean isIgnoreHandTouch = EpdController.isTouchAreaIgnoreRegionDetect(this);
-        if (!isIgnoreHandTouch) {
-            int width = getResources().getDisplayMetrics().widthPixels;
-            int height = getResources().getDisplayMetrics().heightPixels;
-            Rect rect = new Rect(0, 0, width, height);
-            Rect[] arrayRect =new Rect[]{rect};
-            EpdController.setTouchAreaIgnoreRegion(this, arrayRect);
-            EpdController.setTouchAreaIgnoreRegionDetectStatus(this, true);
-        }
-    }
-
-    private void enableHandTouch() {
-        boolean isIgnoreHandTouch = EpdController.isTouchAreaIgnoreRegionDetect(this);
-        if (isIgnoreHandTouch) {
-            EpdController.resetTouchAreaIgnoreRegion(this);
-        }
-    }
 }
