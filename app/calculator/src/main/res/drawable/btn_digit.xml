@@ -21,6 +21,13 @@
             <corners android:radius="6dip" />
         </shape>
     </item>
+    <item android:state_focused="true">
+        <shape>
+            <gradient android:endColor="@android:color/black" android:startColor="@android:color/black" />
+            <stroke android:width="2dp" android:color="#000000" />
+            <corners android:radius="6dip" />
+        </shape>
+    </item>
     <item>
         <shape>
             <gradient android:endColor="@android:color/white" android:startColor="@android:color/white" />
