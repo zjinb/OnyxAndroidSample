@@ -129,11 +129,9 @@ class EventListener implements View.OnKeyListener,
                 break;
 
             case KeyEvent.KEYCODE_DPAD_UP:
-//                mHandler.onUp();
                 break;
 
             case KeyEvent.KEYCODE_DPAD_DOWN:
-//                mHandler.onDown();
                 break;
             }
         }
