@@ -398,11 +398,9 @@ public class DeskClock extends BaseActivity
             // tab after a configuration change.
             if (DataModel.getDataModel().isApplicationInForeground()) {
                 switch (mSelectedTab) {
-                    /*
                     case ALARM_TAB_INDEX:
                         Events.sendAlarmEvent(R.string.action_show, R.string.label_deskclock);
                         break;
-                    */
                     case CLOCK_TAB_INDEX:
                         Events.sendClockEvent(R.string.action_show, R.string.label_deskclock);
                         break;
