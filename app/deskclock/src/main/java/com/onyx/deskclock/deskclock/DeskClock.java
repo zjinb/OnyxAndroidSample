@@ -68,10 +68,11 @@ public class DeskClock extends BaseActivity
     private static final String KEY_SELECTED_TAB = "selected_tab";
     public static final String SELECT_TAB_INTENT_EXTRA = "deskclock.select.tab";
 
-    public static final int ALARM_TAB_INDEX = 0;
-    public static final int CLOCK_TAB_INDEX = 1;
-    public static final int TIMER_TAB_INDEX = 2;
-    public static final int STOPWATCH_TAB_INDEX = 3;
+    //changed by onyx [hide the alarmPage in C68S]
+    public static final int ALARM_TAB_INDEX = -1;
+    public static final int CLOCK_TAB_INDEX = 0;
+    public static final int TIMER_TAB_INDEX = 1;
+    public static final int STOPWATCH_TAB_INDEX = 2;
 
     private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager(this);
 
@@ -110,9 +111,12 @@ public class DeskClock extends BaseActivity
     }
 
     private void createTabs() {
+        /*
+        changed by onyx
         final Tab alarmTab = mTabLayout.newTab();
         alarmTab.setIcon(R.drawable.ic_tab_alarm).setContentDescription(R.string.menu_alarm);
         mTabsAdapter.addTab(alarmTab, AlarmClockFragment.class, ALARM_TAB_INDEX);
+        */
 
         final Tab clockTab = mTabLayout.newTab();
         clockTab.setIcon(R.drawable.ic_tab_clock).setContentDescription(R.string.menu_clock);
@@ -316,14 +320,14 @@ public class DeskClock extends BaseActivity
             }
         }
 
-        private final List<TabInfo> mTabs = new ArrayList<>(4 /* number of fragments */);
+        private final List<TabInfo> mTabs = new ArrayList<>(3 /* number of fragments */);
         private final Context mContext;
         private final RtlViewPager mPager;
         // Used for doing callbacks to fragments.
 
         // API 23
         // private final Set<String> mFragmentTags = new ArraySet<>(4 /* number of fragments */);
-        private final Set<String> mFragmentTags = new HashSet<>(4);
+        private final Set<String> mFragmentTags = new HashSet<>(3);
 
 
         public TabsAdapter(Activity activity, RtlViewPager pager) {
@@ -394,9 +398,11 @@ public class DeskClock extends BaseActivity
             // tab after a configuration change.
             if (DataModel.getDataModel().isApplicationInForeground()) {
                 switch (mSelectedTab) {
+                    /*
                     case ALARM_TAB_INDEX:
                         Events.sendAlarmEvent(R.string.action_show, R.string.label_deskclock);
                         break;
+                    */
                     case CLOCK_TAB_INDEX:
                         Events.sendClockEvent(R.string.action_show, R.string.label_deskclock);
                         break;
