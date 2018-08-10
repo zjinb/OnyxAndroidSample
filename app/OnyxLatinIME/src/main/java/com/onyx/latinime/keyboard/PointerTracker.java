@@ -354,6 +354,8 @@ public final class PointerTracker implements PointerTrackerQueue.Element {
 
     private final GestureStrokeWithPreviewPoints mGestureStrokeWithPreviewPoints;
 
+    private static Key sOldKey = null;
+
     private static final int SMALL_TABLET_SMALLEST_WIDTH = 600; // dp
     private static final int LARGE_TABLET_SMALLEST_WIDTH = 768; // dp
 
@@ -580,6 +582,36 @@ public final class PointerTracker implements PointerTrackerQueue.Element {
         }
     }
 
+    private void setFocusedKeyGraphics(Key key) {
+        if (sOldKey != null) {
+            updateFocusedKeyGraphics(sOldKey, false);
+        }
+        updateFocusedKeyGraphics(key, true);
+        sOldKey = key;
+    }
+
+    private void updateFocusedKeyGraphics(final Key key, boolean focused) {
+        key.setFocused(focused);
+        mDrawingProxy.invalidateKey(key);
+    }
+
+
+    public void setFocusedKey(Key key) {
+        setFocusedKeyGraphics(key);
+    }
+
+    public void cancelFocuse() {
+        if (sOldKey != null) {
+            sOldKey.setFocused(false);
+            updateReleaseKeyGraphics(sOldKey);
+            sOldKey = null;
+        }
+    }
+
+    public Key getCurrentKey() {
+        return sOldKey;
+    }
+
     private void callListenerOnFinishSlidingInput() {
         if (DEBUG_LISTENER) {
             Log.d(TAG, String.format("[%d] onFinishSlidingInput", mPointerId));
@@ -682,6 +714,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element {
         final boolean needsToUpdateGraphics = key.isEnabled() || altersCode;
         if (!needsToUpdateGraphics) {
             return;
+        }
+        if (sOldKey != null && sOldKey.isFocused() && sOldKey != key) {
+            updateFocusedKeyGraphics(sOldKey, false);
         }
 
         if (!key.noKeyPreview() && !sInGesture && !needsToSuppressKeyPreviewPopup(eventTime)) {
@@ -904,6 +939,26 @@ public final class PointerTracker implements PointerTrackerQueue.Element {
             onCancelEvent(x, y, eventTime);
             break;
         }
+    }
+
+    public void processMotionEvent(final int action, final int x, final int y, final long eventTime,
+                                   final KeyEventHandler handler) {
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    onDownEvent(x, y, eventTime, handler);
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_POINTER_UP:
+                    onUpEvent(x,     y, eventTime);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    onMoveEvent(x, y, eventTime, null);
+                    break;
+                case MotionEvent.ACTION_CANCEL:
+                    onCancelEvent(x, y, eventTime);
+                    break;
+            }
     }
 
     private void onDownEvent(final int x, final int y, final long eventTime,
