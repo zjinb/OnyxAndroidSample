@@ -36,6 +36,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseArray;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -146,6 +147,9 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
     private ObjectAnimator mAltCodeKeyWhileTypingFadeoutAnimator;
     private ObjectAnimator mAltCodeKeyWhileTypingFadeinAnimator;
     private int mAltCodeKeyWhileTypingAnimAlpha = Constants.Color.ALPHA_OPAQUE;
+
+    private boolean mInDPadNavigation = false;
+    private KeyboardNavigator mKeyboardNavigator = null;
 
     // Preview placer view
     private final PreviewPlacerView mPreviewPlacerView;
@@ -627,6 +631,8 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         // This always needs to be set since the accessibility state can
         // potentially change without the keyboard being set again.
         AccessibleKeyboardViewProxy.getInstance().setKeyboard();
+
+        mKeyboardNavigator = new KeyboardNavigator(keyboard);
     }
 
     /**
@@ -1046,6 +1052,7 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
         if (getKeyboard() == null) {
             return false;
         }
+        mInDPadNavigation = false;
         if (mNonDistinctMultitouchHelper != null) {
             if (me.getPointerCount() > 1 && mKeyTimerHandler.isInKeyRepeat()) {
                 // Key repeating timer will be canceled if 2 or more keys are in action.
@@ -1271,5 +1278,68 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
     public void deallocateMemory() {
         super.deallocateMemory();
         mGestureTrailsPreview.deallocateMemory();
+    }
+
+    public void handleDpadKeyEvent(int keyCode) {
+        if ((keyCode == KeyEvent.KEYCODE_DPAD_UP) ||
+                (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) ||
+                (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) ||
+                (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT)) {
+            mInDPadNavigation = true;
+
+            if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                Key k = mKeyboardNavigator.searchUp(mKeyboardNavigator.getCurrentKey());
+                if (k == null) {
+                    k = mKeyboardNavigator.searchDownFarMost(mKeyboardNavigator.getCurrentKey());
+                }
+
+                if (k != null) {
+                    mKeyboardNavigator.setCurrentKey(k);
+
+                }
+            } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                Key k = mKeyboardNavigator.searchDown(mKeyboardNavigator.getCurrentKey());
+                if (k == null) {
+                    k = mKeyboardNavigator.searchUpFarMost(mKeyboardNavigator.getCurrentKey());
+                }
+
+                if (k != null) {
+                    mKeyboardNavigator.setCurrentKey(k);
+                }
+            } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+                Key k = mKeyboardNavigator.searchLeft(mKeyboardNavigator.getCurrentKey());
+                if (k == null) {
+                    k = mKeyboardNavigator.searchRightFarMost(mKeyboardNavigator.getCurrentKey());
+                }
+
+                if (k != null) {
+                    mKeyboardNavigator.setCurrentKey(k);
+                }
+            } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                Key k = mKeyboardNavigator.searchRight(mKeyboardNavigator.getCurrentKey());
+                if (k == null) {
+                    k = mKeyboardNavigator.searchLeftFarMost(mKeyboardNavigator.getCurrentKey());
+                }
+
+                if (k != null) {
+                    mKeyboardNavigator.setCurrentKey(k);
+                }
+            } else {
+                assert (false);
+            }
+
+            final PointerTracker tracker = PointerTracker.getPointerTracker(0, this);
+            tracker.setFocusedKey(mKeyboardNavigator.getCurrentKey());
+        } else if ((keyCode == KeyEvent.KEYCODE_DPAD_CENTER) || (keyCode == KeyEvent.KEYCODE_ENTER)) {
+            Key k = mKeyboardNavigator.getCurrentKey();
+            final PointerTracker tracker = PointerTracker.getPointerTracker(0, this);
+            tracker.processMotionEvent(MotionEvent.ACTION_DOWN, k.mX + (k.mWidth / 2), k.mY + (k.mHeight / 2), SystemClock.uptimeMillis(), this);
+            tracker.processMotionEvent(MotionEvent.ACTION_UP, k.mX + (k.mWidth / 2), k.mY + (k.mHeight / 2), SystemClock.uptimeMillis()+200, this);
+        }
+    }
+
+    public void cancelFocuse() {
+        final PointerTracker tracker = PointerTracker.getPointerTracker(0, this);
+        tracker.cancelFocuse();
     }
 }
