@@ -1237,6 +1237,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element {
         final Key oldKey = mCurrentKey;
         final Key newKey = onMoveKey(x, y);
 
+        onUpEventInternal(lastX, lastY, eventTime, false);
+        onDownEventInternal(x, y, eventTime);
+
         if (sShouldHandleGesture) {
             // Register move event on gesture tracker.
             onGestureMoveEvent(x, y, eventTime, true /* isMajorEvent */, newKey);
@@ -1299,7 +1302,11 @@ public final class PointerTracker implements PointerTrackerQueue.Element {
         cancelTrackingForAction();
     }
 
-    private void onUpEventInternal(final int x, final int y, final long eventTime) {
+    private void onUpEventInternal(final int x, final int y, long eventTime) {
+        onUpEventInternal(x, y, eventTime, true);
+    }
+
+    private void onUpEventInternal(final int x, final int y, final long eventTime,boolean sendKey) {
         mTimerProxy.cancelKeyTimers();
         final boolean isInSlidingKeyInput = mIsInSlidingKeyInput;
         final boolean isInSlidingKeyInputFromModifier = mIsInSlidingKeyInputFromModifier;
@@ -1338,7 +1345,9 @@ public final class PointerTracker implements PointerTrackerQueue.Element {
                 && (currentKey.getCode() == currentRepeatingKeyCode) && !isInSlidingKeyInput) {
             return;
         }
-        detectAndSendKey(currentKey, mKeyX, mKeyY, eventTime);
+        if (sendKey) {
+            detectAndSendKey(currentKey, mKeyX, mKeyY, eventTime);
+        }
         if (isInSlidingKeyInputFromModifier) {
             callListenerOnFinishSlidingInput();
         }
