@@ -13,6 +13,7 @@
 
     <application android:icon="@drawable/app_music"
         android:label="@string/musicbrowserlabel"
+        android:theme="@style/OnyxAppCompat"
         android:taskAffinity="android.task.music"
         android:allowTaskReparenting="true">
         <meta-data
@@ -22,7 +23,6 @@
 
         <activity android:name="com.onyx.music.MusicBrowserActivity"
             android:icon="@drawable/ic_music_small"
-            android:theme="@android:style/Theme.Holo.Light"
             android:exported="true"
             >
             <intent-filter>
@@ -52,7 +52,6 @@
              appropriate. -->
         <activity android:name="com.onyx.music.MediaPlaybackActivity"
             android:icon="@drawable/ic_music_small"
-            android:theme="@android:style/Theme.Holo.Light"
             android:label="@string/mediaplaybacklabel"
             android:taskAffinity=""
             android:launchMode="singleTask"
@@ -105,14 +104,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="AudioPreview" android:theme="@android:style/Theme.Dialog"
+        <activity android:name="AudioPreview"
             android:taskAffinity=""
             android:excludeFromRecents="true" android:exported="true" >
         </activity>
 
         <activity android:name="com.onyx.music.ArtistAlbumBrowserActivity"
                   android:icon="@drawable/ic_music_small"
-                  android:theme="@android:style/Theme.Holo.Light"
                   android:exported="false" >
             <intent-filter>
                 <action android:name="android.intent.action.PICK" />
@@ -122,7 +120,6 @@
         </activity>
         <activity android:name="com.onyx.music.AlbumBrowserActivity"
                   android:icon="@drawable/ic_music_small"
-                  android:theme="@android:style/Theme.Holo.Light"
                   android:exported="false" >
             <intent-filter>
                 <action android:name="android.intent.action.PICK" />
@@ -130,16 +127,8 @@
                 <data android:mimeType="vnd.android.cursor.dir/album"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.onyx.music.NowPlayingActivity" android:exported="false" >
-            <intent-filter>
-                <action android:name="android.intent.action.PICK" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/nowplaying"/>
-            </intent-filter>
-        </activity>
         <activity android:name="com.onyx.music.TrackBrowserActivity"
                   android:icon="@drawable/ic_music_small"
-                  android:theme="@android:style/Theme.Holo.Light"
                   android:exported="false" >
             <intent-filter>
                 <action android:name="android.intent.action.EDIT" />
@@ -149,7 +138,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.onyx.music.QueryBrowserActivity"
-            android:theme="@android:style/Theme.NoTitleBar"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -163,7 +151,6 @@
         </activity>
         <activity android:name="com.onyx.music.PlaylistBrowserActivity"
             android:icon="@drawable/ic_music_small"
-            android:theme="@android:style/Theme.Holo.Light"
             android:label="@string/musicbrowserlabel"
             android:exported="true" >
             <intent-filter>
@@ -253,15 +240,15 @@
             </intent-filter>
         </activity>
         <activity android:name="com.onyx.music.CreatePlaylist"
-            android:theme="@android:style/Theme.Dialog" android:exported="false" />
+            android:theme="@style/OnyxAppCompat.Light.Dialog" android:exported="false" />
         <activity android:name="com.onyx.music.RenamePlaylist"
-            android:theme="@android:style/Theme.Dialog" android:exported="false" />
+            android:theme="@style/OnyxAppCompat.Light.Dialog" android:exported="false" />
         <activity android:name="com.onyx.music.WeekSelector"
-            android:theme="@android:style/Theme.Dialog" android:exported="false" />
+            android:theme="@style/OnyxAppCompat.Light.Dialog" android:exported="false" />
         <activity android:name="com.onyx.music.DeleteItems"
-            android:theme="@android:style/Theme.Dialog" android:exported="false" />
+            android:theme="@style/OnyxAppCompat.Light.Dialog" android:exported="false" />
         <activity android:name="com.onyx.music.ScanningProgress"
-            android:theme="@android:style/Theme.Dialog" android:exported="false" />
+            android:theme="@style/OnyxAppCompat.Light.Dialog" android:exported="false" />
         <service android:name="com.onyx.music.MediaPlaybackService"
             android:exported="false" />
 

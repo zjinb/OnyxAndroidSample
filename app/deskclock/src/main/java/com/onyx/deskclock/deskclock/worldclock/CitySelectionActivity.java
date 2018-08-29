@@ -16,12 +16,12 @@
 
 package com.onyx.deskclock.deskclock.worldclock;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.text.TextUtilsCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -106,9 +106,8 @@ public final class CitySelectionActivity extends BaseActivity {
             }
         });
         Toolbar toolbar = (Toolbar) findViewById(R.id.alarm_toolbar);
-        setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getActionBar();
         if (actionBar != null){
             actionBar.setDisplayShowTitleEnabled(false);
         }

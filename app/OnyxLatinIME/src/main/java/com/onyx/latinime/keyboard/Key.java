@@ -95,13 +95,13 @@ public class Key implements Comparable<Key> {
     private final int mIconId;
 
     /** Width of the key, not including the gap */
-    private final int mWidth;
+    public final int mWidth;
     /** Height of the key, not including the gap */
-    private final int mHeight;
+    public final int mHeight;
     /** X coordinate of the key in the keyboard layout */
-    private final int mX;
+    public final int mX;
     /** Y coordinate of the key in the keyboard layout */
-    private final int mY;
+    public final int mY;
     /** Hit bounding box of the key */
     private final Rect mHitBox = new Rect();
 
@@ -183,6 +183,8 @@ public class Key implements Comparable<Key> {
     private boolean mPressed;
     /** Key is enabled and responds on press */
     private boolean mEnabled = true;
+
+    private boolean mFocused;
 
     /**
      * This constructor is being used only for keys in more keys keyboard.
@@ -864,7 +866,8 @@ public class Key implements Comparable<Key> {
     private final static int[] KEY_STATE_PRESSED_HIGHLIGHT_ON = {
         android.R.attr.state_pressed,
         android.R.attr.state_checkable,
-        android.R.attr.state_checked
+        android.R.attr.state_checked,
+        android.R.attr.state_focused
     };
 
     private final static int[] KEY_STATE_NORMAL_HIGHLIGHT_OFF = {
@@ -880,7 +883,8 @@ public class Key implements Comparable<Key> {
     };
 
     private final static int[] KEY_STATE_PRESSED = {
-        android.R.attr.state_pressed
+        android.R.attr.state_pressed,
+        android.R.attr.state_focused
     };
 
     private final static int[] KEY_STATE_EMPTY = {
@@ -915,19 +919,23 @@ public class Key implements Comparable<Key> {
      * @see android.graphics.drawable.StateListDrawable#setState(int[])
      */
     public final int[] getCurrentDrawableState() {
-        switch (mBackgroundType) {
-        case BACKGROUND_TYPE_FUNCTIONAL:
-            return mPressed ? KEY_STATE_FUNCTIONAL_PRESSED : KEY_STATE_FUNCTIONAL_NORMAL;
-        case BACKGROUND_TYPE_ACTION:
-            return mPressed ? KEY_STATE_ACTIVE_PRESSED : KEY_STATE_ACTIVE_NORMAL;
-        case BACKGROUND_TYPE_STICKY_OFF:
-            return mPressed ? KEY_STATE_PRESSED_HIGHLIGHT_OFF : KEY_STATE_NORMAL_HIGHLIGHT_OFF;
-        case BACKGROUND_TYPE_STICKY_ON:
-            return mPressed ? KEY_STATE_PRESSED_HIGHLIGHT_ON : KEY_STATE_NORMAL_HIGHLIGHT_ON;
-        case BACKGROUND_TYPE_EMPTY:
-            return mPressed ? KEY_STATE_PRESSED : KEY_STATE_EMPTY;
-        default: /* BACKGROUND_TYPE_NORMAL */
-            return mPressed ? KEY_STATE_PRESSED : KEY_STATE_NORMAL;
+        if (mFocused) {
+            return KEY_STATE_PRESSED;
+        } else {
+            switch (mBackgroundType) {
+                case BACKGROUND_TYPE_FUNCTIONAL:
+                    return mPressed ? KEY_STATE_FUNCTIONAL_PRESSED : KEY_STATE_FUNCTIONAL_NORMAL;
+                case BACKGROUND_TYPE_ACTION:
+                    return mPressed ? KEY_STATE_ACTIVE_PRESSED : KEY_STATE_ACTIVE_NORMAL;
+                case BACKGROUND_TYPE_STICKY_OFF:
+                    return mPressed ? KEY_STATE_PRESSED_HIGHLIGHT_OFF : KEY_STATE_NORMAL_HIGHLIGHT_OFF;
+                case BACKGROUND_TYPE_STICKY_ON:
+                    return mPressed ? KEY_STATE_PRESSED_HIGHLIGHT_ON : KEY_STATE_NORMAL_HIGHLIGHT_ON;
+                case BACKGROUND_TYPE_EMPTY:
+                    return mPressed ? KEY_STATE_PRESSED : KEY_STATE_EMPTY;
+                default: /* BACKGROUND_TYPE_NORMAL */
+                    return mPressed ? KEY_STATE_PRESSED : KEY_STATE_NORMAL;
+            }
         }
     }
 
@@ -945,5 +953,13 @@ public class Key implements Comparable<Key> {
             super(params, null, null, ICON_UNDEFINED, CODE_UNSPECIFIED,
                     null, x, y, width, height, 0, BACKGROUND_TYPE_EMPTY);
         }
+    }
+
+    public void setFocused(boolean focused) {
+        mFocused = focused;
+    }
+
+    public boolean isFocused() {
+        return mFocused;
     }
 }

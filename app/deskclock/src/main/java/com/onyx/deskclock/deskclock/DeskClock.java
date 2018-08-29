@@ -16,6 +16,7 @@
 
 package com.onyx.deskclock.deskclock;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -28,7 +29,6 @@ import android.support.design.widget.TabLayout.Tab;
 import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,10 +68,11 @@ public class DeskClock extends BaseActivity
     private static final String KEY_SELECTED_TAB = "selected_tab";
     public static final String SELECT_TAB_INTENT_EXTRA = "deskclock.select.tab";
 
-    public static final int ALARM_TAB_INDEX = 0;
-    public static final int CLOCK_TAB_INDEX = 1;
-    public static final int TIMER_TAB_INDEX = 2;
-    public static final int STOPWATCH_TAB_INDEX = 3;
+    //changed by onyx [hide the alarmPage in C68S]
+    public static final int ALARM_TAB_INDEX = -1;
+    public static final int CLOCK_TAB_INDEX = 0;
+    public static final int TIMER_TAB_INDEX = 1;
+    public static final int STOPWATCH_TAB_INDEX = 2;
 
     private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager(this);
 
@@ -110,9 +111,12 @@ public class DeskClock extends BaseActivity
     }
 
     private void createTabs() {
+        /*
+        changed by onyx
         final Tab alarmTab = mTabLayout.newTab();
         alarmTab.setIcon(R.drawable.ic_tab_alarm).setContentDescription(R.string.menu_alarm);
         mTabsAdapter.addTab(alarmTab, AlarmClockFragment.class, ALARM_TAB_INDEX);
+        */
 
         final Tab clockTab = mTabLayout.newTab();
         clockTab.setIcon(R.drawable.ic_tab_clock).setContentDescription(R.string.menu_clock);
@@ -161,7 +165,6 @@ public class DeskClock extends BaseActivity
 
         setContentView(R.layout.desk_clock);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         mFab = (ImageView) findViewById(R.id.fab);
 
@@ -317,17 +320,17 @@ public class DeskClock extends BaseActivity
             }
         }
 
-        private final List<TabInfo> mTabs = new ArrayList<>(4 /* number of fragments */);
+        private final List<TabInfo> mTabs = new ArrayList<>(3 /* number of fragments */);
         private final Context mContext;
         private final RtlViewPager mPager;
         // Used for doing callbacks to fragments.
 
         // API 23
         // private final Set<String> mFragmentTags = new ArraySet<>(4 /* number of fragments */);
-        private final Set<String> mFragmentTags = new HashSet<>(4);
+        private final Set<String> mFragmentTags = new HashSet<>(3);
 
 
-        public TabsAdapter(AppCompatActivity activity, RtlViewPager pager) {
+        public TabsAdapter(Activity activity, RtlViewPager pager) {
             super(activity.getFragmentManager());
             mContext = activity;
             mPager = pager;
