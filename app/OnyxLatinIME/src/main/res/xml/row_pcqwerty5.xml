@@ -72,7 +72,7 @@
             <!-- keyboardLayoutSetElement="alphabetManualShifted|alphabetShiftLocked|alphabetShiftLockShifted" -->
             <default>
                 <Key
-                    latin:keyStyle="emojiKeyStyle"
+                    latin:keyStyle="settingsKeyStyle"
                     latin:keyWidth="fillRight" />
             </default>
         </switch>
