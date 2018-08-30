@@ -498,7 +498,7 @@ public class Utils {
         showOrHideDigitalClock(dateDisplay);
     }
 
-    private static void showOrHideDigitalClock(View digitalClock) {
+    private static void updateStateDigitalClock(View digitalClock) {
         final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
         switch (clockStyle){
             case DIGITAL:
