@@ -167,7 +167,7 @@ class Logic {
 
     void onEnter() {
         if (mDeleteMode == DELETE_MODE_CLEAR) {
-            clearWithHistory(false); // clear after an Enter on result
+            //ignore clear mode
         } else {
             evaluateAndShowResult(getText(), CalculatorDisplay.SCROLL_UP);
         }
