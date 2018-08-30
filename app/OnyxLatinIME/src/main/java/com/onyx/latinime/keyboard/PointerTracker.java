@@ -1237,8 +1237,10 @@ public final class PointerTracker implements PointerTrackerQueue.Element {
         final Key oldKey = mCurrentKey;
         final Key newKey = onMoveKey(x, y);
 
-        onUpEventInternal(lastX, lastY, eventTime, false);
-        onDownEventInternal(x, y, eventTime);
+        if (!oldKey.equals(newKey)) {
+            onUpEventInternal(lastX, lastY, eventTime, false);
+            onDownEventInternal(x, y, eventTime);
+        }
 
         if (sShouldHandleGesture) {
             // Register move event on gesture tracker.
