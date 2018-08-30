@@ -144,6 +144,10 @@ class Logic {
         setDeleteMode(DELETE_MODE_BACKSPACE);
     }
 
+    void delBackspace() {
+        mDisplay.delBackspace();
+    }
+
     boolean acceptInsert(String delta) {
         String text = getText();
         return !mIsError &&
@@ -153,6 +157,10 @@ class Logic {
     }
 
     void onDelete() {
+        if(mDeleteMode == DELETE_MODE_BACKSPACE){
+            delBackspace();
+            return;
+        }
         if (getText().equals(mResult) || mIsError) {
             clear(false);
         } else {
@@ -167,7 +175,7 @@ class Logic {
 
     void onEnter() {
         if (mDeleteMode == DELETE_MODE_CLEAR) {
-            clearWithHistory(false); // clear after an Enter on result
+            //ignore clear mode
         } else {
             evaluateAndShowResult(getText(), CalculatorDisplay.SCROLL_UP);
         }

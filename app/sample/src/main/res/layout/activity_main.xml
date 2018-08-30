@@ -17,11 +17,16 @@
         android:orientation="vertical"
         android:layout_alignParentTop="true">
 
-        <Button
-            android:id="@+id/button_environment"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Environment Demo"/>
+            android:text="You should take care of ths following demo:"/>
+
+        <Button
+            android:id="@+id/button_reader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="READER Demo"/>
 
         <Button
             android:id="@+id/button_epd"
@@ -36,34 +41,49 @@
             android:text="Front Light"/>
 
         <Button
-            android:id="@+id/button_touch_screen_scribble"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Touch Screen Scribble Demo"/>
-
-        <Button
-            android:id="@+id/button_stylus_scribble"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Stylus Scribble Demo"/>
-
-        <Button
-            android:id="@+id/button_sdk_data_ota_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SdkData OTA-Test Demo" />
-
-        <Button
             android:id="@+id/button_full_screen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Full Screen Demo" />
 
         <Button
-            android:id="@+id/button_settings"
+            android:id="@+id/button_environment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Settings Demo" />
+            android:text="Environment Demo"/>
+
+        <Button
+            android:id="@+id/button_pen_touch_helper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pen Stylus Touch Helper Demo" />
+
+        <Button
+            android:id="@+id/button_pen_webview_demo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pen Stylus WebView Demo" />
+
+        <Button
+            android:id="@+id/button_scribble_demo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scribble Demo" />
+
+        <Button
+            android:id="@+id/btn_dict_query"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:text="Dict Query" />
+
+        <Button
+            android:id="@+id/btn_onyx_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:text="Onyx Test" />
+
 
     </LinearLayout>
 
