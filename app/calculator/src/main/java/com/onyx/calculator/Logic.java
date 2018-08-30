@@ -144,6 +144,10 @@ class Logic {
         setDeleteMode(DELETE_MODE_BACKSPACE);
     }
 
+    void delBackspace() {
+        mDisplay.delBackspace();
+    }
+
     boolean acceptInsert(String delta) {
         String text = getText();
         return !mIsError &&
@@ -153,6 +157,10 @@ class Logic {
     }
 
     void onDelete() {
+        if(mDeleteMode == DELETE_MODE_BACKSPACE){
+            delBackspace();
+            return;
+        }
         if (getText().equals(mResult) || mIsError) {
             clear(false);
         } else {

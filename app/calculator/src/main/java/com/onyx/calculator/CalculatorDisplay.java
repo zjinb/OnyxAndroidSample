@@ -23,6 +23,7 @@ import android.support.annotation.IntDef;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.method.NumberKeyListener;
 import android.util.AttributeSet;
 import android.view.animation.TranslateAnimation;
@@ -136,6 +137,15 @@ class CalculatorDisplay extends ViewSwitcher {
         EditText editor = (EditText) getCurrentView();
         int cursor = editor.getSelectionStart();
         editor.getText().insert(cursor, delta);
+    }
+
+    void delBackspace(){
+        String text = getText().toString();
+        if (TextUtils.isEmpty(text)) {
+            return;
+        }
+        text = text.substring(0,text.length()-1);
+        setText(text,SCROLL_NONE);
     }
 
     EditText getEditText() {
