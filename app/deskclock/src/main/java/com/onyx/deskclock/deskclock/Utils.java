@@ -498,14 +498,14 @@ public class Utils {
         showOrHideDigitalClock(dateDisplay);
     }
 
-    private static void showOrHideDigitalClock(View clock) {
+    private static void showOrHideDigitalClock(View digitalClock) {
         final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
         switch (clockStyle){
             case DIGITAL:
-                clock.setVisibility(View.VISIBLE);
+                digitalClock.setVisibility(View.VISIBLE);
                 break;
             case ANALOG:
-                clock.setVisibility(View.GONE);
+                digitalClock.setVisibility(View.GONE);
                 break;
         }
     }
