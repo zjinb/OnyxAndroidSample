@@ -490,13 +490,24 @@ public class Utils {
 //        final String descriptionPattern = DateFormat.getBestDateTimePattern(l, descriptionSkeleton);
         final String datePattern = getDatePattern(l, dateSkeleton);
         final String descriptionPattern = getDatePattern(l, descriptionSkeleton);
-
         final Date now = new Date();
         String time = new SimpleDateFormat(datePattern, l).format(now);
 //        dateDisplay.setText(time);
         dateDisplay.setTime(now.getHours(), now.getMinutes());
-        dateDisplay.setVisibility(View.VISIBLE);
         dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, l).format(now));
+        showOrHideDigitalClock(dateDisplay);
+    }
+
+    private static void showOrHideDigitalClock(View clock) {
+        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
+        switch (clockStyle){
+            case DIGITAL:
+                clock.setVisibility(View.VISIBLE);
+                break;
+            case ANALOG:
+                clock.setVisibility(View.GONE);
+                break;
+        }
     }
 
     public static String getDatePattern(Locale locale, String skeleton){
