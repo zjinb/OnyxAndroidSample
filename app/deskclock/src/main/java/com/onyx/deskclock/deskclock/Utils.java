@@ -495,7 +495,7 @@ public class Utils {
 //        dateDisplay.setText(time);
         dateDisplay.setTime(now.getHours(), now.getMinutes());
         dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, l).format(now));
-        showOrHideDigitalClock(dateDisplay);
+        updateStateDigitalClock(dateDisplay);
     }
 
     private static void updateStateDigitalClock(View digitalClock) {
