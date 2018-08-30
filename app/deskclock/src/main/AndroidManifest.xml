@@ -71,7 +71,7 @@
 
         <activity android:name="com.onyx.deskclock.deskclock.settings.SettingsActivity"
             android:label="@string/settings"
-            android:theme="@style/SettingsTheme"
+            android:theme="@style/SettingsDetailTheme"
             android:taskAffinity=""
             android:excludeFromRecents="true">
             <intent-filter>
