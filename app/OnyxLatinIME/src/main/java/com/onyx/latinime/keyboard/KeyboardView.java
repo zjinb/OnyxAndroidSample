@@ -276,7 +276,7 @@ public class KeyboardView extends View {
             }
         }
         if (!isHardwareAccelerated) {
-            canvas.clipRegion(mClipRegion, Region.Op.REPLACE);
+            canvas.clipRect(mClipRegion.getBounds());
             // Draw keyboard background.
             canvas.drawColor(Color.BLACK, PorterDuff.Mode.CLEAR);
             final Drawable background = getBackground();
