@@ -18,8 +18,11 @@ package com.onyx.latinime.latin.settings;
 
 import com.onyx.latinime.latin.utils.FragmentUtils;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.view.MenuItem;
 
 public final class SettingsActivity extends PreferenceActivity {
     private static final String DEFAULT_FRAGMENT = SettingsFragment.class.getName();
@@ -39,5 +42,28 @@ public final class SettingsActivity extends PreferenceActivity {
     // @Override
     public boolean isValidFragment(String fragmentName) {
         return FragmentUtils.isValidFragment(fragmentName);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
