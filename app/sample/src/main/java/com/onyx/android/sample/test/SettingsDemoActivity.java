@@ -1,9 +1,11 @@
-package com.onyx.android.sample;
+package com.onyx.android.sample.test;
 
 import android.content.ComponentName;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.onyx.android.sample.R;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,6 +25,14 @@ public class SettingsDemoActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setComponent(new ComponentName("com.onyx.android.settings",
                 "com.onyx.android.libsetting.view.activity.DeviceMainSettingActivity"));
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.button_power)
+    void powerClick() {
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("com.android.settings",
+                "com.android.settings.DisplaySettings"));
         startActivity(intent);
     }
 

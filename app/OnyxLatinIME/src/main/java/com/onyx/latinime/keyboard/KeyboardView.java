@@ -275,8 +275,9 @@ public class KeyboardView extends View {
                 }
             }
         }
+        canvas.save();
         if (!isHardwareAccelerated) {
-            canvas.clipRegion(mClipRegion, Region.Op.REPLACE);
+            canvas.clipPath(mClipRegion.getBoundaryPath());
             // Draw keyboard background.
             canvas.drawColor(Color.BLACK, PorterDuff.Mode.CLEAR);
             final Drawable background = getBackground();
@@ -284,6 +285,7 @@ public class KeyboardView extends View {
                 background.draw(canvas);
             }
         }
+        canvas.restore();
 
         // TODO: Confirm if it's really required to draw all keys when hardware acceleration is on.
         if (drawAllKeys || isHardwareAccelerated) {
