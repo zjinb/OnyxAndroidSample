@@ -71,19 +71,24 @@ public class ScribbleTouchScreenDemoActivity extends AppCompatActivity implement
 
                 switch (e.getAction() & MotionEvent.ACTION_MASK) {
                     case (MotionEvent.ACTION_DOWN):
-                        EpdController.moveTo(surfaceView, e.getX(), e.getY(), baseWidth);
+                        float dst[] = mapPoint(e.getX(), e.getY());
+                        EpdController.startStroke(baseWidth, dst[0], dst[1], e.getPressure(), e.getSize(), e.getEventTime());
                         return true;
                     case (MotionEvent.ACTION_CANCEL):
                     case (MotionEvent.ACTION_OUTSIDE):
                         break;
                     case MotionEvent.ACTION_UP:
+                        dst = mapPoint(e.getX(), e.getY());
+                        EpdController.finishStroke(baseWidth, dst[0], dst[1], e.getPressure(), e.getSize(), e.getEventTime());
                         return true;
                     case MotionEvent.ACTION_MOVE:
                         int n = e.getHistorySize();
                         for (int i = 0; i < n; i++) {
-                            EpdController.quadTo(surfaceView, e.getHistoricalX(i), e.getHistoricalY(i), UpdateMode.DU);
+                            dst = mapPoint(e.getHistoricalX(i), e.getHistoricalY(i));
+                            EpdController.addStrokePoint(baseWidth,  dst[0], dst[1], e.getPressure(), e.getSize(), e.getEventTime());
                         }
-                        EpdController.quadTo(surfaceView, e.getX(), e.getY(), UpdateMode.DU);
+                        dst = mapPoint(e.getX(), e.getY());
+                        EpdController.addStrokePoint(baseWidth, dst[0], dst[1], e.getPressure(), e.getSize(), e.getEventTime());
                         return true;
                     default:
                         break;
@@ -137,6 +142,23 @@ public class ScribbleTouchScreenDemoActivity extends AppCompatActivity implement
     private void leaveScribbleMode() {
         scribbleMode = false;
         EpdController.leaveScribbleMode(surfaceView);
+    }
+
+    private float[] mapPoint(float x, float y) {
+        x = Math.min(Math.max(0, x), surfaceView.getWidth());
+        y = Math.min(Math.max(0, y), surfaceView.getHeight());
+
+        final int viewLocation[] = {0, 0};
+        surfaceView.getLocationOnScreen(viewLocation);
+        final Matrix viewMatrix = new Matrix();
+        DeviceConfig deviceConfig = DeviceConfig.sharedInstance(this, "note");
+        viewMatrix.postRotate(deviceConfig.getViewPostOrientation());
+        viewMatrix.postTranslate(deviceConfig.getViewPostTx(), deviceConfig.getViewPostTy());
+
+        float screenPoints[] = {viewLocation[0] + x, viewLocation[1] + y};
+        float dst[] = {0, 0};
+        viewMatrix.mapPoints(dst, screenPoints);
+        return dst;
     }
 
 }
