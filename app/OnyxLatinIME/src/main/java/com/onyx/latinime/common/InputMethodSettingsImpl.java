@@ -74,7 +74,9 @@ import java.util.List;
                         return true;
                     }
                 });
+        /*changed by onyx
         prefScreen.addPreference(mSubtypeEnablerPreference);
+        */
         updateSubtypeEnabler();
         return true;
     }

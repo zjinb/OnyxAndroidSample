@@ -3218,7 +3218,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         final CharSequence title = getString(R.string.english_ime_input_options);
         final CharSequence[] items = new CharSequence[] {
                 // TODO: Should use new string "Select active input modes".
-                getString(R.string.language_selection_title),
+//                getString(R.string.language_selection_title),
                 getString(ApplicationUtils.getAcitivityTitleResId(this, SettingsActivity.class)),
         };
         final DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
@@ -3227,6 +3227,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 di.dismiss();
                 switch (position) {
                 case 0:
+                /* changed by onyx
                     final Intent intent = IntentUtils.getInputLanguageSelectionIntent(
                             mRichImm.getInputMethodIdOfThisIme(),
                             Intent.FLAG_ACTIVITY_NEW_TASK
@@ -3235,6 +3236,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                     startActivity(intent);
                     break;
                 case 1:
+                */
                     launchSettings();
                     break;
                 }
