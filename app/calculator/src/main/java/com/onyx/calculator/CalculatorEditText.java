@@ -16,9 +16,11 @@
 
 package com.onyx.calculator;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.text.Editable;
 import android.text.InputType;
@@ -36,6 +38,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.common.collect.ImmutableMap;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CalculatorEditText extends EditText {
 
@@ -64,8 +70,58 @@ public class CalculatorEditText extends EditText {
 
     @Override
     public boolean performLongClick() {
-        showContextMenu();
+//        showContextMenu();
+        showControlAlertDialog();
         return true;
+    }
+
+    private void showControlAlertDialog() {
+        final CharSequence[] itemCharSequences = getItemCharSequences();
+        if (itemCharSequences == null) {
+            return;
+        }
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setItems(itemCharSequences, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                final CharSequence title = itemCharSequences[which];
+                if (TextUtils.equals(title, mMenuItemsStrings[CUT])) {
+                    cutContent();
+                } else if (TextUtils.equals(title, mMenuItemsStrings[COPY])) {
+                    copyContent();
+                } else if (TextUtils.equals(title, mMenuItemsStrings[PASTE])) {
+                    pasteContent();
+                }
+            }
+        }).create().show();
+    }
+
+    private CharSequence[] getItemCharSequences() {
+        if (mMenuItemsStrings == null) {
+            Resources resources = getResources();
+            mMenuItemsStrings = new String[3];
+            mMenuItemsStrings[CUT] = resources.getString(android.R.string.cut);
+            mMenuItemsStrings[COPY] = resources.getString(android.R.string.copy);
+            mMenuItemsStrings[PASTE] = resources.getString(android.R.string.paste);
+        }
+        final List<String> mListItems = new ArrayList<>(Arrays.asList(mMenuItemsStrings));
+        if (getText().length() == 0) {
+            mListItems.remove(mMenuItemsStrings[CUT]);
+            mListItems.remove(mMenuItemsStrings[COPY]);
+        }
+        ClipData primaryClip = getPrimaryClip();
+        if (primaryClip == null || primaryClip.getItemCount() == 0
+                || !canPaste(primaryClip.getItemAt(0).coerceToText(getContext()))) {
+            mListItems.remove(mMenuItemsStrings[PASTE]);
+        }
+        if (mListItems.size() == 0) {
+            return null;
+        }
+        final CharSequence[] charSequences = new CharSequence[mListItems.size()];
+        for (int i = 0; i < charSequences.length; i++) {
+            charSequences[i] = mListItems.get(i);
+        }
+        return charSequences;
     }
 
     @Override
