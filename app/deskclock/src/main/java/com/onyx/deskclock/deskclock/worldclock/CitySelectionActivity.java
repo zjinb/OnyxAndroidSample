@@ -33,6 +33,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -136,6 +137,13 @@ public final class CitySelectionActivity extends BaseActivity {
         mCitiesList = (ListView) findViewById(R.id.cities_list);
         mCitiesList.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
         mCitiesList.setAdapter(mCitiesAdapter);
+        mCitiesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final AppCompatCheckBox selected = (AppCompatCheckBox) view.findViewById(R.id.city_onoff);
+                selected.setChecked(!selected.isChecked());
+            }
+        });
 
         updateFastScrolling();
     }

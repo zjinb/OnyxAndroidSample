@@ -84,15 +84,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <android.support.design.widget.FloatingActionButton
+            <ImageButton
                 android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/design_fab_size_normal"
+                android:layout_height="@dimen/design_fab_size_normal"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/fab_margin"
-                app:borderWidth="0dp"
-                app:pressedTranslationZ="@dimen/fab_elevation_translationZ"
-                app:elevation="@dimen/fab_elevation" />
+                android:contentDescription="@null"
+                android:layout_margin="@dimen/fab_margin" />
 
         </FrameLayout>
 
