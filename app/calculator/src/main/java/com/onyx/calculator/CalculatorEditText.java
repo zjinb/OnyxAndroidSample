@@ -92,6 +92,7 @@ public class CalculatorEditText extends EditText {
                 } else if (TextUtils.equals(title, mMenuItemsStrings[PASTE])) {
                     pasteContent();
                 }
+                dialog.dismiss();
             }
         }).create().show();
     }
