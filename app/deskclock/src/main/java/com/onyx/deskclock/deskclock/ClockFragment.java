@@ -206,7 +206,7 @@ public final class ClockFragment extends DeskClockFragment {
         }
 
         mFab.setVisibility(VISIBLE);
-        mFab.setImageResource(R.drawable.ic_language_white_24dp);
+        mFab.setImageResource(R.drawable.ic_language_black_24dp);
         mFab.setContentDescription(getString(R.string.button_cities));
     }
 
