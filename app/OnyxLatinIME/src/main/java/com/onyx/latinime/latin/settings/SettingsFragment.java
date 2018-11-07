@@ -68,6 +68,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment
     private ListPreference mKeyPreviewPopupDismissDelay;
     // Use bigrams to predict the next word when there is no input for it yet
     private CheckBoxPreference mBigramPrediction;
+    private PreferenceGroup advancedSettings;
 
     private void setPreferenceEnabled(final String preferenceKey, final boolean enabled) {
         final Preference preference = findPreference(preferenceKey);
@@ -171,8 +172,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment
             generalSettings.removePreference(mVoiceInputKeyPreference);
         }
 
-        final PreferenceGroup advancedSettings =
-                (PreferenceGroup) findPreference(Settings.PREF_ADVANCED_SETTINGS);
+        advancedSettings = (PreferenceGroup) findPreference(Settings.PREF_ADVANCED_SETTINGS);
         if (!AudioAndHapticFeedbackManager.getInstance().hasVibrator()) {
             removePreference(Settings.PREF_VIBRATE_ON, generalSettings);
             removePreference(Settings.PREF_VIBRATION_DURATION_SETTINGS, advancedSettings);
@@ -341,6 +341,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment
             styles.append(SubtypeLocaleUtils.getSubtypeDisplayNameInSystemLocale(subtype));
         }
         customInputStyles.setSummary(styles);
+        advancedSettings.removePreference(customInputStyles);
     }
 
     private void updateKeyPreviewPopupDelaySummary() {
