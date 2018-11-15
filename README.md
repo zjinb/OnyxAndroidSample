@@ -4,10 +4,9 @@ Sample project of SDKs from Onyx-Intl, including [onyxsdk-base](doc/Onyx-Base-SD
 To use the SDK, please add the following statement to your build.gradle:
 ```gradle
     compile ('com.onyx.android.sdk:onyxsdk-base:1.4.3.7')
-	// a tiny scribble sdk, Recommend you to use
-    compile('com.onyx.android.sdk:onyxsdk-pen:1.0.6.5')
-	
-    // compile ('com.onyx.android.sdk:onyxsdk-scribble:1.0.8')
+    compile('com.onyx.android.sdk:onyxsdk-pen:1.0.8')
+    compile('com.onyx.android.sdk:onyxsdk-data:1.1.0')
+    compile('com.onyx.android.sdk:onyxsdk-notedata:1.0.5')
 ```
 
     
@@ -27,26 +26,34 @@ The project contains following examples that you should take care of:
 ## 2.SDCard
 * [EnvironmentDemoActivity](app/sample/src/main/java/com/onyx/android/sample/EnvironmentDemoActivity.java): shows how to use [DeviceEnvironment](doc/DeviceEnvironment.md) to access removeable sdcard. You can call `DeviceEnvironment.getRemovableSDCardDirectory().getAbsolutePath();`
 
-## 3.Pen
+## 3.Scribble
+Following demos are example of [onyxsdk-pen](doc/Onyx-Pen-SDK.md).
 
-`TouchHelper` is the latest api that you can scribble with stylus. You should call it.For more detailed usage, check out it out [onyxsdk-pen](doc/Onyx-Pen-SDK.md)
+We use TouchHepler api to draw
 
-* [PenStylusTouchHelperDemoActivity](app/sample/src/main/java/com/onyx/android/sample/PenStylusTouchHelperDemoActivity.java) is an example of [onyxsdk-pen](doc/Onyx-Pen-SDK.md).
-
-## 4.Scribble
-Following demos are example of [onyxsdk-scribble](doc/Onyx-Scribble-SDK.md).
-
-There is `TouchHelper` in the [onyxsdk-scribble](doc/Onyx-Scribble-SDK.md).
-For more detailed usage, check out it out [Scribble-TouchHelper](doc/Scribble-TouchHelper-API.md) 
-* [ScribbleStylusTouchHelperDemoActivity ](app/sample/src/main/java/com/onyx/android/sample/ScribbleStylusTouchHelperDemoActivity.java) 
+* [ScribbleTouchHelperDemoActivity](app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleTouchHelperDemoActivity.java) is an example of TouchHepler.
 
 We have no restrictions on the view,  you can set anything view.For example, SurfaceView , webview.
 We will return relative coordinates, According to the view you set.
-* [ScribbleStylusSurfaceViewDemoActivity ](app/sample/src/main/java/com/onyx/android/sample/ScribbleStylusSurfaceViewDemoActivity.java): example of [Onyx Scribble SDK](doc/Onyx-Scribble-SDK.md) for IMX6 devices with stylus
-* [ScribbleStylusWebViewDemoActivity ](app/sample/src/main/java/com/onyx/android/sample/ScribbleStylusWebViewDemoActivity.java): example of [Onyx Scribble SDK](doc/Onyx-Scribble-SDK.md) for IMX6 devices with stylus
+
+* [ScribbleSurfaceViewDemoActivity](app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleTouchHeplerDemoActivity.java): example of SurfaceView
+
+* [ScribbleWebViewDemoActivity]
+(app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleWebViewDemoActivity.java): example of Webview
 
 If the device supports touch, you scribble with your fingers.
-* [ScribbleTouchScreenDemoActivity](app/sample/src/main/java/com/onyx/android/sample/ScribbleTouchScreenDemoActivity.java): example of [Scribble API](doc/Scribble-API.md) from [EpdController](doc/EpdController.md) for IMX6 devices
+* [ScribbleTouchScreenDemoActivity](app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleTouchScreenDemoActivity.java): example of [Scribble API](doc/Scribble-API.md) from [EpdController](doc/EpdController.md) for IMX6 devices
+
+We alse support move eraser, multiple view scribble and save scribble points
+
+* [ScribbleMoveEraserDemoActivity]
+(app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleMoveEraserDemoActivity.java): example of move eraser
+
+* [ScribbleMultipleScribbleViewActivity]
+(app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleMultipleScribbleDemoActivity.java): example of multiple view scribble
+
+* [ScribbleSavePointsDemoActivity]
+(app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleSavePointsDemoActivity.java): example of save scribble points
 
 ## 5. Other API
 * **DictionaryUtils** to query word in dictionary, for more details to see [DictionaryActivity](./app/sample/src/main/java/com/onyx/android/sample/DictionaryActivity.java)
