@@ -36,7 +36,7 @@ We use TouchHepler api to draw
 We have no restrictions on the view,  you can set anything view.For example, SurfaceView , webview.
 We will return relative coordinates, According to the view you set.
 
-* [ScribbleSurfaceViewDemoActivity](app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleTouchHeplerDemoActivity.java): example of SurfaceView
+* [ScribbleSurfaceViewDemoActivity](app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleTouchHelperDemoActivity.java): example of SurfaceView
 
 * [ScribbleWebViewDemoActivity](app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleWebViewDemoActivity.java): example of Webview
 
