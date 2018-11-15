@@ -38,22 +38,21 @@ We will return relative coordinates, According to the view you set.
 
 * [ScribbleSurfaceViewDemoActivity](app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleTouchHeplerDemoActivity.java): example of SurfaceView
 
-* [ScribbleWebViewDemoActivity]
-(app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleWebViewDemoActivity.java): example of Webview
+* [ScribbleWebViewDemoActivity](app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleWebViewDemoActivity.java): example of Webview
 
 If the device supports touch, you scribble with your fingers.
 * [ScribbleTouchScreenDemoActivity](app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleTouchScreenDemoActivity.java): example of [Scribble API](doc/Scribble-API.md) from [EpdController](doc/EpdController.md) for IMX6 devices
 
 We alse support move eraser, multiple view scribble and save scribble points
 
-* [ScribbleMoveEraserDemoActivity]
-(app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleMoveEraserDemoActivity.java): example of move eraser
+* [ScribbleMoveEraserDemoActivity](app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleMoveEraserDemoActivity.java)
+: example of move eraser
 
-* [ScribbleMultipleScribbleViewActivity]
-(app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleMultipleScribbleDemoActivity.java): example of multiple view scribble
+* [ScribbleMultipleScribbleViewActivity](app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleMultipleScribbleViewActivity.java)
+: example of multiple view scribble
 
-* [ScribbleSavePointsDemoActivity]
-(app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleSavePointsDemoActivity.java): example of save scribble points
+* [ScribbleSavePointsDemoActivity](app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleSavePointsDemoActivity.java)
+: example of save scribble points
 
 ## 5. Other API
 * **DictionaryUtils** to query word in dictionary, for more details to see [DictionaryActivity](./app/sample/src/main/java/com/onyx/android/sample/DictionaryActivity.java)
