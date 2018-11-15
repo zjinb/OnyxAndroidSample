@@ -1,4 +1,4 @@
-package com.onyx.android.sample;
+package com.onyx.android.sample.scribble;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 
+import com.onyx.android.sample.R;
 import com.onyx.android.sample.utils.TouchUtils;
 import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.pen.BrushRender;
@@ -23,8 +24,6 @@ import com.onyx.android.sdk.pen.RawInputCallback;
 import com.onyx.android.sdk.pen.TouchHelper;
 import com.onyx.android.sdk.pen.data.TouchPoint;
 import com.onyx.android.sdk.pen.data.TouchPointList;
-import com.onyx.android.sdk.scribble.shape.BrushScribbleShape;
-import com.onyx.android.sdk.utils.BitmapUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +33,9 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
-public class PenStylusTouchHelperDemoActivity extends AppCompatActivity {
+public class ScribbleTouchHelperDemoActivity extends AppCompatActivity {
 
-    private static final String TAG = PenStylusTouchHelperDemoActivity.class.getSimpleName();
+    private static final String TAG = ScribbleTouchHelperDemoActivity.class.getSimpleName();
     /** skip point count*/
     private static final int INTERVAL = 10;
 

@@ -1,16 +1,16 @@
-package com.onyx.android.sample;
+package com.onyx.android.sample.scribble;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
+import com.onyx.android.sample.R;
 import com.onyx.android.sdk.pen.RawInputCallback;
 import com.onyx.android.sdk.pen.TouchHelper;
 import com.onyx.android.sdk.pen.data.TouchPoint;

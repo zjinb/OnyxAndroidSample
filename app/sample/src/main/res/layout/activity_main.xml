@@ -26,13 +26,13 @@
             android:id="@+id/button_reader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="READER Demo"/>
+            android:text="Reader Demo"/>
 
         <Button
             android:id="@+id/button_epd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="EPD Demo"/>
+            android:text="Epd Demo"/>
 
         <Button
             android:id="@+id/button_front_light"
@@ -51,18 +51,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Environment Demo"/>
-
-        <Button
-            android:id="@+id/button_pen_touch_helper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pen Stylus Touch Helper Demo" />
-
-        <Button
-            android:id="@+id/button_pen_webview_demo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pen Stylus WebView Demo" />
 
         <Button
             android:id="@+id/button_scribble_demo"

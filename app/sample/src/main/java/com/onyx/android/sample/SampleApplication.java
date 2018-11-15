@@ -41,6 +41,6 @@ public class SampleApplication extends Application {
     }
 
     private void initDownloadManager() {
-        OnyxDownloadManager.getInstance(sInstance);
+        OnyxDownloadManager.init(sInstance);
     }
 }
