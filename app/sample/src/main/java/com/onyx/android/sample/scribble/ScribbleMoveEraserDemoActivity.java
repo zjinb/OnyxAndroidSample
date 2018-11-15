@@ -1,4 +1,4 @@
-package com.onyx.android.sample;
+package com.onyx.android.sample.scribble;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +16,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Button;
 
+import com.onyx.android.sample.R;
 import com.onyx.android.sdk.api.device.epd.EpdController;
 import com.onyx.android.sdk.pen.RawInputCallback;
 import com.onyx.android.sdk.pen.TouchHelper;
@@ -30,9 +31,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ScribbleStylusMoveEraserDemoActivity extends AppCompatActivity {
+public class ScribbleMoveEraserDemoActivity extends AppCompatActivity {
 
-    private static final String TAG = ScribbleStylusMoveEraserDemoActivity.class.getSimpleName();
+    private static final String TAG = ScribbleMoveEraserDemoActivity.class.getSimpleName();
 
     @Bind(R.id.button_pen)
     Button buttonPen;

@@ -1,9 +1,11 @@
-package com.onyx.android.sample;
+package com.onyx.android.sample.scribble;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import com.onyx.android.sample.R;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,17 +23,17 @@ public class ScribbleDemoActivity extends AppCompatActivity {
     }
     @OnClick(R.id.button_scribble_touch_helper)
     public void button_scribble_touch_helper() {
-        go(ScribbleStylusTouchHelperDemoActivity.class);
+        go(ScribbleTouchHelperDemoActivity.class);
     }
 
     @OnClick(R.id.button_surfaceview_stylus_scribble)
     public void button_surfaceview_stylus_scribble() {
-        go(ScribbleStylusSurfaceViewDemoActivity.class);
+        go(ScribbleTouchHelperDemoActivity.class);
     }
 
     @OnClick(R.id.button_webview_stylus_scribble)
     public void button_webview_stylus_scribble() {
-        go(ScribbleStylusWebViewDemoActivity.class);
+        go(ScribbleWebViewDemoActivity.class);
     }
 
     @OnClick(R.id.button_touch_screen_scribble)
@@ -41,7 +43,7 @@ public class ScribbleDemoActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_move_erase_scribble)
     public void button_move_erase_scribble() {
-        go(ScribbleStylusMoveEraserDemoActivity.class);
+        go(ScribbleMoveEraserDemoActivity.class);
     }
 
     @OnClick(R.id.button_multiple_scribble)

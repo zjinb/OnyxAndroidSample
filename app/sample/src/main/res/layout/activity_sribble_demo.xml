@@ -10,19 +10,19 @@
         android:id="@+id/button_scribble_touch_helper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scribble Stylus Touch Helper Demo" />
+        android:text="Scribble Touch Helper Demo" />
 
     <Button
         android:id="@+id/button_surfaceview_stylus_scribble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scribble Stylus SurfaceView Demo"/>
+        android:text="Scribble SurfaceView Demo"/>
 
     <Button
         android:id="@+id/button_webview_stylus_scribble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scribble Stylus WebView Demo"/>
+        android:text="Scribble WebView Demo"/>
 
     <Button
         android:id="@+id/button_touch_screen_scribble"

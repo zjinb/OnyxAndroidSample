@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.onyx.android.sample.scribble.ScribbleDemoActivity;
 import com.onyx.android.sample.test.OnyxTestActivity;
 import com.onyx.android.sdk.api.device.epd.EpdController;
 
@@ -42,16 +43,6 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.button_environment)
     public void button_environment() {
         go(EnvironmentDemoActivity.class);
-    }
-
-    @OnClick(R.id.button_pen_touch_helper)
-    public void button_pen_touch_helper() {
-        go(PenStylusTouchHelperDemoActivity.class);
-    }
-
-    @OnClick(R.id.button_pen_webview_demo)
-    public void button_pen_webview_demo() {
-        go(PenStylusWebViewDemoActivity.class);
     }
 
     @OnClick(R.id.button_scribble_demo)

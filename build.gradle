@@ -23,6 +23,7 @@ allprojects {
             name 'Google'
         }
         jcenter()
+        maven { url  "http://dl.bintray.com/onyx-intl/maven" }
         maven { url "https://jitpack.io" }
     }
 }

@@ -1,8 +1,7 @@
-package com.onyx.android.sample;
+package com.onyx.android.sample.scribble;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -13,6 +12,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
+import com.onyx.android.sample.R;
 import com.onyx.android.sample.data.ScribbleModel;
 import com.onyx.android.sdk.pen.RawInputCallback;
 import com.onyx.android.sdk.pen.TouchHelper;

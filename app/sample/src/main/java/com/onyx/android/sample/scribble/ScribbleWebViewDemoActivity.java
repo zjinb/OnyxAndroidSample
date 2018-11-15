@@ -1,4 +1,4 @@
-package com.onyx.android.sample;
+package com.onyx.android.sample.scribble;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -15,9 +15,9 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.onyx.android.sample.R;
 import com.onyx.android.sample.utils.TouchUtils;
 import com.onyx.android.sdk.api.device.epd.EpdController;
-import com.onyx.android.sdk.api.device.epd.UpdateMode;
 import com.onyx.android.sdk.pen.RawInputCallback;
 import com.onyx.android.sdk.pen.TouchHelper;
 import com.onyx.android.sdk.pen.data.TouchPoint;
@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
  * Created by seeksky on 2018/4/26.
  */
 
-public class PenStylusWebViewDemoActivity extends AppCompatActivity implements View.OnClickListener {
+public class ScribbleWebViewDemoActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = getClass().getSimpleName();
 
     @Bind(R.id.button_pen)
