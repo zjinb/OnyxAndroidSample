@@ -1223,6 +1223,11 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             mOptionsDialog = null;
         }
         super.hideWindow();
+
+        final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
+        if (mainKeyboardView != null) {
+            mainKeyboardView.cancelFocuse();
+        }
     }
 
     @Override
@@ -1696,7 +1701,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             didAutoCorrect = handleNonSpecialCharacter(Constants.CODE_ENTER, x, y, spaceState);
             break;
         case Constants.CODE_CLOSE_KEYBOARD:
-            hideWindow();
+            handleClose();
             break;
         default:
             didAutoCorrect = handleNonSpecialCharacter(primaryCode, x, y, spaceState);
@@ -3152,6 +3157,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     // Hooks for hardware keyboard
+
+    /*
+    changed by onyx
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent event) {
         if (!ProductionFlag.IS_HARDWARE_KEYBOARD_SUPPORTED) return super.onKeyDown(keyCode, event);
@@ -3174,6 +3182,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         }
         return super.onKeyUp(keyCode, event);
     }
+    */
 
     // onKeyDown and onKeyUp are the main events we are interested in. There are two more events
     // related to handling of hardware key events that we may want to implement in the future:
@@ -3315,5 +3324,44 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         p.println("  mVibrateOn=" + settingsValues.mVibrateOn);
         p.println("  mKeyPreviewPopupOn=" + settingsValues.mKeyPreviewPopupOn);
         p.println("  inputAttributes=" + settingsValues.mInputAttributes);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
+        if (!isInputViewShown()) {
+            return super.onKeyUp(keyCode, event);
+        }
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+            case KeyEvent.KEYCODE_DPAD_UP:
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_BACK:
+                return true;
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
+        if (!isInputViewShown()) {
+            return super.onKeyUp(keyCode, event);
+        }
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+            case KeyEvent.KEYCODE_DPAD_UP:
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+                mainKeyboardView.handleDpadKeyEvent(keyCode);
+                return true;
+            case KeyEvent.KEYCODE_BACK:
+                handleClose();
+                return true;
+        }
+        return super.onKeyUp(keyCode, event);
     }
 }

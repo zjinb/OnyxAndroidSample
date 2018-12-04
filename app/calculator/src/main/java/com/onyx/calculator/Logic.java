@@ -157,7 +157,7 @@ class Logic {
             clear(false);
         } else {
             mDisplay.dispatchKeyEvent(new KeyEvent(0, KeyEvent.KEYCODE_DEL));
-            mResult = "";
+            clear(mDeleteMode== KeyEvent.KEYCODE_DEL) ;
         }
     }
 

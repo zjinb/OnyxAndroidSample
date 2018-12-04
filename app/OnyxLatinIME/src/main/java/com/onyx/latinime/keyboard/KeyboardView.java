@@ -409,7 +409,7 @@ public class KeyboardView extends View {
                         (keyWidth * MAX_LABEL_RATIO) / TypefaceUtils.getLabelWidth(label, paint)));
             }
 
-            if (key.isPressed()) {
+            if (key.isPressed() || key.isFocused()) {
                 paint.setColor(Color.WHITE);
             } else {
                 paint.setColor(key.selectTextColor(params));
