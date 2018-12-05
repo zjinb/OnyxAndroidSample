@@ -28,6 +28,7 @@ import android.graphics.Rect;
 import android.graphics.Region;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -365,6 +366,15 @@ public class KeyboardView extends View {
 
         // Draw key label.
         final Drawable icon = key.getIcon(mKeyboard.mIconsSet, params.mAnimAlpha);
+        if (icon != null ) {
+            if (key.isFocused() || key.isPressed()) {
+                Drawable wrappedDrawable = DrawableCompat.wrap(icon);
+                DrawableCompat.setTintList(wrappedDrawable, getResources().getColorStateList(R.color.btn_keyboard_icon_focuse));
+            } else {
+                Drawable wrappedDrawable = DrawableCompat.wrap(icon);
+                DrawableCompat.setTintList(wrappedDrawable, getResources().getColorStateList(R.color.btn_keyboard_icon_normal));
+            }
+        }
         float positionX = centerX;
         final String label = key.getLabel();
         if (label != null) {
