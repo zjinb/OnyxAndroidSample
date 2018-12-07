@@ -31,6 +31,8 @@
         android:layout_weight="1"
         android:textSize="18sp"
         android:drawSelectorOnTop="false"
+        android:scrollbars="none"
+        android:listSelector="@android:drawable/list_selector_background"
         android:fastScrollEnabled="true" /> 
 
 </LinearLayout>

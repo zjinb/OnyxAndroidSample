@@ -33,6 +33,8 @@
         android:drawSelectorOnTop="false"
         android:fastScrollEnabled="true"
         android:indicatorLeft="8dip"
+        android:scrollbars="none"
+        android:listSelector="@android:drawable/list_selector_background"
         android:indicatorRight="52dip" />
 
 </LinearLayout>
