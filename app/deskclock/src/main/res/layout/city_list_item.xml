@@ -21,6 +21,7 @@
     android:gravity="center_vertical"
     android:background="?android:attr/selectableItemBackground"
     android:minHeight="@dimen/cities_list_item_height"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal">
     <TextView
         android:id="@+id/index"
@@ -33,9 +34,10 @@
     <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/city_onoff"
         style="@style/alarm_checkbox"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:clickable="false" />
+        android:layout_width="wrap_content" />
     <TextView
         android:id="@+id/city_name"
         android:layout_width="0dip"
