@@ -238,6 +238,7 @@ public final class StopwatchFragment extends DeskClockFragment {
                 mLeftButton.setEnabled(false);
                 mLeftButton.setVisibility(INVISIBLE);
                 mRightButton.setVisibility(INVISIBLE);
+                mFab.requestFocus();
                 break;
             case RUNNING:
                 mLeftButton.setImageResource(R.drawable.ic_lapalternate);
