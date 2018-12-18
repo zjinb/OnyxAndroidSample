@@ -1253,8 +1253,10 @@ public final class MainKeyboardView extends KeyboardView implements PointerTrack
             final float textHeight = -paint.ascent() + descent;
             final float baseline = height / 2 + textHeight / 2;
             paint.setColor(Color.BLACK);
+            if (key.isFocused() || key.isPressed()) {
+                paint.setColor(Color.WHITE);
+            }
             canvas.drawText(language, width / 2, baseline - descent - 1, paint);
-            paint.setColor(Color.BLACK);
             canvas.drawText(language, width / 2, baseline - descent, paint);
         }
 
