@@ -39,7 +39,5 @@
         <Key latin:keyStyle="closeKeyStyle"/>
         <include
             latin:keyboardLayout="@xml/keys_comma_period" />
-        <include
-            latin:keyboardLayout="@xml/key_f2" />
     </Row>
 </merge>
