@@ -54,5 +54,10 @@ We alse support move eraser, multiple view scribble and save scribble points
 * [ScribbleSavePointsDemoActivity](app/sample/src/main/java/com/onyx/android/sample/scribble/ScribbleSavePointsDemoActivity.java)
 : example of save scribble points
 
+## 4.Screensaver
+
+* [ScreensaverActivity](app/sample/src/main/java/com/onyx/android/sample/ScreensaverActivity.java)
+: example of setting screensaver
+
 ## 5. Other API
 * **DictionaryUtils** to query word in dictionary, for more details to see [DictionaryActivity](./app/sample/src/main/java/com/onyx/android/sample/DictionaryActivity.java)
