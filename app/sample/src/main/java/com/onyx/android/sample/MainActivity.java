@@ -65,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
         go(ReaderDemoActivity.class);
     }
 
+    @OnClick(R.id.btn_screen_saver)
+    public void btn_screen_saver() {
+        go(ScreensaverActivity.class);
+    }
+
     private void go(Class<?> activityClass){
         startActivity(new Intent(this, activityClass));
     }
