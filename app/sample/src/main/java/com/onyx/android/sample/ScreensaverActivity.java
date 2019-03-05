@@ -38,17 +38,20 @@ public class ScreensaverActivity extends AppCompatActivity {
      * 1. save pic under directory "/data/local/assets/images"<br/>
      * 2. file names format "standby-{num}.png", num starts from 1<br/>
      * 3. send broadcast with action "update_standby_pic"<br/>
+     * PS.pic's width and height better matches the device's height and width, <br/>
+     *    for example device's size is 2200x1650, pic's size should be 1650x2200, with upside towards left, <br/>
+     *    and pic's file format should be png.
      */
     @OnClick(R.id.btn_set)
     public void setScreensaver() {
         String filePath = etImage.getText().toString();
         if ( "".equals(filePath) ) {
-            Toast.makeText(this,"请输入您要设置的图片路径",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.enter_pic_path,Toast.LENGTH_SHORT).show();
             return;
         }
         File f = new File(filePath);
         if ( !f.exists() ) {
-            Toast.makeText(this,"该图片不存在，请输入一个存在的图片路径",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.invalid_path,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -78,7 +81,7 @@ public class ScreensaverActivity extends AppCompatActivity {
             Intent intent = new Intent("update_standby_pic");
             sendBroadcast(intent);
         }
-        Toast.makeText(this, success ? "设置成功" : "设置失败", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, success ? R.string.set_up_success : R.string.set_up_success, Toast.LENGTH_SHORT).show();
     }
 
     public static Point getScreenResolution(final Context context) {

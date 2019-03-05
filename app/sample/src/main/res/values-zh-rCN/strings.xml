@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="set_up_success">设置成功</string>
+    <string name="set_up_fail">设置失败</string>
+    <string name="set_up_screensaver">设置屏保</string>
+    <string name="enter_pic_path">请输入您要设置的图片路径</string>
+    <string name="invalid_path">图片不存在，请输入一个有效的图片路径</string>
+</resources>

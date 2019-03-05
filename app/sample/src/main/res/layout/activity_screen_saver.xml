@@ -14,5 +14,5 @@
         android:id="@+id/btn_set"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="设置屏保"/>
+        android:text="@string/set_up_screensaver"/>
 </LinearLayout>
