@@ -5,4 +5,12 @@
     <string name="set_up_screensaver">设置屏保</string>
     <string name="enter_pic_path">请输入您要设置的图片路径</string>
     <string name="invalid_path">图片不存在，请输入一个有效的图片路径</string>
+    <string name="enter_book_path">请输入您要打开的文档路径</string>
+    <string name="open_reader">打开Reader</string>
+    <string name="query_reading_progress">获取阅读进度</string>
+    <string name="query_fail">获取读书进度失败</string>
+    <string name="reading_progress">阅读进度： %s</string>
+    <string name="open_date_time">打开日期设置</string>
+    <string name="open_network">打开网络设置</string>
+    <string name="open_setting_fail">打开设置失败</string>
 </resources>

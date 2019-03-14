@@ -70,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
         go(ScreensaverActivity.class);
     }
 
+    @OnClick(R.id.btn_open_setting)
+    public void btn_open_setting() {
+        go(OpenSettingActivity.class);
+    }
+
     private void go(Class<?> activityClass){
         startActivity(new Intent(this, activityClass));
     }

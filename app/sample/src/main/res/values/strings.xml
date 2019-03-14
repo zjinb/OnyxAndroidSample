@@ -6,4 +6,12 @@
     <string name="set_up_screensaver">Set Up Screensaver</string>
     <string name="enter_pic_path">Please Enter Your Picture Path</string>
     <string name="invalid_path">Invalid Path</string>
+    <string name="enter_book_path">Please Enter Your Book Path</string>
+    <string name="open_reader">Open Reader</string>
+    <string name="query_reading_progress">Query Reading Progress</string>
+    <string name="query_fail">Query Progress Fail</string>
+    <string name="reading_progress">Reading Progress: %s</string>
+    <string name="open_date_time">Open Date Time Setting</string>
+    <string name="open_network">Open Network Setting</string>
+    <string name="open_setting_fail">Open Setting Fail</string>
 </resources>
