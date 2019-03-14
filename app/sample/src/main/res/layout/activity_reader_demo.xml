@@ -8,11 +8,23 @@
         android:id="@+id/et_file"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="/sdcard/demo.pdf"/>
+        android:text="/storage/emulated/0/demo.pdf"/>
 
     <Button
         android:id="@+id/btn_open"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="打开READER"/>
+        android:text="@string/open_reader"/>
+
+    <TextView
+        android:id="@+id/textView_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/btn_query_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/query_reading_progress"/>
 </LinearLayout>

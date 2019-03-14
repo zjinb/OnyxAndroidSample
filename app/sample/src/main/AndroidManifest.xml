@@ -55,6 +55,7 @@
         <activity android:name=".AppOptimizeActivity"/>
         <activity android:name=".ReaderDemoActivity"/>
         <activity android:name=".ScreensaverActivity"/>
+        <activity android:name=".OpenSettingActivity"/>
 
         <!-- set the app optimize of receiver-->
         <receiver
