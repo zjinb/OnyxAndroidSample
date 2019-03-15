@@ -24,6 +24,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.RingtonePreference;
 import android.preference.SwitchPreference;
@@ -198,6 +199,17 @@ public final class SettingsActivity extends BaseActivity {
             }
         }
 
+        private void removeView() {
+            PreferenceCategory alarm_settings = (PreferenceCategory) findPreference(getResources().getString(R.string.alarm_settings));
+            PreferenceCategory timer_settings = (PreferenceCategory) findPreference(getResources().getString(R.string.timer_settings));
+            if (alarm_settings != null) {
+                getPreferenceScreen().removePreference(alarm_settings);
+            }
+            if (timer_settings != null) {
+                getPreferenceScreen().removePreference(timer_settings);
+            }
+        }
+
         /**
          * Reconstruct the timezone list.
          */
@@ -301,6 +313,8 @@ public final class SettingsActivity extends BaseActivity {
                     (RingtonePreference) findPreference(KEY_TIMER_RINGTONE);
             timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
             timerRingtonePref.setOnPreferenceChangeListener(this);
+
+            removeView();
         }
 
         private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {

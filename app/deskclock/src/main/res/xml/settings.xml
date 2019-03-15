@@ -44,7 +44,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/alarm_settings">
+        android:title="@string/alarm_settings"
+        android:key="@string/alarm_settings">
         <ListPreference
             android:key="auto_silence"
             android:title="@string/auto_silence_title"
@@ -84,7 +85,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/timer_settings">
+        android:title="@string/timer_settings"
+        android:key="@string/timer_settings">
         <com.onyx.deskclock.deskclock.settings.TimerRingtonePreference
             android:key="timer_ringtone"
             android:title="@string/timer_ringtone_title"
