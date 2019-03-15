@@ -111,6 +111,7 @@ public final class SettingsActivity extends BaseActivity {
 
             addPreferencesFromResource(R.xml.settings);
             loadTimeZoneList();
+            removeView();
         }
 
         @Override
@@ -258,11 +259,6 @@ public final class SettingsActivity extends BaseActivity {
         }
 
         private void refresh() {
-            final ListPreference autoSilencePref =
-                    (ListPreference) findPreference(KEY_AUTO_SILENCE);
-            String delay = autoSilencePref.getValue();
-            updateAutoSnoozeSummary(autoSilencePref, delay);
-            autoSilencePref.setOnPreferenceChangeListener(this);
 
             final ListPreference clockStylePref = (ListPreference) findPreference(KEY_CLOCK_STYLE);
             clockStylePref.setSummary(clockStylePref.getEntry());
@@ -277,44 +273,53 @@ public final class SettingsActivity extends BaseActivity {
             homeTimezonePref.setSummary(homeTimezonePref.getEntry());
             homeTimezonePref.setOnPreferenceChangeListener(this);
 
-            final ListPreference volumeButtonsPref =
-                    (ListPreference) findPreference(KEY_VOLUME_BUTTONS);
-            volumeButtonsPref.setSummary(volumeButtonsPref.getEntry());
-            volumeButtonsPref.setOnPreferenceChangeListener(this);
-
-            final Preference volumePref = findPreference(KEY_ALARM_VOLUME);
-            volumePref.setOnPreferenceClickListener(this);
-
-            final SnoozeLengthDialog snoozePref =
-                    (SnoozeLengthDialog) findPreference(KEY_ALARM_SNOOZE);
-            snoozePref.setSummary();
-
-            final CrescendoLengthDialog alarmCrescendoPref =
-                    (CrescendoLengthDialog) findPreference(KEY_ALARM_CRESCENDO);
-            alarmCrescendoPref.setSummary();
-
-            final CrescendoLengthDialog timerCrescendoPref =
-                    (CrescendoLengthDialog) findPreference(KEY_TIMER_CRESCENDO);
-            timerCrescendoPref.setSummary();
-
             final Preference dateAndTimeSetting = findPreference(KEY_DATE_TIME);
             dateAndTimeSetting.setOnPreferenceClickListener(this);
 
-            final ListPreference weekStartPref = (ListPreference) findPreference(KEY_WEEK_START);
-            // Set the default value programmatically
-            final String value = weekStartPref.getValue();
-            final int idx = weekStartPref.findIndexOfValue(
-                    value == null ? String.valueOf(Utils.DEFAULT_WEEK_START) : value);
-            weekStartPref.setValueIndex(idx);
-            weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
-            weekStartPref.setOnPreferenceChangeListener(this);
 
-            final RingtonePreference timerRingtonePref =
-                    (RingtonePreference) findPreference(KEY_TIMER_RINGTONE);
-            timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
-            timerRingtonePref.setOnPreferenceChangeListener(this);
+            if (findPreference(getResources().getString(R.string.alarm_settings)) != null) {
+                final ListPreference autoSilencePref =
+                        (ListPreference) findPreference(KEY_AUTO_SILENCE);
+                    String delay = autoSilencePref.getValue();
+                    updateAutoSnoozeSummary(autoSilencePref, delay);
+                    autoSilencePref.setOnPreferenceChangeListener(this);
+                final ListPreference volumeButtonsPref =
+                        (ListPreference) findPreference(KEY_VOLUME_BUTTONS);
+                    volumeButtonsPref.setSummary(volumeButtonsPref.getEntry());
+                    volumeButtonsPref.setOnPreferenceChangeListener(this);
 
-            removeView();
+                final Preference volumePref = findPreference(KEY_ALARM_VOLUME);
+                volumePref.setOnPreferenceClickListener(this);
+
+                final SnoozeLengthDialog snoozePref =
+                        (SnoozeLengthDialog) findPreference(KEY_ALARM_SNOOZE);
+                snoozePref.setSummary();
+
+                final CrescendoLengthDialog alarmCrescendoPref =
+                        (CrescendoLengthDialog) findPreference(KEY_ALARM_CRESCENDO);
+                alarmCrescendoPref.setSummary();
+
+
+                final ListPreference weekStartPref = (ListPreference) findPreference(KEY_WEEK_START);
+                // Set the default value programmatically
+                final String value = weekStartPref.getValue();
+                final int idx = weekStartPref.findIndexOfValue(
+                        value == null ? String.valueOf(Utils.DEFAULT_WEEK_START) : value);
+                weekStartPref.setValueIndex(idx);
+                weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
+                weekStartPref.setOnPreferenceChangeListener(this);
+            }
+
+            if (findPreference(getResources().getString(R.string.timer_settings)) != null) {
+                final RingtonePreference timerRingtonePref =
+                        (RingtonePreference) findPreference(KEY_TIMER_RINGTONE);
+                timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+                timerRingtonePref.setOnPreferenceChangeListener(this);
+
+                final CrescendoLengthDialog timerCrescendoPref =
+                        (CrescendoLengthDialog) findPreference(KEY_TIMER_CRESCENDO);
+                timerCrescendoPref.setSummary();
+            }
         }
 
         private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {
