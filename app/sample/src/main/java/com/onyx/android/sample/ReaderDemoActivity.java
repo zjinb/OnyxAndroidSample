@@ -72,7 +72,7 @@ public class ReaderDemoActivity extends Activity {
             ContentResolver resolver = getContentResolver();
             Uri uri = Uri.parse(READER_PROVIDER);
             String md5 = FileUtils.computeMD5(new File(path));
-            cursor = resolver.query(uri, new String[]{"progress"}, "hashTag = ?", new String[]{md5}, null);
+            cursor = resolver.query(uri, new String[]{"progress"}, "hashTag = ? or nativeAbsolutePath = ?", new String[]{md5, path}, null);
             if (cursor != null && cursor.moveToFirst()) {
                 progress = cursor.getString(0);
             }
