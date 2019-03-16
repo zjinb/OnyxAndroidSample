@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.onyx.android.sdk.utils.FileUtils;
 import com.onyx.android.sdk.utils.StringUtils;
 
 import java.io.File;
@@ -70,7 +71,8 @@ public class ReaderDemoActivity extends Activity {
         try {
             ContentResolver resolver = getContentResolver();
             Uri uri = Uri.parse(READER_PROVIDER);
-            cursor = resolver.query(uri, new String[]{"progress"}, "nativeAbsolutePath = ?", new String[]{path}, null);
+            String md5 = FileUtils.computeMD5(new File(path));
+            cursor = resolver.query(uri, new String[]{"progress"}, "hashTag = ? or nativeAbsolutePath = ?", new String[]{md5, path}, null);
             if (cursor != null && cursor.moveToFirst()) {
                 progress = cursor.getString(0);
             }

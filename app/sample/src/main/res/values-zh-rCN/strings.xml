@@ -4,7 +4,7 @@
     <string name="set_up_fail">设置失败</string>
     <string name="set_up_screensaver">设置屏保</string>
     <string name="enter_pic_path">请输入您要设置的图片路径</string>
-    <string name="invalid_path">图片不存在，请输入一个有效的图片路径</string>
+    <string name="invalid_path">文件不存在，请输入一个有效的文件路径</string>
     <string name="enter_book_path">请输入您要打开的文档路径</string>
     <string name="open_reader">打开Reader</string>
     <string name="query_reading_progress">获取阅读进度</string>
