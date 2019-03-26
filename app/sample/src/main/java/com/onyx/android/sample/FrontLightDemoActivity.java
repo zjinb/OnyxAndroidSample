@@ -1,11 +1,14 @@
 package com.onyx.android.sample;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.onyx.android.sdk.api.device.FrontLightController;
+import com.onyx.android.sdk.utils.DeviceFeatureUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +24,9 @@ public class FrontLightDemoActivity extends AppCompatActivity implements View.On
     Button buttonLightDarker;
     @Bind(R.id.button_light_lighter)
     Button buttonLightLighter;
+    @Bind(R.id.button_show_brightness_setting)
+    Button buttonBrightnessSetting;
+    private boolean showBrightnessSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +34,12 @@ public class FrontLightDemoActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_front_light_demo);
 
         ButterKnife.bind(this);
+        showBrightnessSetting = DeviceFeatureUtil.hasFrontLight(this);
         buttonLightToggle.setOnClickListener(this);
         buttonLightDarker.setOnClickListener(this);
         buttonLightLighter.setOnClickListener(this);
+        buttonBrightnessSetting.setVisibility(showBrightnessSetting ? View.VISIBLE : View.GONE);
+        buttonBrightnessSetting.setOnClickListener(this);
     }
 
     @Override
@@ -60,6 +69,12 @@ public class FrontLightDemoActivity extends AppCompatActivity implements View.On
                     return;
                 }
             }
+        } else if (v.equals(buttonBrightnessSetting) && showBrightnessSetting) {
+            showSystemBrightnessDialog(this);
         }
+    }
+
+    private void showSystemBrightnessDialog(Context context) {
+        context.sendBroadcast(new Intent("action.show.brightness.dialog"));
     }
 }
