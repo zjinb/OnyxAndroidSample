@@ -3,6 +3,7 @@ package com.onyx.android.sample;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.onyx.android.sdk.api.device.epd.EpdController;
 
@@ -22,6 +23,7 @@ public class WebViewOptimizeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         webView = findViewById(R.id.web_view);
+        webView.setWebViewClient(new WebViewClient());
         webView.loadUrl("http://www.baidu.com");
     }
 
