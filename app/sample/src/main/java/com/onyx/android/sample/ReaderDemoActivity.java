@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.onyx.android.sdk.data.utils.ReaderDBUtils;
 import com.onyx.android.sdk.utils.FileUtils;
 import com.onyx.android.sdk.utils.StringUtils;
 
@@ -62,6 +63,20 @@ public class ReaderDemoActivity extends Activity {
             tvProgress.setText(getString(R.string.reading_progress, progress));
         } else {
             Toast.makeText(getApplicationContext(), R.string.query_fail, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @OnClick(R.id.btn_delete_reader_data)
+    public void btn_delete_reader_data() {
+        if (!FilePathValidation()) {
+            return;
+        }
+        try {
+            ReaderDBUtils.deleteBookData(this, etFile.getText().toString());
+            Toast.makeText(this, R.string.delete_reader_data_success, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, R.string.delete_reader_data_fail, Toast.LENGTH_SHORT).show();
         }
     }
 

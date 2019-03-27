@@ -74,7 +74,6 @@ dependencies {
     compile "org.apache.commons:commons-collections4:$rootProject.apachecommonsVersion"
     compile "com.alibaba:fastjson:$rootProject.fastjsonVersion"
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofit2Version"
-    compile "com.liulishuo.filedownloader:library:$rootProject.filedownloaderVersion"
     compile "com.squareup.okhttp:okhttp-urlconnection:$rootProject.okhttpurlconnectionVersion"
     compile "com.aliyun.dpa:oss-android-sdk:$rootProject.aliyunOssSdkVersion"
     compile "com.tencent.mm.opensdk:wechat-sdk-android-with-mta:$rootProject.wechatSdkWithMtaVersion"
@@ -86,7 +85,7 @@ dependencies {
     //dependencies for others
     compile('com.onyx.android.sdk:onyxsdk-base:1.4.6')
     compile('com.onyx.android.sdk:onyxsdk-pen:1.0.8')
-    compile('com.onyx.android.sdk:onyxsdk-data:1.1.0')
+    compile('com.onyx.android.sdk:onyxsdk-data:1.1.4')
     compile('com.onyx.android.sdk:onyxsdk-notedata:1.0.5')
 
     compile 'com.jakewharton:butterknife:7.0.1'
