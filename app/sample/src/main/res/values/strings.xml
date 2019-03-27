@@ -14,4 +14,7 @@
     <string name="open_date_time">Open Date Time Setting</string>
     <string name="open_network">Open Network Setting</string>
     <string name="open_setting_fail">Open Setting Fail</string>
+    <string name="delete_reader_data">Delete Reader Data</string>
+    <string name="delete_reader_data_success">Delete Success</string>
+    <string name="delete_reader_data_fail">Delete Fail</string>
 </resources>

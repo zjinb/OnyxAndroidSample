@@ -13,4 +13,7 @@
     <string name="open_date_time">打开日期设置</string>
     <string name="open_network">打开网络设置</string>
     <string name="open_setting_fail">打开设置失败</string>
+    <string name="delete_reader_data">删除书籍数据库信息</string>
+    <string name="delete_reader_data_success">删除成功</string>
+    <string name="delete_reader_data_fail">删除失败</string>
 </resources>

@@ -27,4 +27,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/query_reading_progress"/>
+
+    <Button
+        android:id="@+id/btn_delete_reader_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_reader_data"/>
 </LinearLayout>
