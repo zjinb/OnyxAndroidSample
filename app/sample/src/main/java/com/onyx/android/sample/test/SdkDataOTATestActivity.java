@@ -16,7 +16,7 @@ import com.onyx.android.sdk.common.request.BaseRequest;
 import com.onyx.android.sdk.data.OnyxDownloadManager;
 import com.onyx.android.sdk.data.manager.OTAManager;
 import com.onyx.android.sdk.data.model.Firmware;
-import com.onyx.android.sdk.data.request.cloud.FirmwareLocalCheckLegalityRequest;
+import com.onyx.android.sdk.data.request.cloud.CheckLocalFirmwareRequest;
 import com.onyx.android.sdk.data.request.cloud.FirmwareUpdateRequest;
 import com.onyx.android.sdk.utils.StringUtils;
 
@@ -81,11 +81,11 @@ public class SdkDataOTATestActivity extends AppCompatActivity {
 
     private void firmwareLocalCheck() {
         //check based on update.zip/android_info_text-Build.model
-        final FirmwareLocalCheckLegalityRequest localCheckRequest = OTAManager.localFirmwareCheckRequest(this);
+        final CheckLocalFirmwareRequest localCheckRequest = OTAManager.localFirmwareCheckRequest(this);
         OTAManager.sharedInstance().getCloudStore().submitRequest(this, localCheckRequest, new BaseCallback() {
             @Override
             public void done(BaseRequest baseRequest, Throwable e) {
-                String targetPath = localCheckRequest.getLegalityTargetPath();
+                String targetPath = localCheckRequest.getFirmwarePath();
                 if (e != null) {
                     e.printStackTrace();
                 }

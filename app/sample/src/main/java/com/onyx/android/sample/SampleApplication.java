@@ -26,7 +26,7 @@ public class SampleApplication extends Application {
     private void initConfig() {
         try {
             sInstance = this;
-            initDownloadManager();
+            //initDownloadManager();
         } catch (Exception e) {
         }
     }
