@@ -75,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
         go(OpenSettingActivity.class);
     }
 
+    @OnClick(R.id.btn_webview_optimize)
+    public void btn_webview_optimize() {
+        go(WebViewOptimizeActivity.class);
+    }
+
     private void go(Class<?> activityClass){
         startActivity(new Intent(this, activityClass));
     }
