@@ -57,6 +57,7 @@
         <activity android:name=".ScreensaverActivity"/>
         <activity android:name=".OpenSettingActivity"/>
         <activity android:name=".WebViewOptimizeActivity"/>
+        <activity android:name=".OpenKcbActivity"/>
 
         <!-- set the app optimize of receiver-->
         <receiver
