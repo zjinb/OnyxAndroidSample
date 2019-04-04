@@ -75,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
         go(OpenSettingActivity.class);
     }
 
+    @OnClick(R.id.btn_webview_optimize)
+    public void btn_webview_optimize() {
+        go(WebViewOptimizeActivity.class);
+    }
+
     @OnClick(R.id.btn_open_kcb)
     public void btn_open_kcb() {
         go(OpenKcbActivity.class);
