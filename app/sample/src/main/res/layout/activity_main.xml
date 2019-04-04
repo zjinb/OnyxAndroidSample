@@ -86,6 +86,13 @@
             android:visibility="visible"
             android:text="Open Setting Demo" />
 
+        <Button
+            android:id="@+id/btn_open_kcb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:text="Open KCB Demo" />
+
     </LinearLayout>
 
 </RelativeLayout>

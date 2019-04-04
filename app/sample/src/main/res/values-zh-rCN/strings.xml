@@ -16,4 +16,13 @@
     <string name="delete_reader_data">删除书籍数据库信息</string>
     <string name="delete_reader_data_success">删除成功</string>
     <string name="delete_reader_data_fail">删除失败</string>
+    <string name="open_library">打开书库</string>
+    <string name="open_shop">打开书城</string>
+    <string name="open_note">打开笔记</string>
+    <string name="open_storage">打开存储</string>
+    <string name="open_apps">打开应用</string>
+    <string name="open_setting">打开设置</string>
+    <string name="open_application_management">打开设置应用管理</string>
+    <string name="open_account_management">打开设置账户管理</string>
+    <string name="open_kcb_fail">打开kcb失败，请确认安装了最新版本的kcb</string>
 </resources>

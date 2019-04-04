@@ -75,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
         go(OpenSettingActivity.class);
     }
 
+    @OnClick(R.id.btn_open_kcb)
+    public void btn_open_kcb() {
+        go(OpenKcbActivity.class);
+    }
+
     private void go(Class<?> activityClass){
         startActivity(new Intent(this, activityClass));
     }
