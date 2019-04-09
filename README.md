@@ -66,3 +66,8 @@ We alse support move eraser, multiple view scribble and save scribble points
 
 ## 6.Other API
 * **DictionaryUtils** to query word in dictionary, for more details to see [DictionaryActivity](./app/sample/src/main/java/com/onyx/android/sample/DictionaryActivity.java)
+
+## 7.App Open Guide
+
+* [AppOpenGuide](doc/AppOpenGuide.md)
+: open app through adb command
