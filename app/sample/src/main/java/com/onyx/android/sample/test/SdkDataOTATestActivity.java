@@ -18,6 +18,7 @@ import com.onyx.android.sdk.data.manager.OTAManager;
 import com.onyx.android.sdk.data.model.Firmware;
 import com.onyx.android.sdk.data.request.cloud.CheckLocalFirmwareRequest;
 import com.onyx.android.sdk.data.request.cloud.FirmwareUpdateRequest;
+import com.onyx.android.sdk.data.utils.CloudConf;
 import com.onyx.android.sdk.utils.StringUtils;
 
 import java.io.File;
@@ -111,29 +112,33 @@ public class SdkDataOTATestActivity extends AppCompatActivity {
     void testFirmwareClick() {
         enableViewClickable(buttonTestFirmware, false);
         final FirmwareUpdateRequest updateRequest = OTAManager.cloudFirmwareCheckRequest(this);
-        OTAManager.sharedInstance().getCloudStore().submitRequest(this, updateRequest, new BaseCallback() {
-            @Override
-            public void done(BaseRequest baseRequest, Throwable e) {
-                if (e != null) {
-                    e.printStackTrace();
-                }
-                if (updateRequest.isResultFirmwareValid()) {
-                    Firmware resultFirmware = updateRequest.getResultFirmware();
-                    String changeLog = resultFirmware.getChangeLog();
-                    if (StringUtils.isNullOrEmpty(changeLog)) {
-                        changeLog = resultFirmware.buildDisplayId;
+        OTAManager.sharedInstance().getCloudStore().setCloudConf(
+                new CloudConf("http://dev.onyx-international.cn",
+                        "http://dev.onyx-international.cn/api/1/",
+                        "oss"))
+                .submitRequest(this, updateRequest, new BaseCallback() {
+                    @Override
+                    public void done(BaseRequest baseRequest, Throwable e) {
+                        if (e != null) {
+                            e.printStackTrace();
+                        }
+                        if (updateRequest.isResultFirmwareValid()) {
+                            Firmware resultFirmware = updateRequest.getResultFirmware();
+                            String changeLog = resultFirmware.getChangeLog();
+                            if (StringUtils.isNullOrEmpty(changeLog)) {
+                                changeLog = resultFirmware.buildDisplayId;
+                            }
+                            showToast(String.valueOf(changeLog));
+                            String downloadUrl = resultFirmware.getUrl();
+                            if (StringUtils.isNotBlank(downloadUrl)) {
+                                downloadFile(downloadUrl, getUpdateZipFile().getAbsolutePath());
+                            }
+                        } else {
+                            //download manual
+                            testDownloadClick();
+                        }
                     }
-                    showToast(String.valueOf(changeLog));
-                    String downloadUrl = resultFirmware.getUrl();
-                    if (StringUtils.isNotBlank(downloadUrl)) {
-                        downloadFile(downloadUrl, getUpdateZipFile().getAbsolutePath());
-                    }
-                } else {
-                    //download manual
-                    testDownloadClick();
-                }
-            }
-        });
+                });
     }
 
     private void enableViewClickable(View view, boolean enable) {
