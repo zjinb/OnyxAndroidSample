@@ -1,9 +1,11 @@
 package com.onyx.android.sample;
 
-import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
+import com.liulishuo.filedownloader.FileDownloader;
 import com.onyx.android.sample.data.ScribbleDatabase;
-import com.onyx.android.sdk.data.OnyxDownloadManager;
 import com.raizlabs.android.dbflow.config.DatabaseConfig;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
@@ -13,8 +15,14 @@ import com.raizlabs.android.dbflow.config.ScribbleGeneratedDatabaseHolder;
  * Created by suicheng on 2017/3/23.
  */
 
-public class SampleApplication extends Application {
+public class SampleApplication extends MultiDexApplication {
     private static SampleApplication sInstance;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(SampleApplication.this);
+    }
 
     @Override
     public void onCreate() {
@@ -26,7 +34,7 @@ public class SampleApplication extends Application {
     private void initConfig() {
         try {
             sInstance = this;
-            //initDownloadManager();
+            initDownloadManager();
         } catch (Exception e) {
         }
     }
@@ -41,6 +49,6 @@ public class SampleApplication extends Application {
     }
 
     private void initDownloadManager() {
-        OnyxDownloadManager.init(sInstance);
+        FileDownloader.setupOnApplicationOnCreate(sInstance);
     }
 }
