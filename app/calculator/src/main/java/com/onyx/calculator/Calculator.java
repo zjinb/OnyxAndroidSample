@@ -147,6 +147,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         super.onPrepareOptionsMenu(menu);
         menu.findItem(R.id.basic).setVisible(false);
         menu.findItem(R.id.advanced).setVisible(false);
+        menu.findItem(R.id.clear_history).setVisible(false);
         return true;
     }
 
