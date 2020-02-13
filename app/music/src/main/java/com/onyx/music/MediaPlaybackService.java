@@ -109,6 +109,9 @@ public class MediaPlaybackService extends Service {
     private static final int TRACK_WENT_TO_NEXT = 7;
     private static final int MAX_HISTORY_SIZE = 100;
     
+    private static final boolean SAVE_BOOKMARK_FOR_ALL = true;
+    private static final boolean SAVE_EXACT_BOOKMARK = true;
+    
     private MultiPlayer mPlayer;
     private String mFileToPlay;
     private int mShuffleMode = SHUFFLE_NONE;
@@ -1074,11 +1077,15 @@ public class MediaPlaybackService extends Service {
             }
 
             // go to bookmark if needed
-            if (isPodcast()) {
-                long bookmark = getBookmark();
-                // Start playing a little bit before the bookmark,
-                // so it's easier to get back in to the narrative.
-                seek(bookmark - 5000);
+            if (isPodcast() || SAVE_BOOKMARK_FOR_ALL) {
+                long bookmark = getBookmark() >= duration() ? 0 : getBookmark();
+                if (!SAVE_EXACT_BOOKMARK) {
+                    // Start playing a little bit before the bookmark,
+                    // so it's easier to get back in to the narrative.
+                    seek(bookmark - 5000);
+                } else {
+                    seek(bookmark);
+                }
             }
             setNextTrack();
         }
@@ -1453,19 +1460,28 @@ public class MediaPlaybackService extends Service {
     }
 
     private void saveBookmarkIfNeeded() {
+        if (mCursor == null) {
+            return;
+        }
         try {
-            if (isPodcast()) {
+            if (isPodcast() || SAVE_BOOKMARK_FOR_ALL) {
                 long pos = position();
                 long bookmark = getBookmark();
                 long duration = duration();
-                if ((pos < bookmark && (pos + 10000) > bookmark) ||
-                        (pos > bookmark && (pos - 10000) < bookmark)) {
-                    // The existing bookmark is close to the current
-                    // position, so don't update it.
-                    return;
+                if (!SAVE_EXACT_BOOKMARK) {
+                    if ((pos < bookmark && (pos + 10000) > bookmark) ||
+                            (pos > bookmark && (pos - 10000) < bookmark)) {
+                        // The existing bookmark is close to the current
+                        // position, so don't update it.
+                        return;
+                    }
+                    if (pos < 15000 || (pos + 10000) > duration) {
+                        // if we're near the start or end, clear the bookmark
+                        pos = 0;
+                    }
                 }
-                if (pos < 15000 || (pos + 10000) > duration) {
-                    // if we're near the start or end, clear the bookmark
+                // within 1s, as completion
+                if (pos + 1000 >= duration) {
                     pos = 0;
                 }
 
@@ -1745,6 +1761,7 @@ public class MediaPlaybackService extends Service {
      */
     public void setQueuePosition(int pos) {
         synchronized(this) {
+            saveBookmarkIfNeeded();
             stop(false);
             mPlayPos = pos;
             openCurrentAndNext();
@@ -1976,6 +1993,7 @@ public class MediaPlaybackService extends Service {
 
         OnCompletionListener listener = new OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
+                saveBookmarkIfNeeded();
                 if (mp == mCurrentMediaPlayer && mNextMediaPlayer != null) {
                     mCurrentMediaPlayer.release();
                     mCurrentMediaPlayer = mNextMediaPlayer;
